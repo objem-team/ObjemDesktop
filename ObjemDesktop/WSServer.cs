@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ObjemDesktop
 {
-    class WSServer
+    public sealed class WSServer
     {
         public delegate void OnOpenDelegate(object sender);
         public delegate void onCloseDelegate(object sender);
@@ -16,14 +16,28 @@ namespace ObjemDesktop
         public event OnOpenDelegate OnOpen;
         public event onCloseDelegate OnClose;
         public event onMessageDelegate OnMessage;
-        public void start()
+
+        public WebSocketServer Server = null;
+
+        private static WSServer instance = new WSServer();
+
+        private WSServer() { }
+
+        public static WSServer Instance
         {
-            var server = new WebSocketServer("ws://127.0.0.1:8000");
-            server.Start(socket =>
+            get
+            {
+                return instance;
+            }
+        }
+        public void Start(string ipaddress)
+        {
+            Server = new WebSocketServer(ipaddress);
+            Server.Start(socket =>
             {
                 socket.OnOpen = () => OnOpen?.Invoke(this);
                 socket.OnClose = () => OnClose?.Invoke(this);
-                socket.OnMessage = message => OnMessage?.Invoke(this,message);
+                socket.OnMessage = message => OnMessage?.Invoke(this, message);
             });
         }
     }
