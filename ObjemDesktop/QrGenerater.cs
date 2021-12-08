@@ -17,7 +17,7 @@ namespace ObjemDesktop
     {   
         
         //QRコード取得
-        public Image Generate(String Str,int Width, int Height)
+        public static Image Generate(String Str,int Width, int Height)
         {
             var Writer = new BarcodeWriter
             {

@@ -54,6 +54,10 @@ namespace ObjemDesktop
             this.WebSocketURLLabel = new System.Windows.Forms.Label();
             this.CancelButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.OKButton = new System.Windows.Forms.Button();
+            this.WebSocketURLLabel = new System.Windows.Forms.Label();
+            this.WebSocketURL = new System.Windows.Forms.TextBox();
             this.SettingTab.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
             this.ShortcutsTabPage.SuspendLayout();
@@ -314,6 +318,22 @@ namespace ObjemDesktop
             this.OKButton.TabIndex = 2;
             this.OKButton.Text = "OK";
             this.OKButton.UseVisualStyleBackColor = true;
+            // 
+            // WebSocketURLLabel
+            // 
+            this.WebSocketURLLabel.AutoSize = true;
+            this.WebSocketURLLabel.Location = new System.Drawing.Point(20, 22);
+            this.WebSocketURLLabel.Name = "WebSocketURLLabel";
+            this.WebSocketURLLabel.Size = new System.Drawing.Size(83, 12);
+            this.WebSocketURLLabel.TabIndex = 0;
+            this.WebSocketURLLabel.Text = "WebSocketURL";
+            // 
+            // WebSocketURL
+            // 
+            this.WebSocketURL.Location = new System.Drawing.Point(22, 47);
+            this.WebSocketURL.Name = "WebSocketURL";
+            this.WebSocketURL.Size = new System.Drawing.Size(393, 19);
+            this.WebSocketURL.TabIndex = 1;
             // 
             // SettingWindow
             // 

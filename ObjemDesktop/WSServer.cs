@@ -4,11 +4,10 @@ using WebSocketSharp.Server;
 
 namespace ObjemDesktop
 {
-    class WSServer
+    public sealed class WSServer
     {
         public WebSocketServer Server = null;
         private static WSServer instance = new WSServer();
-
         private WSServer() {
         }
         public static WSServer Instance

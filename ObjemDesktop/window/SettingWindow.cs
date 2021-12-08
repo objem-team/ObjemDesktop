@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace ObjemDesktop
 {
-    public partial class MainWindow : Form
+    public partial class SettingWindow : Form
     {
-        public MainWindow()
+        public SettingWindow()
         {
             InitializeComponent();
         }
+
     }
 }
