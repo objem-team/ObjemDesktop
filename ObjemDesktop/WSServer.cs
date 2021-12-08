@@ -1,9 +1,6 @@
-﻿using Fleck;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace ObjemDesktop
 {
@@ -16,15 +13,40 @@ namespace ObjemDesktop
         public event OnOpenDelegate OnOpen;
         public event onCloseDelegate OnClose;
         public event onMessageDelegate OnMessage;
-        public void start()
+
+        public WebSocketServer Server = null;
+
+        private static WSServer instance = new WSServer();
+
+        class Service: WebSocketBehavior
         {
-            var server = new WebSocketServer("ws://127.0.0.1:8000");
-            server.Start(socket =>
+            protected override void OnMessage(MessageEventArgs e)
             {
-                socket.OnOpen = () => OnOpen?.Invoke(this);
-                socket.OnClose = () => OnClose?.Invoke(this);
-                socket.OnMessage = message => OnMessage?.Invoke(this,message);
-            });
+                Console.WriteLine(e.Data);
+            }
+
+            protected override void OnOpen()
+            {
+                Console.WriteLine("OnOpen");
+            }
         }
+
+        private WSServer() {
+            Server = new WebSocketServer("ws://127.0.0.1:8000");
+            Server.AddWebSocketService<Service>("/");
+
+        }
+
+        public static WSServer Instance
+        {
+            get
+            {   
+                return instance;
+            }
+        }
+        public void Start(string ipaddress)
+        {
+            Server.Start();
+            }
     }
 }

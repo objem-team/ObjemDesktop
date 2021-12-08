@@ -7,10 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjemDesktop", "ObjemDeskto
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug no-window|Any CPU = Debug no-window|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BEBCD6D-BAC8-4692-9513-AC1FF2518E7F}.Debug no-window|Any CPU.ActiveCfg = Debug--no-window|Any CPU
+		{7BEBCD6D-BAC8-4692-9513-AC1FF2518E7F}.Debug no-window|Any CPU.Build.0 = Debug--no-window|Any CPU
 		{7BEBCD6D-BAC8-4692-9513-AC1FF2518E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7BEBCD6D-BAC8-4692-9513-AC1FF2518E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BEBCD6D-BAC8-4692-9513-AC1FF2518E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
