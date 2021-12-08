@@ -15,16 +15,14 @@ namespace ObjemDesktop
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             WSServer WSS = WSServer.Instance;
-            WSS.OnOpen += (sender) => { Console.WriteLine("onopen"); };
 
-            string WSAddress = "ws://0.0.0.0:8000";
-            WSS.Start(WSAddress);
-            if (Environment.CommandLine.IndexOf("--no-window") != 0)
+            int WSSPort = 8000;
+            WSS.Start(WSSPort);
+            if (Environment.CommandLine.IndexOf("--no-window") != -1)
             {
                 //最小化で起動    
                 new MainWindow();
