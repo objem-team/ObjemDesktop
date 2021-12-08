@@ -1,44 +1,24 @@
-﻿using Fleck;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace ObjemDesktop
 {
     public sealed class WSServer
     {
-        public delegate void OnOpenDelegate(object sender);
-        public delegate void onCloseDelegate(object sender);
-        public delegate void onMessageDelegate(object sender, String message);
-
-        public event OnOpenDelegate OnOpen;
-        public event onCloseDelegate OnClose;
-        public event onMessageDelegate OnMessage;
-
         public WebSocketServer Server = null;
-
         private static WSServer instance = new WSServer();
-
-        private WSServer() { }
-
+        private WSServer() {
+        }
         public static WSServer Instance
         {
-            get
-            {
-                return instance;
-            }
+            get {return instance;}
         }
-        public void Start(string ipaddress)
+        public void Start(int port)
         {
-            Server = new WebSocketServer(ipaddress);
-            Server.Start(socket =>
-            {
-                socket.OnOpen = () => OnOpen?.Invoke(this);
-                socket.OnClose = () => OnClose?.Invoke(this);
-                socket.OnMessage = message => OnMessage?.Invoke(this, message);
-            });
+            Server = new WebSocketServer(port);
+            Server.AddWebSocketService<WebSocketService>("/");
+            Server.Start();
         }
     }
 }

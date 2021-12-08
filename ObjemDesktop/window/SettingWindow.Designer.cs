@@ -50,6 +50,10 @@ namespace ObjemDesktop
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.OBSTabPage = new System.Windows.Forms.TabPage();
+            this.WebSocketURL = new System.Windows.Forms.TextBox();
+            this.WebSocketURLLabel = new System.Windows.Forms.Label();
+            this.CancelButton = new System.Windows.Forms.Button();
+            this.OKButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.OKButton = new System.Windows.Forms.Button();
             this.WebSocketURLLabel = new System.Windows.Forms.Label();
@@ -280,6 +284,22 @@ namespace ObjemDesktop
             this.OBSTabPage.TabIndex = 3;
             this.OBSTabPage.Text = "OBS";
             this.OBSTabPage.UseVisualStyleBackColor = true;
+            // 
+            // WebSocketURL
+            // 
+            this.WebSocketURL.Location = new System.Drawing.Point(22, 47);
+            this.WebSocketURL.Name = "WebSocketURL";
+            this.WebSocketURL.Size = new System.Drawing.Size(393, 19);
+            this.WebSocketURL.TabIndex = 1;
+            // 
+            // WebSocketURLLabel
+            // 
+            this.WebSocketURLLabel.AutoSize = true;
+            this.WebSocketURLLabel.Location = new System.Drawing.Point(20, 22);
+            this.WebSocketURLLabel.Name = "WebSocketURLLabel";
+            this.WebSocketURLLabel.Size = new System.Drawing.Size(83, 12);
+            this.WebSocketURLLabel.TabIndex = 0;
+            this.WebSocketURLLabel.Text = "WebSocketURL";
             // 
             // CancelButton
             // 
