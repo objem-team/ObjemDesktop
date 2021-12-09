@@ -19,7 +19,7 @@ namespace ObjemDesktop
             Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             WSServer WSS = WSServer.Instance;
-
+            EventManager manager = EventManager.Instance;
             int WSSPort = 8000;
             WSS.Start(WSSPort);
             if (Environment.CommandLine.IndexOf("--no-window") != -1)

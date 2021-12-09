@@ -10,19 +10,22 @@ namespace ObjemDesktop
 {
     class WebSocketService : WebSocketBehavior
     {
-
         protected override void OnMessage(MessageEventArgs e)
         {
-            Console.WriteLine(e.Data);
+            EventManager manager = EventManager.Instance;
+            manager.onMessage(e);
         }
 
         protected override void OnOpen()
         {
-            Console.WriteLine("Connected!!");
+            EventManager manager = EventManager.Instance;
+            manager.onOpen();
         }
 
         protected override void OnClose(CloseEventArgs e)
         {
+            EventManager manager = EventManager.Instance;
+            manager.onClose();
             base.OnClose(e);
         }
     }

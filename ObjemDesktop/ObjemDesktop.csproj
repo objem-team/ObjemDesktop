@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventManager.cs" />
     <Compile Include="IpAddress.cs" />
     <Compile Include="window\MainWindow.cs">
       <SubType>Form</SubType>
