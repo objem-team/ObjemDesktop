@@ -32,6 +32,7 @@ namespace ObjemDesktop
             this.QRCodeBox = new System.Windows.Forms.PictureBox();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.OpenSettingsBtn = new System.Windows.Forms.Button();
+            this.IpAddressComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.QRCodeBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@ namespace ObjemDesktop
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
-            this.StatusLabel.Location = new System.Drawing.Point(17, 338);
+            this.StatusLabel.Location = new System.Drawing.Point(17, 380);
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(48, 12);
             this.StatusLabel.TabIndex = 1;
@@ -54,7 +55,7 @@ namespace ObjemDesktop
             // 
             // OpenSettingsBtn
             // 
-            this.OpenSettingsBtn.Location = new System.Drawing.Point(86, 372);
+            this.OpenSettingsBtn.Location = new System.Drawing.Point(97, 409);
             this.OpenSettingsBtn.Name = "OpenSettingsBtn";
             this.OpenSettingsBtn.Size = new System.Drawing.Size(124, 23);
             this.OpenSettingsBtn.TabIndex = 2;
@@ -62,17 +63,27 @@ namespace ObjemDesktop
             this.OpenSettingsBtn.UseVisualStyleBackColor = true;
             this.OpenSettingsBtn.Click += new System.EventHandler(this.OpenSettingsBtn_Click);
             // 
+            // IpAddressComboBox
+            // 
+            this.IpAddressComboBox.FormattingEnabled = true;
+            this.IpAddressComboBox.Location = new System.Drawing.Point(12, 328);
+            this.IpAddressComboBox.Name = "IpAddressComboBox";
+            this.IpAddressComboBox.Size = new System.Drawing.Size(300, 20);
+            this.IpAddressComboBox.TabIndex = 3;
+            this.IpAddressComboBox.SelectedValueChanged += new System.EventHandler(this.IpAddressComboBox_SelectedValueChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 401);
+            this.ClientSize = new System.Drawing.Size(324, 461);
+            this.Controls.Add(this.IpAddressComboBox);
             this.Controls.Add(this.OpenSettingsBtn);
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.QRCodeBox);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(340, 440);
-            this.MinimumSize = new System.Drawing.Size(340, 440);
+            this.MaximumSize = new System.Drawing.Size(340, 500);
+            this.MinimumSize = new System.Drawing.Size(340, 500);
             this.Name = "MainWindow";
             this.Text = "Objem";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -87,6 +98,7 @@ namespace ObjemDesktop
         private System.Windows.Forms.PictureBox QRCodeBox;
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Button OpenSettingsBtn;
+        private System.Windows.Forms.ComboBox IpAddressComboBox;
     }
 }
 
