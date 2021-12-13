@@ -43,8 +43,15 @@ namespace ObjemDesktop
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.ShortcutsTabPage = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.LaunchApplicationShortcutLabel = new System.Windows.Forms.Label();
+            this.KeyboardShortcutLabel = new System.Windows.Forms.Label();
+            this.OpenKeyboardShortcutSettingButton = new System.Windows.Forms.Button();
+            this.OpenLaunchApplicationShortSettingButton = new System.Windows.Forms.Button();
+            this.CommandTextBox = new System.Windows.Forms.TextBox();
+            this.SendCommandRadioButton = new System.Windows.Forms.RadioButton();
+            this.LaunchApplicationRadioButton = new System.Windows.Forms.RadioButton();
+            this.AddShortcutButton = new System.Windows.Forms.Button();
+            this.KeyboardShortcutRadioButton = new System.Windows.Forms.RadioButton();
             this.ShortcutNametextBox1 = new System.Windows.Forms.TextBox();
             this.ShortcutName = new System.Windows.Forms.Label();
             this.ShortcutsListView = new System.Windows.Forms.ListView();
@@ -55,28 +62,21 @@ namespace ObjemDesktop
             this.StartUpOptionLabel = new System.Windows.Forms.Label();
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
-            this.KeyboardShortcutRadioButton = new System.Windows.Forms.RadioButton();
-            this.LaunchApplicationRadioButton = new System.Windows.Forms.RadioButton();
-            this.SendCommandRadioButton = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.addShortcutGroupBox = new System.Windows.Forms.GroupBox();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
             this.ShortcutsTabPage.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
             this.SettingTab.SuspendLayout();
+            this.addShortcutGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(539, 372);
-            this.CancelButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CancelButton.Location = new System.Drawing.Point(404, 298);
             this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(100, 29);
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 1;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
@@ -84,10 +84,9 @@ namespace ObjemDesktop
             // OKButton
             // 
             this.OKButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.OKButton.Location = new System.Drawing.Point(433, 372);
-            this.OKButton.Margin = new System.Windows.Forms.Padding(4);
+            this.OKButton.Location = new System.Drawing.Point(325, 298);
             this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(84, 29);
+            this.OKButton.Size = new System.Drawing.Size(63, 23);
             this.OKButton.TabIndex = 2;
             this.OKButton.Text = "適用";
             this.OKButton.UseVisualStyleBackColor = false;
@@ -96,30 +95,27 @@ namespace ObjemDesktop
             // 
             this.OBSTabPage.Controls.Add(this.WebSocketURL);
             this.OBSTabPage.Controls.Add(this.WebSocketURLLabel);
-            this.OBSTabPage.Location = new System.Drawing.Point(4, 25);
-            this.OBSTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.OBSTabPage.Location = new System.Drawing.Point(4, 22);
             this.OBSTabPage.Name = "OBSTabPage";
-            this.OBSTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.OBSTabPage.Size = new System.Drawing.Size(619, 313);
+            this.OBSTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.OBSTabPage.Size = new System.Drawing.Size(462, 248);
             this.OBSTabPage.TabIndex = 3;
             this.OBSTabPage.Text = "OBS設定";
             this.OBSTabPage.UseVisualStyleBackColor = true;
             // 
             // WebSocketURL
             // 
-            this.WebSocketURL.Location = new System.Drawing.Point(29, 59);
-            this.WebSocketURL.Margin = new System.Windows.Forms.Padding(4);
+            this.WebSocketURL.Location = new System.Drawing.Point(22, 47);
             this.WebSocketURL.Name = "WebSocketURL";
-            this.WebSocketURL.Size = new System.Drawing.Size(455, 22);
+            this.WebSocketURL.Size = new System.Drawing.Size(342, 19);
             this.WebSocketURL.TabIndex = 1;
             // 
             // WebSocketURLLabel
             // 
             this.WebSocketURLLabel.AutoSize = true;
-            this.WebSocketURLLabel.Location = new System.Drawing.Point(27, 28);
-            this.WebSocketURLLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.WebSocketURLLabel.Location = new System.Drawing.Point(20, 22);
             this.WebSocketURLLabel.Name = "WebSocketURLLabel";
-            this.WebSocketURLLabel.Size = new System.Drawing.Size(105, 15);
+            this.WebSocketURLLabel.Size = new System.Drawing.Size(83, 12);
             this.WebSocketURLLabel.TabIndex = 0;
             this.WebSocketURLLabel.Text = "WebSocketURL";
             // 
@@ -128,11 +124,10 @@ namespace ObjemDesktop
             this.GestureTabPage.Controls.Add(this.EnableGestureCheckBox);
             this.GestureTabPage.Controls.Add(this.GestureSettingBox);
             this.GestureTabPage.Controls.Add(this.GestureDescriptionLabel);
-            this.GestureTabPage.Location = new System.Drawing.Point(4, 25);
-            this.GestureTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.GestureTabPage.Location = new System.Drawing.Point(4, 22);
             this.GestureTabPage.Name = "GestureTabPage";
-            this.GestureTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.GestureTabPage.Size = new System.Drawing.Size(619, 313);
+            this.GestureTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.GestureTabPage.Size = new System.Drawing.Size(462, 248);
             this.GestureTabPage.TabIndex = 2;
             this.GestureTabPage.Text = "ジェスチャー";
             this.GestureTabPage.UseVisualStyleBackColor = true;
@@ -142,10 +137,9 @@ namespace ObjemDesktop
             this.EnableGestureCheckBox.AutoSize = true;
             this.EnableGestureCheckBox.Checked = true;
             this.EnableGestureCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnableGestureCheckBox.Location = new System.Drawing.Point(40, 52);
-            this.EnableGestureCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.EnableGestureCheckBox.Location = new System.Drawing.Point(30, 42);
             this.EnableGestureCheckBox.Name = "EnableGestureCheckBox";
-            this.EnableGestureCheckBox.Size = new System.Drawing.Size(152, 19);
+            this.EnableGestureCheckBox.Size = new System.Drawing.Size(123, 16);
             this.EnableGestureCheckBox.TabIndex = 6;
             this.EnableGestureCheckBox.Text = "ジェスチャーの有効化";
             this.EnableGestureCheckBox.UseVisualStyleBackColor = true;
@@ -156,127 +150,186 @@ namespace ObjemDesktop
             this.GestureSettingBox.Controls.Add(this.Fader1Label);
             this.GestureSettingBox.Controls.Add(this.Feader2GestureComboBox);
             this.GestureSettingBox.Controls.Add(this.Feader1GestureComboBox);
-            this.GestureSettingBox.Location = new System.Drawing.Point(40, 94);
-            this.GestureSettingBox.Margin = new System.Windows.Forms.Padding(4);
+            this.GestureSettingBox.Location = new System.Drawing.Point(30, 75);
             this.GestureSettingBox.Name = "GestureSettingBox";
-            this.GestureSettingBox.Padding = new System.Windows.Forms.Padding(4);
-            this.GestureSettingBox.Size = new System.Drawing.Size(551, 195);
+            this.GestureSettingBox.Size = new System.Drawing.Size(413, 156);
             this.GestureSettingBox.TabIndex = 5;
             this.GestureSettingBox.TabStop = false;
             // 
             // Fader2Label
             // 
             this.Fader2Label.AutoSize = true;
-            this.Fader2Label.Location = new System.Drawing.Point(9, 99);
-            this.Fader2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Fader2Label.Location = new System.Drawing.Point(7, 79);
             this.Fader2Label.Name = "Fader2Label";
-            this.Fader2Label.Size = new System.Drawing.Size(51, 15);
+            this.Fader2Label.Size = new System.Drawing.Size(40, 12);
             this.Fader2Label.TabIndex = 3;
             this.Fader2Label.Text = "Feder2";
             // 
             // Fader1Label
             // 
             this.Fader1Label.AutoSize = true;
-            this.Fader1Label.Location = new System.Drawing.Point(9, 18);
-            this.Fader1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Fader1Label.Location = new System.Drawing.Point(7, 14);
             this.Fader1Label.Name = "Fader1Label";
-            this.Fader1Label.Size = new System.Drawing.Size(50, 15);
+            this.Fader1Label.Size = new System.Drawing.Size(40, 12);
             this.Fader1Label.TabIndex = 2;
             this.Fader1Label.Text = "Fader1";
             // 
             // Feader2GestureComboBox
             // 
             this.Feader2GestureComboBox.FormattingEnabled = true;
-            this.Feader2GestureComboBox.Location = new System.Drawing.Point(27, 138);
-            this.Feader2GestureComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Feader2GestureComboBox.Location = new System.Drawing.Point(20, 110);
             this.Feader2GestureComboBox.Name = "Feader2GestureComboBox";
-            this.Feader2GestureComboBox.Size = new System.Drawing.Size(480, 23);
+            this.Feader2GestureComboBox.Size = new System.Drawing.Size(361, 20);
             this.Feader2GestureComboBox.TabIndex = 1;
             // 
             // Feader1GestureComboBox
             // 
             this.Feader1GestureComboBox.FormattingEnabled = true;
-            this.Feader1GestureComboBox.Location = new System.Drawing.Point(27, 49);
-            this.Feader1GestureComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Feader1GestureComboBox.Location = new System.Drawing.Point(20, 39);
             this.Feader1GestureComboBox.Name = "Feader1GestureComboBox";
-            this.Feader1GestureComboBox.Size = new System.Drawing.Size(480, 23);
+            this.Feader1GestureComboBox.Size = new System.Drawing.Size(361, 20);
             this.Feader1GestureComboBox.TabIndex = 0;
             // 
             // GestureDescriptionLabel
             // 
             this.GestureDescriptionLabel.AutoSize = true;
-            this.GestureDescriptionLabel.Location = new System.Drawing.Point(37, 18);
-            this.GestureDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.GestureDescriptionLabel.Location = new System.Drawing.Point(28, 14);
             this.GestureDescriptionLabel.Name = "GestureDescriptionLabel";
-            this.GestureDescriptionLabel.Size = new System.Drawing.Size(345, 15);
+            this.GestureDescriptionLabel.Size = new System.Drawing.Size(276, 12);
             this.GestureDescriptionLabel.TabIndex = 4;
             this.GestureDescriptionLabel.Text = "フェーダーのノブを2回タップ時のショートカットを設定します。\r\n";
             // 
             // ShortcutsTabPage
             // 
-            this.ShortcutsTabPage.Controls.Add(this.label2);
-            this.ShortcutsTabPage.Controls.Add(this.label1);
-            this.ShortcutsTabPage.Controls.Add(this.button4);
-            this.ShortcutsTabPage.Controls.Add(this.button3);
-            this.ShortcutsTabPage.Controls.Add(this.textBox1);
-            this.ShortcutsTabPage.Controls.Add(this.SendCommandRadioButton);
-            this.ShortcutsTabPage.Controls.Add(this.button2);
-            this.ShortcutsTabPage.Controls.Add(this.LaunchApplicationRadioButton);
-            this.ShortcutsTabPage.Controls.Add(this.button1);
-            this.ShortcutsTabPage.Controls.Add(this.KeyboardShortcutRadioButton);
+            this.ShortcutsTabPage.Controls.Add(this.addShortcutGroupBox);
+            this.ShortcutsTabPage.Controls.Add(this.AddShortcutButton);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutNametextBox1);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutName);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutsListView);
-            this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 25);
-            this.ShortcutsTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 22);
             this.ShortcutsTabPage.Name = "ShortcutsTabPage";
-            this.ShortcutsTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.ShortcutsTabPage.Size = new System.Drawing.Size(619, 313);
+            this.ShortcutsTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.ShortcutsTabPage.Size = new System.Drawing.Size(462, 248);
             this.ShortcutsTabPage.TabIndex = 1;
             this.ShortcutsTabPage.Text = "ショートカット";
             this.ShortcutsTabPage.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // LaunchApplicationShortcutLabel
             // 
-            this.button2.Location = new System.Drawing.Point(516, 279);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 23);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "キャンセル";
-            this.button2.UseVisualStyleBackColor = true;
+            this.LaunchApplicationShortcutLabel.AutoSize = true;
+            this.LaunchApplicationShortcutLabel.Location = new System.Drawing.Point(29, 97);
+            this.LaunchApplicationShortcutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.LaunchApplicationShortcutLabel.Name = "LaunchApplicationShortcutLabel";
+            this.LaunchApplicationShortcutLabel.Size = new System.Drawing.Size(137, 12);
+            this.LaunchApplicationShortcutLabel.TabIndex = 14;
+            this.LaunchApplicationShortcutLabel.Text = "LaunchApplicationShortcu";
             // 
-            // button1
+            // KeyboardShortcutLabel
             // 
-            this.button1.Location = new System.Drawing.Point(413, 279);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "登録";
-            this.button1.UseVisualStyleBackColor = true;
+            this.KeyboardShortcutLabel.AutoSize = true;
+            this.KeyboardShortcutLabel.Location = new System.Drawing.Point(27, 38);
+            this.KeyboardShortcutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.KeyboardShortcutLabel.Name = "KeyboardShortcutLabel";
+            this.KeyboardShortcutLabel.Size = new System.Drawing.Size(95, 12);
+            this.KeyboardShortcutLabel.TabIndex = 13;
+            this.KeyboardShortcutLabel.Text = "KeyboardShortcut";
+            // 
+            // OpenKeyboardShortcutSettingButton
+            // 
+            this.OpenKeyboardShortcutSettingButton.Location = new System.Drawing.Point(168, 38);
+            this.OpenKeyboardShortcutSettingButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OpenKeyboardShortcutSettingButton.Name = "OpenKeyboardShortcutSettingButton";
+            this.OpenKeyboardShortcutSettingButton.Size = new System.Drawing.Size(56, 18);
+            this.OpenKeyboardShortcutSettingButton.TabIndex = 12;
+            this.OpenKeyboardShortcutSettingButton.Text = "編集";
+            this.OpenKeyboardShortcutSettingButton.UseVisualStyleBackColor = true;
+            // 
+            // OpenLaunchApplicationShortSettingButton
+            // 
+            this.OpenLaunchApplicationShortSettingButton.Location = new System.Drawing.Point(168, 91);
+            this.OpenLaunchApplicationShortSettingButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OpenLaunchApplicationShortSettingButton.Name = "OpenLaunchApplicationShortSettingButton";
+            this.OpenLaunchApplicationShortSettingButton.Size = new System.Drawing.Size(56, 18);
+            this.OpenLaunchApplicationShortSettingButton.TabIndex = 11;
+            this.OpenLaunchApplicationShortSettingButton.Text = "選択";
+            this.OpenLaunchApplicationShortSettingButton.UseVisualStyleBackColor = true;
+            // 
+            // CommandTextBox
+            // 
+            this.CommandTextBox.Location = new System.Drawing.Point(6, 147);
+            this.CommandTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CommandTextBox.Name = "CommandTextBox";
+            this.CommandTextBox.Size = new System.Drawing.Size(220, 19);
+            this.CommandTextBox.TabIndex = 10;
+            // 
+            // SendCommandRadioButton
+            // 
+            this.SendCommandRadioButton.AutoSize = true;
+            this.SendCommandRadioButton.Location = new System.Drawing.Point(6, 125);
+            this.SendCommandRadioButton.Name = "SendCommandRadioButton";
+            this.SendCommandRadioButton.Size = new System.Drawing.Size(82, 16);
+            this.SendCommandRadioButton.TabIndex = 3;
+            this.SendCommandRadioButton.TabStop = true;
+            this.SendCommandRadioButton.Text = "コマンド送信";
+            this.SendCommandRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // LaunchApplicationRadioButton
+            // 
+            this.LaunchApplicationRadioButton.AutoSize = true;
+            this.LaunchApplicationRadioButton.Location = new System.Drawing.Point(6, 70);
+            this.LaunchApplicationRadioButton.Name = "LaunchApplicationRadioButton";
+            this.LaunchApplicationRadioButton.Size = new System.Drawing.Size(116, 16);
+            this.LaunchApplicationRadioButton.TabIndex = 2;
+            this.LaunchApplicationRadioButton.TabStop = true;
+            this.LaunchApplicationRadioButton.Text = "アプリケーション起動";
+            this.LaunchApplicationRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // AddShortcutButton
+            // 
+            this.AddShortcutButton.Font = new System.Drawing.Font("MS UI Gothic", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.AddShortcutButton.Location = new System.Drawing.Point(382, 213);
+            this.AddShortcutButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AddShortcutButton.Name = "AddShortcutButton";
+            this.AddShortcutButton.Size = new System.Drawing.Size(63, 18);
+            this.AddShortcutButton.TabIndex = 8;
+            this.AddShortcutButton.Text = "追加";
+            this.AddShortcutButton.UseVisualStyleBackColor = true;
+            // 
+            // KeyboardShortcutRadioButton
+            // 
+            this.KeyboardShortcutRadioButton.AutoSize = true;
+            this.KeyboardShortcutRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.KeyboardShortcutRadioButton.Name = "KeyboardShortcutRadioButton";
+            this.KeyboardShortcutRadioButton.Size = new System.Drawing.Size(130, 16);
+            this.KeyboardShortcutRadioButton.TabIndex = 1;
+            this.KeyboardShortcutRadioButton.TabStop = true;
+            this.KeyboardShortcutRadioButton.Text = "キーボードショートカット";
+            this.KeyboardShortcutRadioButton.UseVisualStyleBackColor = true;
             // 
             // ShortcutNametextBox1
             // 
-            this.ShortcutNametextBox1.Location = new System.Drawing.Point(387, 14);
+            this.ShortcutNametextBox1.Location = new System.Drawing.Point(290, 11);
+            this.ShortcutNametextBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ShortcutNametextBox1.Name = "ShortcutNametextBox1";
-            this.ShortcutNametextBox1.Size = new System.Drawing.Size(205, 22);
+            this.ShortcutNametextBox1.Size = new System.Drawing.Size(155, 19);
             this.ShortcutNametextBox1.TabIndex = 7;
             // 
             // ShortcutName
             // 
             this.ShortcutName.AutoSize = true;
-            this.ShortcutName.Location = new System.Drawing.Point(270, 17);
+            this.ShortcutName.Location = new System.Drawing.Point(202, 14);
+            this.ShortcutName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ShortcutName.Name = "ShortcutName";
-            this.ShortcutName.Size = new System.Drawing.Size(111, 15);
+            this.ShortcutName.Size = new System.Drawing.Size(87, 12);
             this.ShortcutName.TabIndex = 6;
             this.ShortcutName.Text = "ショートカット名称";
             // 
             // ShortcutsListView
             // 
             this.ShortcutsListView.HideSelection = false;
-            this.ShortcutsListView.Location = new System.Drawing.Point(7, 8);
-            this.ShortcutsListView.Margin = new System.Windows.Forms.Padding(4);
+            this.ShortcutsListView.Location = new System.Drawing.Point(5, 6);
             this.ShortcutsListView.Name = "ShortcutsListView";
-            this.ShortcutsListView.Size = new System.Drawing.Size(247, 294);
+            this.ShortcutsListView.Size = new System.Drawing.Size(186, 236);
             this.ShortcutsListView.TabIndex = 0;
             this.ShortcutsListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -287,21 +340,19 @@ namespace ObjemDesktop
             this.GeneralTabPage.Controls.Add(this.DisableProcessLabel);
             this.GeneralTabPage.Controls.Add(this.StartUpOptionLabel);
             this.GeneralTabPage.Controls.Add(this.StartupCheckBox);
-            this.GeneralTabPage.Location = new System.Drawing.Point(4, 25);
-            this.GeneralTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.GeneralTabPage.Location = new System.Drawing.Point(4, 22);
             this.GeneralTabPage.Name = "GeneralTabPage";
-            this.GeneralTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.GeneralTabPage.Size = new System.Drawing.Size(619, 313);
+            this.GeneralTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.GeneralTabPage.Size = new System.Drawing.Size(462, 248);
             this.GeneralTabPage.TabIndex = 0;
             this.GeneralTabPage.Text = "一般";
             this.GeneralTabPage.UseVisualStyleBackColor = true;
             // 
             // DisableProcessAddButton
             // 
-            this.DisableProcessAddButton.Location = new System.Drawing.Point(487, 266);
-            this.DisableProcessAddButton.Margin = new System.Windows.Forms.Padding(4);
+            this.DisableProcessAddButton.Location = new System.Drawing.Point(365, 213);
             this.DisableProcessAddButton.Name = "DisableProcessAddButton";
-            this.DisableProcessAddButton.Size = new System.Drawing.Size(91, 24);
+            this.DisableProcessAddButton.Size = new System.Drawing.Size(68, 19);
             this.DisableProcessAddButton.TabIndex = 4;
             this.DisableProcessAddButton.Text = "追加";
             this.DisableProcessAddButton.UseVisualStyleBackColor = true;
@@ -309,40 +360,36 @@ namespace ObjemDesktop
             // DisableProcessListBox
             // 
             this.DisableProcessListBox.FormattingEnabled = true;
-            this.DisableProcessListBox.ItemHeight = 15;
-            this.DisableProcessListBox.Location = new System.Drawing.Point(43, 134);
-            this.DisableProcessListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DisableProcessListBox.ItemHeight = 12;
+            this.DisableProcessListBox.Location = new System.Drawing.Point(32, 107);
             this.DisableProcessListBox.Name = "DisableProcessListBox";
-            this.DisableProcessListBox.Size = new System.Drawing.Size(533, 124);
+            this.DisableProcessListBox.Size = new System.Drawing.Size(401, 100);
             this.DisableProcessListBox.TabIndex = 3;
             // 
             // DisableProcessLabel
             // 
             this.DisableProcessLabel.AutoSize = true;
-            this.DisableProcessLabel.Location = new System.Drawing.Point(28, 101);
-            this.DisableProcessLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DisableProcessLabel.Location = new System.Drawing.Point(21, 81);
             this.DisableProcessLabel.Name = "DisableProcessLabel";
-            this.DisableProcessLabel.Size = new System.Drawing.Size(384, 15);
+            this.DisableProcessLabel.Size = new System.Drawing.Size(309, 12);
             this.DisableProcessLabel.TabIndex = 2;
             this.DisableProcessLabel.Text = "プロセスの無効化(Webアプリ及びハードウェアには表示されません)";
             // 
             // StartUpOptionLabel
             // 
             this.StartUpOptionLabel.AutoSize = true;
-            this.StartUpOptionLabel.Location = new System.Drawing.Point(25, 21);
-            this.StartUpOptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StartUpOptionLabel.Location = new System.Drawing.Point(19, 17);
             this.StartUpOptionLabel.Name = "StartUpOptionLabel";
-            this.StartUpOptionLabel.Size = new System.Drawing.Size(70, 15);
+            this.StartUpOptionLabel.Size = new System.Drawing.Size(55, 12);
             this.StartUpOptionLabel.TabIndex = 1;
             this.StartUpOptionLabel.Text = "セットアップ";
             // 
             // StartupCheckBox
             // 
             this.StartupCheckBox.AutoSize = true;
-            this.StartupCheckBox.Location = new System.Drawing.Point(31, 50);
-            this.StartupCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.StartupCheckBox.Location = new System.Drawing.Point(23, 40);
             this.StartupCheckBox.Name = "StartupCheckBox";
-            this.StartupCheckBox.Size = new System.Drawing.Size(232, 19);
+            this.StartupCheckBox.Size = new System.Drawing.Size(188, 16);
             this.StartupCheckBox.TabIndex = 0;
             this.StartupCheckBox.Text = "システム起動時のObjem自動起動";
             this.StartupCheckBox.UseVisualStyleBackColor = true;
@@ -354,101 +401,36 @@ namespace ObjemDesktop
             this.SettingTab.Controls.Add(this.ShortcutsTabPage);
             this.SettingTab.Controls.Add(this.GestureTabPage);
             this.SettingTab.Controls.Add(this.OBSTabPage);
-            this.SettingTab.Location = new System.Drawing.Point(16, 22);
-            this.SettingTab.Margin = new System.Windows.Forms.Padding(4);
+            this.SettingTab.Location = new System.Drawing.Point(12, 18);
             this.SettingTab.Name = "SettingTab";
             this.SettingTab.SelectedIndex = 0;
-            this.SettingTab.Size = new System.Drawing.Size(627, 342);
+            this.SettingTab.Size = new System.Drawing.Size(470, 274);
             this.SettingTab.TabIndex = 0;
             // 
-            // KeyboardShortcutRadioButton
+            // addShortcutGroupBox
             // 
-            this.KeyboardShortcutRadioButton.AutoSize = true;
-            this.KeyboardShortcutRadioButton.Location = new System.Drawing.Point(300, 74);
-            this.KeyboardShortcutRadioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.KeyboardShortcutRadioButton.Name = "KeyboardShortcutRadioButton";
-            this.KeyboardShortcutRadioButton.Size = new System.Drawing.Size(161, 19);
-            this.KeyboardShortcutRadioButton.TabIndex = 1;
-            this.KeyboardShortcutRadioButton.TabStop = true;
-            this.KeyboardShortcutRadioButton.Text = "キーボードショートカット";
-            this.KeyboardShortcutRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // LaunchApplicationRadioButton
-            // 
-            this.LaunchApplicationRadioButton.AutoSize = true;
-            this.LaunchApplicationRadioButton.Location = new System.Drawing.Point(300, 139);
-            this.LaunchApplicationRadioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.LaunchApplicationRadioButton.Name = "LaunchApplicationRadioButton";
-            this.LaunchApplicationRadioButton.Size = new System.Drawing.Size(144, 19);
-            this.LaunchApplicationRadioButton.TabIndex = 2;
-            this.LaunchApplicationRadioButton.TabStop = true;
-            this.LaunchApplicationRadioButton.Text = "アプリケーション起動";
-            this.LaunchApplicationRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // SendCommandRadioButton
-            // 
-            this.SendCommandRadioButton.AutoSize = true;
-            this.SendCommandRadioButton.Location = new System.Drawing.Point(300, 208);
-            this.SendCommandRadioButton.Margin = new System.Windows.Forms.Padding(4);
-            this.SendCommandRadioButton.Name = "SendCommandRadioButton";
-            this.SendCommandRadioButton.Size = new System.Drawing.Size(101, 19);
-            this.SendCommandRadioButton.TabIndex = 3;
-            this.SendCommandRadioButton.TabStop = true;
-            this.SendCommandRadioButton.Text = "コマンド送信";
-            this.SendCommandRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(300, 235);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(292, 22);
-            this.textBox1.TabIndex = 10;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(516, 165);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(516, 99);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(328, 99);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 15);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "label1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(331, 172);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 15);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "label2";
+            this.addShortcutGroupBox.Controls.Add(this.KeyboardShortcutRadioButton);
+            this.addShortcutGroupBox.Controls.Add(this.LaunchApplicationShortcutLabel);
+            this.addShortcutGroupBox.Controls.Add(this.LaunchApplicationRadioButton);
+            this.addShortcutGroupBox.Controls.Add(this.KeyboardShortcutLabel);
+            this.addShortcutGroupBox.Controls.Add(this.SendCommandRadioButton);
+            this.addShortcutGroupBox.Controls.Add(this.OpenKeyboardShortcutSettingButton);
+            this.addShortcutGroupBox.Controls.Add(this.CommandTextBox);
+            this.addShortcutGroupBox.Controls.Add(this.OpenLaunchApplicationShortSettingButton);
+            this.addShortcutGroupBox.Location = new System.Drawing.Point(206, 35);
+            this.addShortcutGroupBox.Name = "addShortcutGroupBox";
+            this.addShortcutGroupBox.Size = new System.Drawing.Size(239, 173);
+            this.addShortcutGroupBox.TabIndex = 15;
+            this.addShortcutGroupBox.TabStop = false;
             // 
             // SettingWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 416);
+            this.ClientSize = new System.Drawing.Size(494, 333);
             this.Controls.Add(this.OKButton);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SettingTab);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingWindow";
@@ -464,6 +446,8 @@ namespace ObjemDesktop
             this.GeneralTabPage.ResumeLayout(false);
             this.GeneralTabPage.PerformLayout();
             this.SettingTab.ResumeLayout(false);
+            this.addShortcutGroupBox.ResumeLayout(false);
+            this.addShortcutGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -491,17 +475,17 @@ namespace ObjemDesktop
         private System.Windows.Forms.Label StartUpOptionLabel;
         private System.Windows.Forms.CheckBox StartupCheckBox;
         private System.Windows.Forms.TabControl SettingTab;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddShortcutButton;
         private System.Windows.Forms.TextBox ShortcutNametextBox1;
         private System.Windows.Forms.Label ShortcutName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label LaunchApplicationShortcutLabel;
+        private System.Windows.Forms.Label KeyboardShortcutLabel;
+        private System.Windows.Forms.Button OpenKeyboardShortcutSettingButton;
+        private System.Windows.Forms.Button OpenLaunchApplicationShortSettingButton;
+        private System.Windows.Forms.TextBox CommandTextBox;
         private System.Windows.Forms.RadioButton SendCommandRadioButton;
         private System.Windows.Forms.RadioButton LaunchApplicationRadioButton;
         private System.Windows.Forms.RadioButton KeyboardShortcutRadioButton;
+        private System.Windows.Forms.GroupBox addShortcutGroupBox;
     }
 }
