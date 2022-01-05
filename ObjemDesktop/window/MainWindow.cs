@@ -10,7 +10,6 @@ namespace ObjemDesktop
     public partial class MainWindow : Form
     {
         private NotifyIcon notifyIcon;
-        private const string WSAddress = "ws://127.0.0.1:8000";
         private SettingWindow SettingWindow = new SettingWindow();
         private List<QrPair> list = new List<QrPair> { };
         public MainWindow()
@@ -23,6 +22,11 @@ namespace ObjemDesktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+
+            EventManager manager = EventManager.Instance;
+            manager.OnOpenEvent += (_sender) => setStatuslabel();
+            manager.OnCloseEvent += (_sender) => setStatuslabel();
+
             List<IPAddress> ipAddresses = IpAddress.IpAdress();
             ipAddresses.ForEach((ip) => {
                 var qrcode = QrGenerater.Generate(ip.ToString(), QRCodeBox.Width, QRCodeBox.Height);
@@ -31,6 +35,7 @@ namespace ObjemDesktop
             IpAddressComboBox.DisplayMember = "ipaddress";
             IpAddressComboBox.DataSource=list.ToArray();
             QRCodeBox.Image = list[0].qrcode;
+            setStatuslabel();
         }
 
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
@@ -42,6 +47,20 @@ namespace ObjemDesktop
         {
             QrPair selected = (QrPair)IpAddressComboBox.SelectedItem;
             QRCodeBox.Image = selected.qrcode;
+        }
+
+        private void setStatuslabel()
+        {
+            var wss = WSServer.Instance;
+            var count = wss.Server.WebSocketServices.SessionCount;
+            if (count >= 1)
+            {
+                this.Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() => status.Text = "Not connected"));
+            }
         }
     }
 }

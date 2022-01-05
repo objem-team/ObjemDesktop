@@ -33,6 +33,7 @@ namespace ObjemDesktop
             this.StatusLabel = new System.Windows.Forms.Label();
             this.OpenSettingsBtn = new System.Windows.Forms.Button();
             this.IpAddressComboBox = new System.Windows.Forms.ComboBox();
+            this.status = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.QRCodeBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,11 +73,21 @@ namespace ObjemDesktop
             this.IpAddressComboBox.TabIndex = 3;
             this.IpAddressComboBox.SelectedValueChanged += new System.EventHandler(this.IpAddressComboBox_SelectedValueChanged);
             // 
+            // status
+            // 
+            this.status.AutoSize = true;
+            this.status.Location = new System.Drawing.Point(72, 380);
+            this.status.Name = "status";
+            this.status.Size = new System.Drawing.Size(37, 12);
+            this.status.TabIndex = 4;
+            this.status.Text = "status";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 461);
+            this.Controls.Add(this.status);
             this.Controls.Add(this.IpAddressComboBox);
             this.Controls.Add(this.OpenSettingsBtn);
             this.Controls.Add(this.StatusLabel);
@@ -99,6 +110,7 @@ namespace ObjemDesktop
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Button OpenSettingsBtn;
         private System.Windows.Forms.ComboBox IpAddressComboBox;
+        private System.Windows.Forms.Label status;
     }
 }
 

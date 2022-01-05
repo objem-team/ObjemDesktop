@@ -1,0 +1,73 @@
+﻿using CSCore.CoreAudioAPI;
+using System;
+using System.Diagnostics;
+using System.Drawing;
+namespace ObjemDesktop.VolumeManager
+{
+    internal class SessionVolumeController:IVolumeController
+    {
+        public AudioSessionControl2 AudioSessionControl { get; }
+        public SimpleAudioVolume SimpleAudioVolume { get; }
+        public int ProcessId { get; }
+        public string Name { get; }
+        public Icon Icon { get; }
+
+        public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
+        public event EventHandler<SessionExpiredEventArg> SessionExpired;
+
+        public SessionVolumeController(AudioSessionControl2 audioSessionControl, SimpleAudioVolume simpleAudioVolume)
+        {
+            AudioSessionControl = audioSessionControl;
+            SimpleAudioVolume = simpleAudioVolume;
+            Process process = Process.GetProcessById(audioSessionControl.ProcessID);
+            Name = process.ProcessName;
+            Icon = getIcon(audioSessionControl);
+            //音量に変更があったとき
+            AudioSessionControl.SimpleVolumeChanged += (sender, arg) => VolumeChanged?.Invoke(sender, new VolumeChangedEventArgs(this, arg.NewVolume, arg.IsMuted));
+            //session が切れたとき
+            audioSessionControl.StateChanged += OnSessionStateChanged;
+        }
+
+
+
+        public void SetVolume(float newVolume)
+        {
+            SimpleAudioVolume.MasterVolume = newVolume;
+        }
+
+
+        private Icon getIcon(AudioSessionControl2 audioSessionControl)
+        {
+            if (audioSessionControl.IconPath != string.Empty)
+            {
+                var pathWhithIndex = audioSessionControl.IconPath.Split(',');
+                if (pathWhithIndex.Length != 2) { return null; }
+                var path = pathWhithIndex[0];
+                var index = Int32.Parse(pathWhithIndex[1]);
+                path = path.Trim('@');
+                return IconExtracter.Extract(path, index);
+            }
+            try
+            {
+                return Icon.ExtractAssociatedIcon(audioSessionControl.Process.MainModule.FileName);
+            }
+            catch (Exception)
+            {
+                return IconExtracter.getDefaultIcon();
+            }
+        }
+
+        private void OnSessionStateChanged(object sender, AudioSessionStateChangedEventArgs eventArgs)
+        {
+            if (eventArgs.NewState == AudioSessionState.AudioSessionStateExpired)
+            {
+                SessionExpired?.Invoke(sender, new SessionExpiredEventArg(this));
+            }
+        }
+        public void Dispose()
+        {
+            this.AudioSessionControl.Dispose();
+            this.SimpleAudioVolume.Dispose();
+        }
+    }
+}

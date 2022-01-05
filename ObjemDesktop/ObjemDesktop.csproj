@@ -64,6 +64,13 @@
     <Compile Include="EventManager.cs" />
     <Compile Include="IpAddress.cs" />
     <Compile Include="QrPair.cs" />
+    <Compile Include="VolumeManager\DeviceVolumeController.cs" />
+    <Compile Include="VolumeManager\IconExtracter.cs" />
+    <Compile Include="VolumeManager\IVolumeController.cs" />
+    <Compile Include="VolumeManager\SessionExpiredEventArg.cs" />
+    <Compile Include="VolumeManager\SessionVolumeController.cs" />
+    <Compile Include="VolumeManager\VolumeChangedEventArgs.cs" />
+    <Compile Include="VolumeManager\VolumeManager.cs" />
     <Compile Include="window\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
