@@ -2,7 +2,7 @@
 using CSCore.Win32;
 using System;
 using System.Drawing;
-namespace ObjemDesktop.VolumeManager
+namespace ObjemDesktop.VolumeManaging
 {
     class DeviceVolumeController : IVolumeController, IDisposable
     {

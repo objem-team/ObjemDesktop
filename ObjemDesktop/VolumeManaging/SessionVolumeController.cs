@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-namespace ObjemDesktop.VolumeManager
+namespace ObjemDesktop.VolumeManaging
 {
     internal class SessionVolumeController:IVolumeController
     {

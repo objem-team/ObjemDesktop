@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ObjemDesktop.VolumeManager
+namespace ObjemDesktop.VolumeManaging
 {
     class VolumeManager
     {

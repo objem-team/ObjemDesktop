@@ -1,4 +1,4 @@
-﻿namespace ObjemDesktop.VolumeManager
+﻿namespace ObjemDesktop.VolumeManaging
 {
     public class VolumeChangedEventArgs
     {
