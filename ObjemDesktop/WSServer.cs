@@ -6,13 +6,15 @@ namespace ObjemDesktop
 {
     public sealed class WSServer
     {
-        public WebSocketServer Server = null;
-        private static WSServer instance = new WSServer();
-        private WSServer() {
-        }
+        public WebSocketServer Server;
+        private static WSServer instance;
         public static WSServer Instance
         {
-            get {return instance;}
+            get 
+            {
+                if (instance is null) instance = new WSServer();
+                return instance;
+            }
         }
         public void Start(int port)
         {

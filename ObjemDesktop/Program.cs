@@ -1,9 +1,12 @@
-﻿using System;
+﻿using ObjemDesktop.VolumeManaging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace ObjemDesktop
 {
@@ -12,23 +15,23 @@ namespace ObjemDesktop
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
-        [STAThread]
+        [MTAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
-            WSServer WSS = WSServer.Instance;
-            EventManager manager = EventManager.Instance;
+            VolumeManager _VolumeManager = VolumeManager.Instance;
+            WSServer WSS = new WSServer();
             int WSSPort = 8000;
             WSS.Start(WSSPort);
+            //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (Environment.CommandLine.IndexOf("--no-window") != -1)
             {
                 //最小化で起動    
-                new MainWindow();
+                MainWindow _MainWindow = MainWindow.Instance;
                 Application.Run();
             }
-            Application.Run(new MainWindow());
+            Application.Run(MainWindow.Instance);
         }
     }
 }

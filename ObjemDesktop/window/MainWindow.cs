@@ -8,24 +8,31 @@ using System.Net;
 namespace ObjemDesktop
 {
     public partial class MainWindow : Form
-    {
+    {   
+        private static  MainWindow instance;
         private NotifyIcon notifyIcon;
         private SettingWindow SettingWindow = new SettingWindow();
         private List<QrPair> list = new List<QrPair> { };
-        public MainWindow()
+        private MainWindow()
         {
             notifyIcon = new NotifyIcon();
             notifyIcon.Visible = true;
-            notifyIcon.Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory+@"\resources\favicon.ico");
+            notifyIcon.Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory + @"\resources\favicon.ico");
+            Console.WriteLine("new");
             InitializeComponent();
         }
 
+        public static MainWindow Instance
+        {
+            get { 
+                if(instance is null) instance = new MainWindow();
+                return instance;
+            }
+        }
+
+
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
-            EventManager manager = EventManager.Instance;
-            manager.OnOpenEvent += (_sender) => setStatuslabel();
-            manager.OnCloseEvent += (_sender) => setStatuslabel();
 
             List<IPAddress> ipAddresses = IpAddress.IpAdress();
             ipAddresses.ForEach((ip) => {
@@ -35,7 +42,7 @@ namespace ObjemDesktop
             IpAddressComboBox.DisplayMember = "ipaddress";
             IpAddressComboBox.DataSource=list.ToArray();
             QRCodeBox.Image = list[0].qrcode;
-            setStatuslabel();
+            setStatuslabel(0);
         }
 
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
@@ -49,10 +56,8 @@ namespace ObjemDesktop
             QRCodeBox.Image = selected.qrcode;
         }
 
-        private void setStatuslabel()
+        public void setStatuslabel(int count)
         {
-            var wss = WSServer.Instance;
-            var count = wss.Server.WebSocketServices.SessionCount;
             if (count >= 1)
             {
                 this.Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));

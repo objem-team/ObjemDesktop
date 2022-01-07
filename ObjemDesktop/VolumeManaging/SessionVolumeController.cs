@@ -20,6 +20,7 @@ namespace ObjemDesktop.VolumeManaging
             AudioSessionControl = audioSessionControl;
             SimpleAudioVolume = simpleAudioVolume;
             Process process = Process.GetProcessById(audioSessionControl.ProcessID);
+            ProcessId = audioSessionControl.ProcessID;
             Name = process.ProcessName;
             Icon = getIcon(audioSessionControl);
             //音量に変更があったとき
@@ -49,7 +50,7 @@ namespace ObjemDesktop.VolumeManaging
             }
             try
             {
-                return Icon.ExtractAssociatedIcon(audioSessionControl.Process.MainModule.FileName);
+                return System.Drawing.Icon.ExtractAssociatedIcon(audioSessionControl.Process.MainModule.FileName);
             }
             catch (Exception)
             {

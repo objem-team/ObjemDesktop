@@ -2,6 +2,8 @@
 using CSCore.Win32;
 using System;
 using System.Drawing;
+using System.Security.Cryptography;
+
 namespace ObjemDesktop.VolumeManaging
 {
     class DeviceVolumeController : IVolumeController, IDisposable
@@ -22,6 +24,8 @@ namespace ObjemDesktop.VolumeManaging
         {
             using (var enumerator = new MMDeviceEnumerator())
             {
+                //sessionとかぶることのないマイナス値をIDに用いる
+                ProcessId = new Random().Next()*-1;
                 Device = device;
                 AudioEndpointVolume = AudioEndpointVolume.FromDevice(Device);
                 Name = Device.FriendlyName;
@@ -38,8 +42,6 @@ namespace ObjemDesktop.VolumeManaging
                 AudioEndpointVolumeCallback callback = new AudioEndpointVolumeCallback();
                 callback.NotifyRecived += (sender, arg) => VolumeChanged?.Invoke(sender, new VolumeChangedEventArgs(this, arg.MasterVolume, arg.IsMuted));
                 AudioEndpointVolume.RegisterControlChangeNotify(callback);
-
-
             }
 
         }

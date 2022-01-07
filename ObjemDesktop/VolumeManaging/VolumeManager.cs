@@ -11,6 +11,8 @@ namespace ObjemDesktop.VolumeManaging
 {
     class VolumeManager
     {
+        public static VolumeManager Instance = new VolumeManager();
+
         //DeviceのStatusを監視させるための
         private MMDeviceEnumerator DeviceEnumerator;
         //AudioSessionNotificationを継承するクラスを作ってセッションの作成を監視
@@ -26,7 +28,7 @@ namespace ObjemDesktop.VolumeManaging
         public event EventHandler<SessionCreatedEventArgs> OnSessionCreated;
         public event EventHandler<DefaultDeviceChangedEventArgs> OnDefaultDeviceChanged;
 
-        public VolumeManager()
+        private VolumeManager()
         {
             //デフォルトのマイクとスピーカーを取得
             DeviceEnumerator = new MMDeviceEnumerator();
@@ -68,10 +70,17 @@ namespace ObjemDesktop.VolumeManaging
             //デバイス音量が変更されたときのイベントを登録
             DeviceVolumeController RenderDeviceVolumeContoroller = new DeviceVolumeController(DefaultRenderDevice);
             RenderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            list.Add(RenderDeviceVolumeContoroller);
 
             DeviceVolumeController CaputureDeviceVolumeContoroller = new DeviceVolumeController(DefaultCaptureDevice);
-            RenderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            CaputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            list.Add(CaputureDeviceVolumeContoroller);
 
+        }
+
+        public void setVolume(int processId,float volume)
+        {
+            list.Find(x => x.ProcessId == processId).SetVolume(volume);
         }
     }
 }
