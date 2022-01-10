@@ -1,4 +1,5 @@
-﻿using ObjemDesktop.VolumeManaging;
+﻿using CSCore.CoreAudioAPI;
+using ObjemDesktop.VolumeManaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using WebSocketSharp.Server;
 
 namespace ObjemDesktop
 {
@@ -18,8 +19,11 @@ namespace ObjemDesktop
         [MTAThread]
         static void Main()
         {
-            VolumeManager _VolumeManager = VolumeManager.Instance;
-            WSServer WSS = new WSServer();
+
+            VolumeManager VolumeManager = VolumeManager.Instance;
+            VolumeManager.OnSessionCreated += onSessionCreated;
+            VolumeManager.OnSessionExpired += OnSessionExpired;
+            WSServer WSS = WSServer.Instance;
             int WSSPort = 8000;
             WSS.Start(WSSPort);
             //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
@@ -33,5 +37,20 @@ namespace ObjemDesktop
             }
             Application.Run(MainWindow.Instance);
         }
+
+        static void onSessionCreated(object sender,SessionCreatedEventArgs args)
+        {
+            VolumeManager VolumeManager = VolumeManager.Instance;
+            VolumeManager.addSession(args.NewSession);
+            WebSocketUtil.broadCastSessions();
+        }
+
+        static void OnSessionExpired(object sender, SessionExpiredEventArg arg)
+        {
+            VolumeManager VolumeManager = VolumeManager.Instance;
+            VolumeManager.list.Remove(arg.VolumeController);
+            WebSocketUtil.broadCastSessions();
+        }
+
     }
 }

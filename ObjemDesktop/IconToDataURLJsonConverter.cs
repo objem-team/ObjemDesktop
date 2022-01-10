@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ObjemDesktop
 {
-    class IconToBase64JsonConverter : JsonConverter<Icon>
+    class IconToDataURLJsonConverter : JsonConverter<Icon>
     {
         public override Icon Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {   
@@ -22,7 +22,7 @@ namespace ObjemDesktop
         public override void Write(Utf8JsonWriter writer, Icon value, JsonSerializerOptions options)
         {
             string IconBase64String = ByteToBase64(IconToBytes(value));
-            writer.WriteStringValue(IconBase64String);
+            writer.WriteStringValue($"data:image/png;base64,{IconBase64String}");
         }
 
         public string ByteToBase64(byte[] bytes)

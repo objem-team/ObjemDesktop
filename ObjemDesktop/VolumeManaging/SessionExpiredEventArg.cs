@@ -2,7 +2,7 @@
 {
     public class SessionExpiredEventArg
     {
-        IVolumeController VolumeController;
+        public IVolumeController VolumeController;
         public SessionExpiredEventArg(IVolumeController VolumeController)
         {
             this.VolumeController = VolumeController;

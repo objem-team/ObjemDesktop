@@ -12,6 +12,14 @@ namespace ObjemDesktop.VolumeManaging
         public string Name { get; }
         public Icon Icon { get; }
 
+        public float Volume
+        {
+            get 
+            {
+                return SimpleAudioVolume.MasterVolume;
+            }
+        }
+
         public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
         public event EventHandler<SessionExpiredEventArg> SessionExpired;
 
@@ -44,6 +52,7 @@ namespace ObjemDesktop.VolumeManaging
                 var pathWhithIndex = audioSessionControl.IconPath.Split(',');
                 if (pathWhithIndex.Length != 2) { return null; }
                 var path = pathWhithIndex[0];
+                Console.WriteLine(path);
                 var index = Int32.Parse(pathWhithIndex[1]);
                 path = path.Trim('@');
                 return IconExtracter.Extract(path, index);
@@ -60,8 +69,10 @@ namespace ObjemDesktop.VolumeManaging
 
         private void OnSessionStateChanged(object sender, AudioSessionStateChangedEventArgs eventArgs)
         {
+            
             if (eventArgs.NewState == AudioSessionState.AudioSessionStateExpired)
             {
+                Console.WriteLine("Expire");
                 SessionExpired?.Invoke(sender, new SessionExpiredEventArg(this));
             }
         }
@@ -69,6 +80,11 @@ namespace ObjemDesktop.VolumeManaging
         {
             this.AudioSessionControl.Dispose();
             this.SimpleAudioVolume.Dispose();
+        }
+
+        public bool Equals(IVolumeController other)
+        {
+            return (ProcessId == other.ProcessId);
         }
     }
 }

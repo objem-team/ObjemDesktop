@@ -18,8 +18,8 @@ namespace ObjemDesktop
         {
             try
             {
-                WebsocketMessage message = JsonSerializer.Deserialize<WebsocketMessage>(e.Data);
-                Console.WriteLine(message.EventName);
+                WebsocketMessage message = JsonSerializer.Deserialize<WebsocketMessage>(e.Data,new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                Console.WriteLine(e.Data);
 
                 switch (message.EventName)
                 {
@@ -28,22 +28,24 @@ namespace ObjemDesktop
                             VolumeManager volumeManager = VolumeManager.Instance;
                             var serializeOptions = new JsonSerializerOptions
                             {
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                                 WriteIndented = true,
                                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                                 Converters =
-                            {
-                                new IconToBase64JsonConverter()
-                            }
+                                {
+                                    new IconToDataURLJsonConverter()
+                                }
                             };
-
-                            string jsonString = JsonSerializer.Serialize(volumeManager.list, serializeOptions);
-                            Sessions.Broadcast(jsonString);
+                            var sendMessage = new WebsocketSendMessage("session", volumeManager.list);
+                            string jsonString = JsonSerializer.Serialize(sendMessage, serializeOptions);
+                            Send(jsonString);
                         }
                         break;
 
                     case "setVolume":
                         {
-                            VolumeChangeRequest request = JsonSerializer.Deserialize<VolumeChangeRequest>(message.Data);
+                            Console.WriteLine(message.Data);
+                            VolumeChangeRequest request = JsonSerializer.Deserialize<VolumeChangeRequest>(message.Data.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                             VolumeManager volumeManager = VolumeManager.Instance;
                             volumeManager.setVolume(request.ProcessId, request.Volume);
                         }

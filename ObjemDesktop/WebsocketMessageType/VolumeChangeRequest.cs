@@ -11,7 +11,7 @@ namespace ObjemDesktop.WebsocketMessageType
         public int ProcessId { get; }
         public float Volume { get; }
 
-        VolumeChangeRequest(int processId,float volume)
+        public VolumeChangeRequest(int processId,float volume)
         {
             ProcessId = processId;
             Volume = volume;

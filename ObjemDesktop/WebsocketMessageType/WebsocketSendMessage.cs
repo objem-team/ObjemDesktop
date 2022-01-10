@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjemDesktop
+namespace ObjemDesktop.WebsocketMessageType
 {
-    class WebsocketMessage
+    class WebsocketSendMessage
     {
         public string EventName { get; set; }
         public object Data { get; set; }
 
-        public WebsocketMessage(string eventName, object data) {
+        public WebsocketSendMessage(string eventName, object data)
+        {
             EventName = eventName;
             Data = data;
         }

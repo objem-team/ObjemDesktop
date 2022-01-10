@@ -19,13 +19,24 @@ namespace ObjemDesktop.VolumeManaging
         public string Name { get; }
         public Icon Icon { get; }
 
+        public float Volume {
+            get 
+            {
+                return AudioEndpointVolume.MasterVolumeLevelScalar;
+            }
+        }
 
         public DeviceVolumeController(MMDevice device)
         {
             using (var enumerator = new MMDeviceEnumerator())
             {
-                //sessionとかぶることのないマイナス値をIDに用いる
-                ProcessId = new Random().Next()*-1;
+                /*
+                 * sessionとかぶることのないマイナス値をIDに用いる
+                 * デバイスidの文字列をbyteに変換し最後の4bitを用いてintに変換する
+                 */
+                byte[] deviceID = System.Text.Encoding.UTF8.GetBytes(device.DeviceID);
+                int processID = BitConverter.ToInt32(deviceID,deviceID.Length-4);
+                ProcessId = processID*-1;
                 Device = device;
                 AudioEndpointVolume = AudioEndpointVolume.FromDevice(Device);
                 Name = Device.FriendlyName;
@@ -55,6 +66,11 @@ namespace ObjemDesktop.VolumeManaging
         {
             Device.Dispose();
             AudioEndpointVolume.Dispose();
+        }
+
+        public bool Equals(IVolumeController other)
+        {
+            return (ProcessId == other.ProcessId);
         }
     }
 }

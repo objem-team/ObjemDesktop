@@ -55,12 +55,7 @@ namespace ObjemDesktop.VolumeManaging
             {
                 try
                 {
-                    var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
-                    var sessionControl = session.QueryInterface<AudioSessionControl2>();
-                    SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
-                    sessionVolumeController.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-                    sessionVolumeController.SessionExpired += (sender, arg) => OnSessionExpired?.Invoke(sender, arg);
-                    list.Add(sessionVolumeController);
+                    addSession(session);
                 }
                 catch (Exception e)
                 {
@@ -78,9 +73,25 @@ namespace ObjemDesktop.VolumeManaging
 
         }
 
+        private void registerEvent(SessionVolumeController sessionVolumeController)
+        {
+            sessionVolumeController.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            sessionVolumeController.SessionExpired += (sender, arg) => OnSessionExpired?.Invoke(sender, arg);
+        }
+
+        public void addSession(AudioSessionControl session)
+        {
+            var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
+            var sessionControl = session.QueryInterface<AudioSessionControl2>();
+            SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
+            registerEvent(sessionVolumeController);
+            list.Add(sessionVolumeController);
+        }
+
         public void setVolume(int processId,float volume)
         {
             list.Find(x => x.ProcessId == processId).SetVolume(volume);
         }
     }
+
 }
