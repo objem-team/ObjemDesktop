@@ -35,6 +35,16 @@ namespace ObjemDesktop.VolumeManaging
             DefaultRenderDevice = DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
             DefaultCaptureDevice = DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
 
+
+            //デバイス音量が変更されたときのイベントを登録
+            DeviceVolumeController RenderDeviceVolumeContoroller = new DeviceVolumeController(DefaultRenderDevice);
+            RenderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            list.Add(RenderDeviceVolumeContoroller);
+
+            DeviceVolumeController CaputureDeviceVolumeContoroller = new DeviceVolumeController(DefaultCaptureDevice);
+            CaputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            list.Add(CaputureDeviceVolumeContoroller);
+
             //デフォルトのデバイスが変更されたときのイベントを登録
             MMNotificationClient notificationClient = new MMNotificationClient();
             notificationClient.DefaultDeviceChanged += (object sender, DefaultDeviceChangedEventArgs eventArgs) => OnDefaultDeviceChanged?.Invoke(sender, eventArgs);
@@ -62,14 +72,6 @@ namespace ObjemDesktop.VolumeManaging
                     Console.WriteLine(e);
                 }
             }
-            //デバイス音量が変更されたときのイベントを登録
-            DeviceVolumeController RenderDeviceVolumeContoroller = new DeviceVolumeController(DefaultRenderDevice);
-            RenderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            list.Add(RenderDeviceVolumeContoroller);
-
-            DeviceVolumeController CaputureDeviceVolumeContoroller = new DeviceVolumeController(DefaultCaptureDevice);
-            CaputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            list.Add(CaputureDeviceVolumeContoroller);
 
         }
 
@@ -88,9 +90,9 @@ namespace ObjemDesktop.VolumeManaging
             list.Add(sessionVolumeController);
         }
 
-        public void setVolume(int processId,float volume)
+        public void setVolume(int processId,float volume,bool isMute)
         {
-            list.Find(x => x.ProcessId == processId).SetVolume(volume);
+            list.Find(x => x.ProcessId == processId).SetVolume(volume,isMute);
         }
     }
 

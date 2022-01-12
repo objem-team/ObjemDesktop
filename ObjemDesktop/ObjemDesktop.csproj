@@ -113,6 +113,7 @@
     <Compile Include="VolumeManaging\SessionVolumeController.cs" />
     <Compile Include="VolumeManaging\VolumeChangedEventArgs.cs" />
     <Compile Include="VolumeManaging\VolumeManager.cs" />
+    <Compile Include="WebsocketMessageType\VolumeChangeMessage.cs" />
     <Compile Include="WebsocketMessageType\VolumeChangeRequest.cs" />
     <Compile Include="WebsocketMessageType\WebsocketMessage.cs" />
     <Compile Include="WebsocketMessageType\WebsocketSendMessage.cs" />

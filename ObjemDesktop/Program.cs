@@ -1,5 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using ObjemDesktop.VolumeManaging;
+using ObjemDesktop.WebsocketMessageType;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,8 @@ namespace ObjemDesktop
 
             VolumeManager VolumeManager = VolumeManager.Instance;
             VolumeManager.OnSessionCreated += onSessionCreated;
-            VolumeManager.OnSessionExpired += OnSessionExpired;
+            VolumeManager.OnSessionExpired += onSessionExpired;
+            VolumeManager.OnVolumeChange += onVolumeChanged;
             WSServer WSS = WSServer.Instance;
             int WSSPort = 8000;
             WSS.Start(WSSPort);
@@ -45,11 +47,17 @@ namespace ObjemDesktop
             WebSocketUtil.broadCastSessions();
         }
 
-        static void OnSessionExpired(object sender, SessionExpiredEventArg arg)
+        static void onSessionExpired(object sender, SessionExpiredEventArg arg)
         {
             VolumeManager VolumeManager = VolumeManager.Instance;
             VolumeManager.list.Remove(arg.VolumeController);
             WebSocketUtil.broadCastSessions();
+        }
+
+        static void  onVolumeChanged(object sender,VolumeChangedEventArgs arg)
+        {
+            Console.WriteLine(arg.VolumeController.Name);
+            WebSocketUtil.SendNewVolume(arg);
         }
 
     }

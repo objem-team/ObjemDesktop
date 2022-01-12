@@ -20,6 +20,14 @@ namespace ObjemDesktop.VolumeManaging
             }
         }
 
+        public bool IsMuted
+        {
+            get
+            {
+                return SimpleAudioVolume.IsMuted;
+            }
+        }
+
         public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
         public event EventHandler<SessionExpiredEventArg> SessionExpired;
 
@@ -39,9 +47,10 @@ namespace ObjemDesktop.VolumeManaging
 
 
 
-        public void SetVolume(float newVolume)
+        public void SetVolume(float newVolume,bool isMute)
         {
             SimpleAudioVolume.MasterVolume = newVolume;
+            SimpleAudioVolume.IsMuted = isMute;
         }
 
 

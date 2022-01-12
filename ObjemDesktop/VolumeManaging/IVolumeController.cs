@@ -9,6 +9,7 @@ namespace ObjemDesktop.VolumeManaging
         string Name { get; }
         Icon Icon { get; }
         float Volume { get; }
-        void SetVolume(float newVolume);
+        bool IsMuted { get; }
+        void SetVolume(float newVolume,bool isMute);
     }
 }

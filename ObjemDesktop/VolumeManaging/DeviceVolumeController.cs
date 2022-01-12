@@ -25,7 +25,13 @@ namespace ObjemDesktop.VolumeManaging
                 return AudioEndpointVolume.MasterVolumeLevelScalar;
             }
         }
-
+        public bool IsMuted
+        {
+            get
+            {
+                return AudioEndpointVolume.IsMuted;
+            }
+        }
         public DeviceVolumeController(MMDevice device)
         {
             using (var enumerator = new MMDeviceEnumerator())
@@ -57,9 +63,10 @@ namespace ObjemDesktop.VolumeManaging
 
         }
 
-        public void SetVolume(float newVolume)
+        public void SetVolume(float newVolume,bool isMute)
         {
             AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
+            AudioEndpointVolume.IsMuted = isMute;
         }
 
         public void Dispose()
