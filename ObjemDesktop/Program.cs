@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebSocketSharp.Server;
@@ -20,7 +21,6 @@ namespace ObjemDesktop
         [MTAThread]
         static void Main()
         {
-
             VolumeManager VolumeManager = VolumeManager.Instance;
             VolumeManager.OnSessionCreated += onSessionCreated;
             VolumeManager.OnSessionExpired += onSessionExpired;

@@ -44,7 +44,6 @@ namespace ObjemDesktop
 
                     case "setVolume":
                         {
-                            Console.WriteLine(message.Data);
                             VolumeChangeRequest request = JsonSerializer.Deserialize<VolumeChangeRequest>(message.Data.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                             VolumeManager volumeManager = VolumeManager.Instance;
                             volumeManager.setVolume(request.ProcessId, request.Volume,request.IsMuted);
