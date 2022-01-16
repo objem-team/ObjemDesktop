@@ -63,6 +63,11 @@ namespace ObjemDesktop
             this.StartUpOptionLabel = new System.Windows.Forms.Label();
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
+            this.CertificateTabPage = new System.Windows.Forms.TabPage();
+            this.CertListView = new System.Windows.Forms.ListView();
+            this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
+            this.CreatedCertificate = new System.Windows.Forms.Label();
+            this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -70,6 +75,7 @@ namespace ObjemDesktop
             this.addShortcutGroupBox.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
             this.SettingTab.SuspendLayout();
+            this.CertificateTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelButton
@@ -417,11 +423,61 @@ namespace ObjemDesktop
             this.SettingTab.Controls.Add(this.ShortcutsTabPage);
             this.SettingTab.Controls.Add(this.GestureTabPage);
             this.SettingTab.Controls.Add(this.OBSTabPage);
+            this.SettingTab.Controls.Add(this.CertificateTabPage);
             this.SettingTab.Location = new System.Drawing.Point(12, 18);
             this.SettingTab.Name = "SettingTab";
             this.SettingTab.SelectedIndex = 0;
             this.SettingTab.Size = new System.Drawing.Size(470, 274);
-            this.SettingTab.TabIndex = 0;
+            this.SettingTab.TabIndex = 1;
+            // 
+            // CertificateTabPage
+            // 
+            this.CertificateTabPage.Controls.Add(this.ReGenerateCACertBtn);
+            this.CertificateTabPage.Controls.Add(this.CreatedCertificate);
+            this.CertificateTabPage.Controls.Add(this.ReGenerateCACertLabel);
+            this.CertificateTabPage.Controls.Add(this.CertListView);
+            this.CertificateTabPage.Location = new System.Drawing.Point(4, 22);
+            this.CertificateTabPage.Name = "CertificateTabPage";
+            this.CertificateTabPage.Size = new System.Drawing.Size(462, 248);
+            this.CertificateTabPage.TabIndex = 4;
+            this.CertificateTabPage.Text = "証明書";
+            this.CertificateTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CertListView
+            // 
+            this.CertListView.HideSelection = false;
+            this.CertListView.Location = new System.Drawing.Point(23, 84);
+            this.CertListView.Name = "CertListView";
+            this.CertListView.Size = new System.Drawing.Size(416, 152);
+            this.CertListView.TabIndex = 0;
+            this.CertListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // ReGenerateCACertLabel
+            // 
+            this.ReGenerateCACertLabel.AutoSize = true;
+            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 21);
+            this.ReGenerateCACertLabel.Name = "ReGenerateCACertLabel";
+            this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
+            this.ReGenerateCACertLabel.TabIndex = 1;
+            this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
+            // 
+            // CreatedCertificate
+            // 
+            this.CreatedCertificate.AutoSize = true;
+            this.CreatedCertificate.Location = new System.Drawing.Point(25, 56);
+            this.CreatedCertificate.Name = "CreatedCertificate";
+            this.CreatedCertificate.Size = new System.Drawing.Size(98, 12);
+            this.CreatedCertificate.TabIndex = 2;
+            this.CreatedCertificate.Text = "作成済みの証明書";
+            // 
+            // ReGenerateCACertBtn
+            // 
+            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(335, 16);
+            this.ReGenerateCACertBtn.Name = "ReGenerateCACertBtn";
+            this.ReGenerateCACertBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReGenerateCACertBtn.TabIndex = 3;
+            this.ReGenerateCACertBtn.Text = "再作成";
+            this.ReGenerateCACertBtn.UseVisualStyleBackColor = true;
             // 
             // SettingWindow
             // 
@@ -448,6 +504,8 @@ namespace ObjemDesktop
             this.GeneralTabPage.ResumeLayout(false);
             this.GeneralTabPage.PerformLayout();
             this.SettingTab.ResumeLayout(false);
+            this.CertificateTabPage.ResumeLayout(false);
+            this.CertificateTabPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -487,5 +545,10 @@ namespace ObjemDesktop
         private System.Windows.Forms.RadioButton LaunchApplicationRadioButton;
         private System.Windows.Forms.RadioButton KeyboardShortcutRadioButton;
         private System.Windows.Forms.GroupBox addShortcutGroupBox;
+        private System.Windows.Forms.TabPage CertificateTabPage;
+        private System.Windows.Forms.Button ReGenerateCACertBtn;
+        private System.Windows.Forms.Label CreatedCertificate;
+        private System.Windows.Forms.Label ReGenerateCACertLabel;
+        private System.Windows.Forms.ListView CertListView;
     }
 }

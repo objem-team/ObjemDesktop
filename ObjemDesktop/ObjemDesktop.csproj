@@ -103,6 +103,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Certificate\Certificate.cs" />
+    <Compile Include="Certificate\CertificateUtil.cs" />
+    <Compile Include="Certificate\X509CertificateExtensionType.cs" />
     <Compile Include="IconToDataURLJsonConverter.cs" />
     <Compile Include="IpAddress.cs" />
     <Compile Include="QrPair.cs" />
