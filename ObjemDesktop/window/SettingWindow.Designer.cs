@@ -65,13 +65,15 @@ namespace ObjemDesktop
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
+            this.CACertExportLabel = new System.Windows.Forms.Label();
+            this.DownLoadQRCodeBtn = new System.Windows.Forms.Button();
+            this.FileExportBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
-            this.FileExportBtn = new System.Windows.Forms.Button();
-            this.DownLoadQRCodeBtn = new System.Windows.Forms.Button();
-            this.CACertExportLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.CertDownloadLabel = new System.Windows.Forms.Label();
+            this.DownloadCAGroup = new System.Windows.Forms.GroupBox();
+            this.DownloadServerIPLabel = new System.Windows.Forms.Label();
+            this.DownloadServerIPComboBox = new System.Windows.Forms.ComboBox();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -80,6 +82,7 @@ namespace ObjemDesktop
             this.GeneralTabPage.SuspendLayout();
             this.SettingTab.SuspendLayout();
             this.CertificateTabPage.SuspendLayout();
+            this.DownloadCAGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelButton
@@ -445,9 +448,8 @@ namespace ObjemDesktop
             // 
             // CertificateTabPage
             // 
-            this.CertificateTabPage.Controls.Add(this.CertDownloadLabel);
+            this.CertificateTabPage.Controls.Add(this.DownloadCAGroup);
             this.CertificateTabPage.Controls.Add(this.CACertExportLabel);
-            this.CertificateTabPage.Controls.Add(this.DownLoadQRCodeBtn);
             this.CertificateTabPage.Controls.Add(this.FileExportBtn);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertBtn);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertLabel);
@@ -457,6 +459,35 @@ namespace ObjemDesktop
             this.CertificateTabPage.TabIndex = 4;
             this.CertificateTabPage.Text = "証明書";
             this.CertificateTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CACertExportLabel
+            // 
+            this.CACertExportLabel.AutoSize = true;
+            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
+            this.CACertExportLabel.Name = "CACertExportLabel";
+            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
+            this.CACertExportLabel.TabIndex = 7;
+            this.CACertExportLabel.Text = "CA証明書をエクスポートする";
+            // 
+            // DownLoadQRCodeBtn
+            // 
+            this.DownLoadQRCodeBtn.Location = new System.Drawing.Point(316, 60);
+            this.DownLoadQRCodeBtn.Name = "DownLoadQRCodeBtn";
+            this.DownLoadQRCodeBtn.Size = new System.Drawing.Size(73, 23);
+            this.DownLoadQRCodeBtn.TabIndex = 6;
+            this.DownLoadQRCodeBtn.Text = "開始";
+            this.DownLoadQRCodeBtn.UseVisualStyleBackColor = true;
+            this.DownLoadQRCodeBtn.Click += new System.EventHandler(this.DownLoadQRCodeBtn_Click);
+            // 
+            // FileExportBtn
+            // 
+            this.FileExportBtn.Location = new System.Drawing.Point(343, 67);
+            this.FileExportBtn.Name = "FileExportBtn";
+            this.FileExportBtn.Size = new System.Drawing.Size(95, 23);
+            this.FileExportBtn.TabIndex = 5;
+            this.FileExportBtn.Text = "エクスポート";
+            this.FileExportBtn.UseVisualStyleBackColor = true;
+            this.FileExportBtn.Click += new System.EventHandler(this.FileExportBtn_Click);
             // 
             // ReGenerateCACertBtn
             // 
@@ -477,43 +508,35 @@ namespace ObjemDesktop
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
-            // FileExportBtn
+            // DownloadCAGroup
             // 
-            this.FileExportBtn.Location = new System.Drawing.Point(343, 72);
-            this.FileExportBtn.Name = "FileExportBtn";
-            this.FileExportBtn.Size = new System.Drawing.Size(95, 23);
-            this.FileExportBtn.TabIndex = 5;
-            this.FileExportBtn.Text = "エクスポート";
-            this.FileExportBtn.UseVisualStyleBackColor = true;
-            this.FileExportBtn.Click += new System.EventHandler(this.FileExportBtn_Click);
+            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPComboBox);
+            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPLabel);
+            this.DownloadCAGroup.Controls.Add(this.DownLoadQRCodeBtn);
+            this.DownloadCAGroup.Location = new System.Drawing.Point(27, 117);
+            this.DownloadCAGroup.Name = "DownloadCAGroup";
+            this.DownloadCAGroup.Size = new System.Drawing.Size(411, 89);
+            this.DownloadCAGroup.TabIndex = 9;
+            this.DownloadCAGroup.TabStop = false;
+            this.DownloadCAGroup.Text = "他の端末へ転送する";
             // 
-            // DownLoadQRCodeBtn
+            // DownloadServerIPLabel
             // 
-            this.DownLoadQRCodeBtn.Location = new System.Drawing.Point(365, 117);
-            this.DownLoadQRCodeBtn.Name = "DownLoadQRCodeBtn";
-            this.DownLoadQRCodeBtn.Size = new System.Drawing.Size(73, 23);
-            this.DownLoadQRCodeBtn.TabIndex = 6;
-            this.DownLoadQRCodeBtn.Text = "開始";
-            this.DownLoadQRCodeBtn.UseVisualStyleBackColor = true;
-            this.DownLoadQRCodeBtn.Click += new System.EventHandler(this.DownLoadQRCodeBtn_Click);
+            this.DownloadServerIPLabel.AutoSize = true;
+            this.DownloadServerIPLabel.Location = new System.Drawing.Point(119, 29);
+            this.DownloadServerIPLabel.Name = "DownloadServerIPLabel";
+            this.DownloadServerIPLabel.Size = new System.Drawing.Size(120, 12);
+            this.DownloadServerIPLabel.TabIndex = 7;
+            this.DownloadServerIPLabel.Text = "表示するQRのIPアドレス";
             // 
-            // CACertExportLabel
+            // DownloadServerIPComboBox
             // 
-            this.CACertExportLabel.AutoSize = true;
-            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
-            this.CACertExportLabel.Name = "CACertExportLabel";
-            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
-            this.CACertExportLabel.TabIndex = 7;
-            this.CACertExportLabel.Text = "CA証明書をエクスポートする";
-            // 
-            // CertDownloadLabel
-            // 
-            this.CertDownloadLabel.AutoSize = true;
-            this.CertDownloadLabel.Location = new System.Drawing.Point(27, 117);
-            this.CertDownloadLabel.Name = "CertDownloadLabel";
-            this.CertDownloadLabel.Size = new System.Drawing.Size(225, 12);
-            this.CertDownloadLabel.TabIndex = 8;
-            this.CertDownloadLabel.Text = "他の端末に転送する(管理者権限が必要です)";
+            this.DownloadServerIPComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DownloadServerIPComboBox.FormattingEnabled = true;
+            this.DownloadServerIPComboBox.Location = new System.Drawing.Point(268, 26);
+            this.DownloadServerIPComboBox.Name = "DownloadServerIPComboBox";
+            this.DownloadServerIPComboBox.Size = new System.Drawing.Size(121, 20);
+            this.DownloadServerIPComboBox.TabIndex = 8;
             // 
             // SettingWindow
             // 
@@ -543,6 +566,8 @@ namespace ObjemDesktop
             this.SettingTab.ResumeLayout(false);
             this.CertificateTabPage.ResumeLayout(false);
             this.CertificateTabPage.PerformLayout();
+            this.DownloadCAGroup.ResumeLayout(false);
+            this.DownloadCAGroup.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -590,6 +615,8 @@ namespace ObjemDesktop
         private System.Windows.Forms.Button DownLoadQRCodeBtn;
         private System.Windows.Forms.Button FileExportBtn;
         private System.Windows.Forms.SaveFileDialog saveCACertFileDialog;
-        private System.Windows.Forms.Label CertDownloadLabel;
+        private System.Windows.Forms.GroupBox DownloadCAGroup;
+        private System.Windows.Forms.ComboBox DownloadServerIPComboBox;
+        private System.Windows.Forms.Label DownloadServerIPLabel;
     }
 }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.Text;
@@ -27,7 +28,7 @@ namespace ObjemDesktop
 
         private void SettingWindow_Load(object sender, EventArgs e)
         {
-
+            DownloadServerIPComboBox.DataSource = IPAddressUtil.getIPAdressList();
         }
 
         private void ReGenerateCACertBtn_Click(object sender, EventArgs e)
@@ -72,31 +73,9 @@ namespace ObjemDesktop
         }
 
         private void DownLoadQRCodeBtn_Click(object sender, EventArgs e)
-        {
-            if (Program.IsAdministrator())
-            {
-                DownLoadQRForm form = new DownLoadQRForm();
-                form.ShowDialog();
-            }
-            else
-            {
-                var message = "管理者権限で起動されていません、再起動しますか？";
-                if (MessageBox.Show(message, "再起動", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))
-                {
-                    // Restart and run as admin
-                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
-                    ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
-                    startInfo.Verb = "runas";
-                    startInfo.Arguments = "restart";
-                    Process.Start(startInfo);
-                    Application.Exit();
-                }
-                else
-                {
-                    //なにもしない
-                }
-            }
-
+        {   
+            DownLoadQRForm form = new DownLoadQRForm((IPAddress)DownloadServerIPComboBox.SelectedItem);
+            form.ShowDialog();
         }
         
     }

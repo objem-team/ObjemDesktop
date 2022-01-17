@@ -46,7 +46,7 @@ namespace ObjemDesktop.window
             // DownloadLinkLabel
             // 
             this.DownloadLinkLabel.AutoSize = true;
-            this.DownloadLinkLabel.Location = new System.Drawing.Point(21, 343);
+            this.DownloadLinkLabel.Location = new System.Drawing.Point(12, 334);
             this.DownloadLinkLabel.Name = "DownloadLinkLabel";
             this.DownloadLinkLabel.Size = new System.Drawing.Size(56, 12);
             this.DownloadLinkLabel.TabIndex = 1;
@@ -56,7 +56,7 @@ namespace ObjemDesktop.window
             // 
             // CloseBtn
             // 
-            this.CloseBtn.Location = new System.Drawing.Point(112, 376);
+            this.CloseBtn.Location = new System.Drawing.Point(110, 357);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.Size = new System.Drawing.Size(75, 23);
             this.CloseBtn.TabIndex = 2;
@@ -68,7 +68,7 @@ namespace ObjemDesktop.window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 411);
+            this.ClientSize = new System.Drawing.Size(325, 385);
             this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.DownloadLinkLabel);
             this.Controls.Add(this.DownloadQR);

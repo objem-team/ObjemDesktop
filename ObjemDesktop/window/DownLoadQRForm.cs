@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Windows.Forms;
@@ -8,17 +9,19 @@ namespace ObjemDesktop.window
 {
     public partial class DownLoadQRForm : Form
     {
+        private IPAddress IPAddress;
         private HttpDownloadServer DownloadServer;
         private string url;
-        public DownLoadQRForm()
+        public DownLoadQRForm(IPAddress address)
         {
+            IPAddress = address;
             InitializeComponent();
         }
 
         private void DownLoadQRForm_Load(object sender, EventArgs e)
         {
             int port = 4000;
-            url = $"http://localhost:{port}";
+            url = $"{IPAddress}:{port}";
             var QR = QrGenerater.Generate(url, DownloadQR.Width, DownloadQR.Height);
             var cert = Certificate.CertificateUtil.ExportToPemString(new X509Certificate2(@"certs\CAcert.pfx"));
 

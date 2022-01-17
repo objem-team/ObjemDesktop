@@ -6,13 +6,14 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WebSocketSharp.Server;
 
 namespace ObjemDesktop.window
 {
     class HttpDownloadServer
     {
+        private HttpServer Server;
         private byte[] Binary;
-        private Thread Thread;
         private int Port;
         public HttpDownloadServer(string filePath,int port)
         {
@@ -30,33 +31,26 @@ namespace ObjemDesktop.window
         }
         public void start()
         {
-
-            Thread = new Thread(new ThreadStart(() =>
+            Server = new HttpServer(Port);
+            Server.OnGet += (sender, e) =>
             {
-
-                HttpListener Listener = new HttpListener();
-                Listener.Prefixes.Clear();
-                Listener.Prefixes.Add($"http://+:{Port}/");
-                Listener.Start();
-                while (true)
-                {
-                    HttpListenerContext context = Listener.GetContext();
-                    HttpListenerResponse response = context.Response;
-                    response.Headers.Add("Content-Disposition", "attachment;filename = \"CAcert.crt\"");
-                    response.ContentLength64 = Binary.Length;
-                    Stream output = response.OutputStream;
-                    output.Write(Binary, 0, Binary.Length);
-                    // You must close the output stream.
-                    output.Close();
-                }
-            }));
-            Thread.Start();
+                var request = e.Request;
+                var response = e.Response;
+                response.AddHeader("Content-Disposition", "attachment;filename = \"CAcert.crt\"");
+                response.ContentType = "application/octet-stream";
+                response.ContentLength64 = Binary.Length;
+                response.Close(Binary, true);
+            };
+            Server.Start();
 
         }
 
+
+
+
         public void stop()
         {
-            Thread.CurrentThread.Interrupt();
+            Server.Stop();
         }
     }
 }
