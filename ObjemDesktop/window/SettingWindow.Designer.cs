@@ -57,6 +57,8 @@ namespace ObjemDesktop
             this.ShortcutName = new System.Windows.Forms.Label();
             this.ShortcutsListView = new System.Windows.Forms.ListView();
             this.GeneralTabPage = new System.Windows.Forms.TabPage();
+            this.ServerIpAdressLabel = new System.Windows.Forms.Label();
+            this.ServerIpAddressComboBox = new System.Windows.Forms.ComboBox();
             this.DisableProcessAddButton = new System.Windows.Forms.Button();
             this.DisableProcessListBox = new System.Windows.Forms.ListBox();
             this.DisableProcessLabel = new System.Windows.Forms.Label();
@@ -64,11 +66,12 @@ namespace ObjemDesktop
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
-            this.CreatedCertificate = new System.Windows.Forms.Label();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
-            this.CertListView = new System.Windows.Forms.ListView();
-            this.ServerIpAddressComboBox = new System.Windows.Forms.ComboBox();
-            this.ServerIpAdressLabel = new System.Windows.Forms.Label();
+            this.FileExportBtn = new System.Windows.Forms.Button();
+            this.DownLoadQRCodeBtn = new System.Windows.Forms.Button();
+            this.CACertExportLabel = new System.Windows.Forms.Label();
+            this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.CertDownloadLabel = new System.Windows.Forms.Label();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -372,6 +375,23 @@ namespace ObjemDesktop
             this.GeneralTabPage.Text = "一般";
             this.GeneralTabPage.UseVisualStyleBackColor = true;
             // 
+            // ServerIpAdressLabel
+            // 
+            this.ServerIpAdressLabel.AutoSize = true;
+            this.ServerIpAdressLabel.Location = new System.Drawing.Point(31, 53);
+            this.ServerIpAdressLabel.Name = "ServerIpAdressLabel";
+            this.ServerIpAdressLabel.Size = new System.Drawing.Size(101, 12);
+            this.ServerIpAdressLabel.TabIndex = 6;
+            this.ServerIpAdressLabel.Text = "サーバーのIPアドレス";
+            // 
+            // ServerIpAddressComboBox
+            // 
+            this.ServerIpAddressComboBox.FormattingEnabled = true;
+            this.ServerIpAddressComboBox.Location = new System.Drawing.Point(194, 50);
+            this.ServerIpAddressComboBox.Name = "ServerIpAddressComboBox";
+            this.ServerIpAddressComboBox.Size = new System.Drawing.Size(233, 20);
+            this.ServerIpAddressComboBox.TabIndex = 5;
+            // 
             // DisableProcessAddButton
             // 
             this.DisableProcessAddButton.Location = new System.Drawing.Point(366, 218);
@@ -425,10 +445,12 @@ namespace ObjemDesktop
             // 
             // CertificateTabPage
             // 
+            this.CertificateTabPage.Controls.Add(this.CertDownloadLabel);
+            this.CertificateTabPage.Controls.Add(this.CACertExportLabel);
+            this.CertificateTabPage.Controls.Add(this.DownLoadQRCodeBtn);
+            this.CertificateTabPage.Controls.Add(this.FileExportBtn);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertBtn);
-            this.CertificateTabPage.Controls.Add(this.CreatedCertificate);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertLabel);
-            this.CertificateTabPage.Controls.Add(this.CertListView);
             this.CertificateTabPage.Location = new System.Drawing.Point(4, 22);
             this.CertificateTabPage.Name = "CertificateTabPage";
             this.CertificateTabPage.Size = new System.Drawing.Size(462, 248);
@@ -438,56 +460,60 @@ namespace ObjemDesktop
             // 
             // ReGenerateCACertBtn
             // 
-            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(335, 16);
+            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(365, 21);
             this.ReGenerateCACertBtn.Name = "ReGenerateCACertBtn";
             this.ReGenerateCACertBtn.Size = new System.Drawing.Size(75, 23);
             this.ReGenerateCACertBtn.TabIndex = 3;
             this.ReGenerateCACertBtn.Text = "再作成";
             this.ReGenerateCACertBtn.UseVisualStyleBackColor = true;
-            // 
-            // CreatedCertificate
-            // 
-            this.CreatedCertificate.AutoSize = true;
-            this.CreatedCertificate.Location = new System.Drawing.Point(25, 56);
-            this.CreatedCertificate.Name = "CreatedCertificate";
-            this.CreatedCertificate.Size = new System.Drawing.Size(98, 12);
-            this.CreatedCertificate.TabIndex = 2;
-            this.CreatedCertificate.Text = "作成済みの証明書";
+            this.ReGenerateCACertBtn.Click += new System.EventHandler(this.ReGenerateCACertBtn_Click);
             // 
             // ReGenerateCACertLabel
             // 
             this.ReGenerateCACertLabel.AutoSize = true;
-            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 21);
+            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 26);
             this.ReGenerateCACertLabel.Name = "ReGenerateCACertLabel";
             this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
-            // CertListView
+            // FileExportBtn
             // 
-            this.CertListView.HideSelection = false;
-            this.CertListView.Location = new System.Drawing.Point(23, 84);
-            this.CertListView.Name = "CertListView";
-            this.CertListView.Size = new System.Drawing.Size(416, 152);
-            this.CertListView.TabIndex = 0;
-            this.CertListView.UseCompatibleStateImageBehavior = false;
+            this.FileExportBtn.Location = new System.Drawing.Point(343, 72);
+            this.FileExportBtn.Name = "FileExportBtn";
+            this.FileExportBtn.Size = new System.Drawing.Size(95, 23);
+            this.FileExportBtn.TabIndex = 5;
+            this.FileExportBtn.Text = "エクスポート";
+            this.FileExportBtn.UseVisualStyleBackColor = true;
+            this.FileExportBtn.Click += new System.EventHandler(this.FileExportBtn_Click);
             // 
-            // ServerIpAddressComboBox
+            // DownLoadQRCodeBtn
             // 
-            this.ServerIpAddressComboBox.FormattingEnabled = true;
-            this.ServerIpAddressComboBox.Location = new System.Drawing.Point(194, 50);
-            this.ServerIpAddressComboBox.Name = "ServerIpAddressComboBox";
-            this.ServerIpAddressComboBox.Size = new System.Drawing.Size(233, 20);
-            this.ServerIpAddressComboBox.TabIndex = 5;
+            this.DownLoadQRCodeBtn.Location = new System.Drawing.Point(365, 117);
+            this.DownLoadQRCodeBtn.Name = "DownLoadQRCodeBtn";
+            this.DownLoadQRCodeBtn.Size = new System.Drawing.Size(73, 23);
+            this.DownLoadQRCodeBtn.TabIndex = 6;
+            this.DownLoadQRCodeBtn.Text = "開始";
+            this.DownLoadQRCodeBtn.UseVisualStyleBackColor = true;
+            this.DownLoadQRCodeBtn.Click += new System.EventHandler(this.DownLoadQRCodeBtn_Click);
             // 
-            // ServerIpAdressLabel
+            // CACertExportLabel
             // 
-            this.ServerIpAdressLabel.AutoSize = true;
-            this.ServerIpAdressLabel.Location = new System.Drawing.Point(31, 53);
-            this.ServerIpAdressLabel.Name = "ServerIpAdressLabel";
-            this.ServerIpAdressLabel.Size = new System.Drawing.Size(101, 12);
-            this.ServerIpAdressLabel.TabIndex = 6;
-            this.ServerIpAdressLabel.Text = "サーバーのIPアドレス";
+            this.CACertExportLabel.AutoSize = true;
+            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
+            this.CACertExportLabel.Name = "CACertExportLabel";
+            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
+            this.CACertExportLabel.TabIndex = 7;
+            this.CACertExportLabel.Text = "CA証明書をエクスポートする";
+            // 
+            // CertDownloadLabel
+            // 
+            this.CertDownloadLabel.AutoSize = true;
+            this.CertDownloadLabel.Location = new System.Drawing.Point(27, 117);
+            this.CertDownloadLabel.Name = "CertDownloadLabel";
+            this.CertDownloadLabel.Size = new System.Drawing.Size(225, 12);
+            this.CertDownloadLabel.TabIndex = 8;
+            this.CertDownloadLabel.Text = "他の端末に転送する(管理者権限が必要です)";
             // 
             // SettingWindow
             // 
@@ -501,6 +527,7 @@ namespace ObjemDesktop
             this.MinimizeBox = false;
             this.Name = "SettingWindow";
             this.Text = "設定";
+            this.Load += new System.EventHandler(this.SettingWindow_Load);
             this.OBSTabPage.ResumeLayout(false);
             this.OBSTabPage.PerformLayout();
             this.GestureTabPage.ResumeLayout(false);
@@ -556,10 +583,13 @@ namespace ObjemDesktop
         private System.Windows.Forms.GroupBox addShortcutGroupBox;
         private System.Windows.Forms.TabPage CertificateTabPage;
         private System.Windows.Forms.Button ReGenerateCACertBtn;
-        private System.Windows.Forms.Label CreatedCertificate;
         private System.Windows.Forms.Label ReGenerateCACertLabel;
-        private System.Windows.Forms.ListView CertListView;
         private System.Windows.Forms.Label ServerIpAdressLabel;
         private System.Windows.Forms.ComboBox ServerIpAddressComboBox;
+        private System.Windows.Forms.Label CACertExportLabel;
+        private System.Windows.Forms.Button DownLoadQRCodeBtn;
+        private System.Windows.Forms.Button FileExportBtn;
+        private System.Windows.Forms.SaveFileDialog saveCACertFileDialog;
+        private System.Windows.Forms.Label CertDownloadLabel;
     }
 }

@@ -121,6 +121,13 @@
     <Compile Include="WebsocketMessageType\WebsocketMessage.cs" />
     <Compile Include="WebsocketMessageType\WebsocketSendMessage.cs" />
     <Compile Include="WebSocketUtil.cs" />
+    <Compile Include="window\DownLoadQRForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="window\DownLoadQRForm.Designer.cs">
+      <DependentUpon>DownLoadQRForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HttpDownloadServer.cs" />
     <Compile Include="window\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +145,9 @@
       <DependentUpon>SettingWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="WSServer.cs" />
+    <EmbeddedResource Include="window\DownLoadQRForm.resx">
+      <DependentUpon>DownLoadQRForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="window\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -15,6 +15,8 @@ using WebSocketSharp.Server;
 using ObjemDesktop.Certificate;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
+using System.Drawing;
+using System.Security.Principal;
 
 namespace ObjemDesktop
 {
@@ -30,6 +32,8 @@ namespace ObjemDesktop
             var ipList = IPAddressUtil.getIPAdressList();
             var DIR = "certs";
             var CA_CERT_PATH = $"{DIR}\\CAcert.pfx";
+
+
             if (!Directory.Exists(DIR)) Directory.CreateDirectory(DIR);
 
             if (!File.Exists(CA_CERT_PATH))
@@ -84,6 +88,11 @@ namespace ObjemDesktop
             Console.WriteLine(arg.VolumeController.Name);
             WebSocketUtil.SendNewVolume(arg);
         }
-
+        public static  bool IsAdministrator()
+        {
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
     }
 }
