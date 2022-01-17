@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace ObjemDesktop
 {
-    class IpAddress
+    class IPAddressUtil
     {
-        public static List<IPAddress> IpAdress()
+        public static List<IPAddress> getIPAdressList()
         {
             //IPアドレス取得
-            String hostname = Dns.GetHostName();
-            String ip = String.Empty;
-
+            string hostname = Dns.GetHostName();
+            string ip = string.Empty;
             IPAddress[] Addresess = Dns.GetHostAddresses(hostname);
             List<IPAddress> AddressList = Addresess.Where(address => address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToList();
             return AddressList;

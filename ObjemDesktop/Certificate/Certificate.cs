@@ -31,7 +31,7 @@ namespace ObjemDesktop.Certificate
             return certificate;
         }
 
-        public static X509Certificate2 SignedServerCertificate(X509Certificate2 CAcert,IPAddress iPAddress)
+        public static X509Certificate2 CreateSignedServerCertificate(X509Certificate2 CAcert,IPAddress iPAddress)
         {
             RSACryptoServiceProvider rsaPrivateKey = new RSACryptoServiceProvider(2048);
             CertificateRequest request = new CertificateRequest(

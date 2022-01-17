@@ -64,10 +64,10 @@ namespace ObjemDesktop
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
-            this.CertListView = new System.Windows.Forms.ListView();
-            this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
-            this.CreatedCertificate = new System.Windows.Forms.Label();
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
+            this.CreatedCertificate = new System.Windows.Forms.Label();
+            this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
+            this.CertListView = new System.Windows.Forms.ListView();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -443,23 +443,14 @@ namespace ObjemDesktop
             this.CertificateTabPage.Text = "証明書";
             this.CertificateTabPage.UseVisualStyleBackColor = true;
             // 
-            // CertListView
+            // ReGenerateCACertBtn
             // 
-            this.CertListView.HideSelection = false;
-            this.CertListView.Location = new System.Drawing.Point(23, 84);
-            this.CertListView.Name = "CertListView";
-            this.CertListView.Size = new System.Drawing.Size(416, 152);
-            this.CertListView.TabIndex = 0;
-            this.CertListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // ReGenerateCACertLabel
-            // 
-            this.ReGenerateCACertLabel.AutoSize = true;
-            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 21);
-            this.ReGenerateCACertLabel.Name = "ReGenerateCACertLabel";
-            this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
-            this.ReGenerateCACertLabel.TabIndex = 1;
-            this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
+            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(335, 16);
+            this.ReGenerateCACertBtn.Name = "ReGenerateCACertBtn";
+            this.ReGenerateCACertBtn.Size = new System.Drawing.Size(75, 23);
+            this.ReGenerateCACertBtn.TabIndex = 3;
+            this.ReGenerateCACertBtn.Text = "再作成";
+            this.ReGenerateCACertBtn.UseVisualStyleBackColor = true;
             // 
             // CreatedCertificate
             // 
@@ -470,14 +461,23 @@ namespace ObjemDesktop
             this.CreatedCertificate.TabIndex = 2;
             this.CreatedCertificate.Text = "作成済みの証明書";
             // 
-            // ReGenerateCACertBtn
+            // ReGenerateCACertLabel
             // 
-            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(335, 16);
-            this.ReGenerateCACertBtn.Name = "ReGenerateCACertBtn";
-            this.ReGenerateCACertBtn.Size = new System.Drawing.Size(75, 23);
-            this.ReGenerateCACertBtn.TabIndex = 3;
-            this.ReGenerateCACertBtn.Text = "再作成";
-            this.ReGenerateCACertBtn.UseVisualStyleBackColor = true;
+            this.ReGenerateCACertLabel.AutoSize = true;
+            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 21);
+            this.ReGenerateCACertLabel.Name = "ReGenerateCACertLabel";
+            this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
+            this.ReGenerateCACertLabel.TabIndex = 1;
+            this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
+            // 
+            // CertListView
+            // 
+            this.CertListView.HideSelection = false;
+            this.CertListView.Location = new System.Drawing.Point(23, 84);
+            this.CertListView.Name = "CertListView";
+            this.CertListView.Size = new System.Drawing.Size(416, 152);
+            this.CertListView.TabIndex = 0;
+            this.CertListView.UseCompatibleStateImageBehavior = false;
             // 
             // SettingWindow
             // 

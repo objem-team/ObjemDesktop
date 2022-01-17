@@ -7,7 +7,7 @@ namespace ObjemDesktop.Certificate
 {
     class CertificateUtil
     {
-        public static void ExportAsPem(X509Certificate2 cert,string pathWithFileName,X509CertificateExtensionType extension,SecureString password)
+        public static void ExportAsPem(X509Certificate2 cert,string path,SecureString password)
         {
             byte[] certBytes = cert.Export(X509ContentType.Cert, password);
 
@@ -15,7 +15,7 @@ namespace ObjemDesktop.Certificate
                 + Convert.ToBase64String(certBytes, Base64FormattingOptions.InsertLineBreaks)
                 + "\r\n-----END CERTIFICATE-----";
 
-            using(FileStream fs = new FileStream(pathWithFileName+extension, FileMode.Create, FileAccess.Write))
+            using(FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 using(StreamWriter writer = new StreamWriter(fs))
                 {
@@ -25,7 +25,7 @@ namespace ObjemDesktop.Certificate
 
         }
 
-        public static void ExportAsPem(X509Certificate2 cert, string pathWithFileName, X509CertificateExtensionType extension)
+        public static void ExportAsPem(X509Certificate2 cert, string path)
         {
             byte[] certBytes = cert.Export(X509ContentType.Cert);
 
@@ -33,13 +33,18 @@ namespace ObjemDesktop.Certificate
                 + Convert.ToBase64String(certBytes, Base64FormattingOptions.InsertLineBreaks)
                 + "\r\n-----END CERTIFICATE-----";
 
-            using (FileStream fs = new FileStream(pathWithFileName + extension, FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 using (StreamWriter writer = new StreamWriter(fs))
                 {
                     writer.Write(encodedText);
                 }
             }
+        }
+
+        internal static void ExportAsPem(X509Certificate2 cert, string v, string crt)
+        {
+            throw new NotImplementedException();
         }
 
         public static void ExportAsPfx(X509Certificate2 cert, string pathWithFileName, SecureString password)
@@ -53,10 +58,10 @@ namespace ObjemDesktop.Certificate
                 }
             }
         }
-        public static void ExportAsPfx(X509Certificate2 cert, string pathWithFileName)
+        public static void ExportAsPfx(X509Certificate2 cert, string path)
         {
             byte[] certBytes = cert.Export(X509ContentType.Pfx);
-            using (FileStream fs = new FileStream(pathWithFileName + ".pfx", FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
                 using (BinaryWriter writer = new BinaryWriter(fs))
                 {

@@ -107,8 +107,8 @@
     <Compile Include="Certificate\CertificateUtil.cs" />
     <Compile Include="Certificate\X509CertificateExtensionType.cs" />
     <Compile Include="IconToDataURLJsonConverter.cs" />
-    <Compile Include="IpAddress.cs" />
-    <Compile Include="QrPair.cs" />
+    <Compile Include="IPAddressUtil.cs" />
+    <Compile Include="IPConboBoxValue.cs" />
     <Compile Include="VolumeManaging\DeviceVolumeController.cs" />
     <Compile Include="VolumeManaging\IconExtracter.cs" />
     <Compile Include="VolumeManaging\IVolumeController.cs" />
