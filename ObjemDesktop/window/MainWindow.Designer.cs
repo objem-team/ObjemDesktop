@@ -67,7 +67,7 @@ namespace ObjemDesktop
             // IpAddressComboBox
             // 
             this.IpAddressComboBox.FormattingEnabled = true;
-            this.IpAddressComboBox.Location = new System.Drawing.Point(12, 328);
+            this.IpAddressComboBox.Location = new System.Drawing.Point(12, 333);
             this.IpAddressComboBox.Name = "IpAddressComboBox";
             this.IpAddressComboBox.Size = new System.Drawing.Size(300, 20);
             this.IpAddressComboBox.TabIndex = 3;

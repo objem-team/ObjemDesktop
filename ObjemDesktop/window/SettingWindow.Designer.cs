@@ -60,7 +60,6 @@ namespace ObjemDesktop
             this.DisableProcessAddButton = new System.Windows.Forms.Button();
             this.DisableProcessListBox = new System.Windows.Forms.ListBox();
             this.DisableProcessLabel = new System.Windows.Forms.Label();
-            this.StartUpOptionLabel = new System.Windows.Forms.Label();
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
@@ -68,6 +67,8 @@ namespace ObjemDesktop
             this.CreatedCertificate = new System.Windows.Forms.Label();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.CertListView = new System.Windows.Forms.ListView();
+            this.ServerIpAddressComboBox = new System.Windows.Forms.ComboBox();
+            this.ServerIpAdressLabel = new System.Windows.Forms.Label();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -357,10 +358,11 @@ namespace ObjemDesktop
             // 
             // GeneralTabPage
             // 
+            this.GeneralTabPage.Controls.Add(this.ServerIpAdressLabel);
+            this.GeneralTabPage.Controls.Add(this.ServerIpAddressComboBox);
             this.GeneralTabPage.Controls.Add(this.DisableProcessAddButton);
             this.GeneralTabPage.Controls.Add(this.DisableProcessListBox);
             this.GeneralTabPage.Controls.Add(this.DisableProcessLabel);
-            this.GeneralTabPage.Controls.Add(this.StartUpOptionLabel);
             this.GeneralTabPage.Controls.Add(this.StartupCheckBox);
             this.GeneralTabPage.Location = new System.Drawing.Point(4, 22);
             this.GeneralTabPage.Name = "GeneralTabPage";
@@ -372,7 +374,7 @@ namespace ObjemDesktop
             // 
             // DisableProcessAddButton
             // 
-            this.DisableProcessAddButton.Location = new System.Drawing.Point(365, 213);
+            this.DisableProcessAddButton.Location = new System.Drawing.Point(366, 218);
             this.DisableProcessAddButton.Name = "DisableProcessAddButton";
             this.DisableProcessAddButton.Size = new System.Drawing.Size(68, 19);
             this.DisableProcessAddButton.TabIndex = 4;
@@ -383,33 +385,24 @@ namespace ObjemDesktop
             // 
             this.DisableProcessListBox.FormattingEnabled = true;
             this.DisableProcessListBox.ItemHeight = 12;
-            this.DisableProcessListBox.Location = new System.Drawing.Point(32, 107);
+            this.DisableProcessListBox.Location = new System.Drawing.Point(33, 119);
             this.DisableProcessListBox.Name = "DisableProcessListBox";
-            this.DisableProcessListBox.Size = new System.Drawing.Size(401, 100);
+            this.DisableProcessListBox.Size = new System.Drawing.Size(394, 88);
             this.DisableProcessListBox.TabIndex = 3;
             // 
             // DisableProcessLabel
             // 
             this.DisableProcessLabel.AutoSize = true;
-            this.DisableProcessLabel.Location = new System.Drawing.Point(21, 81);
+            this.DisableProcessLabel.Location = new System.Drawing.Point(31, 88);
             this.DisableProcessLabel.Name = "DisableProcessLabel";
             this.DisableProcessLabel.Size = new System.Drawing.Size(309, 12);
             this.DisableProcessLabel.TabIndex = 2;
             this.DisableProcessLabel.Text = "プロセスの無効化(Webアプリ及びハードウェアには表示されません)";
             // 
-            // StartUpOptionLabel
-            // 
-            this.StartUpOptionLabel.AutoSize = true;
-            this.StartUpOptionLabel.Location = new System.Drawing.Point(19, 17);
-            this.StartUpOptionLabel.Name = "StartUpOptionLabel";
-            this.StartUpOptionLabel.Size = new System.Drawing.Size(55, 12);
-            this.StartUpOptionLabel.TabIndex = 1;
-            this.StartUpOptionLabel.Text = "セットアップ";
-            // 
             // StartupCheckBox
             // 
             this.StartupCheckBox.AutoSize = true;
-            this.StartupCheckBox.Location = new System.Drawing.Point(23, 40);
+            this.StartupCheckBox.Location = new System.Drawing.Point(33, 18);
             this.StartupCheckBox.Name = "StartupCheckBox";
             this.StartupCheckBox.Size = new System.Drawing.Size(188, 16);
             this.StartupCheckBox.TabIndex = 0;
@@ -479,6 +472,23 @@ namespace ObjemDesktop
             this.CertListView.TabIndex = 0;
             this.CertListView.UseCompatibleStateImageBehavior = false;
             // 
+            // ServerIpAddressComboBox
+            // 
+            this.ServerIpAddressComboBox.FormattingEnabled = true;
+            this.ServerIpAddressComboBox.Location = new System.Drawing.Point(194, 50);
+            this.ServerIpAddressComboBox.Name = "ServerIpAddressComboBox";
+            this.ServerIpAddressComboBox.Size = new System.Drawing.Size(233, 20);
+            this.ServerIpAddressComboBox.TabIndex = 5;
+            // 
+            // ServerIpAdressLabel
+            // 
+            this.ServerIpAdressLabel.AutoSize = true;
+            this.ServerIpAdressLabel.Location = new System.Drawing.Point(31, 53);
+            this.ServerIpAdressLabel.Name = "ServerIpAdressLabel";
+            this.ServerIpAdressLabel.Size = new System.Drawing.Size(101, 12);
+            this.ServerIpAdressLabel.TabIndex = 6;
+            this.ServerIpAdressLabel.Text = "サーバーのIPアドレス";
+            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -530,7 +540,6 @@ namespace ObjemDesktop
         private System.Windows.Forms.Button DisableProcessAddButton;
         private System.Windows.Forms.ListBox DisableProcessListBox;
         private System.Windows.Forms.Label DisableProcessLabel;
-        private System.Windows.Forms.Label StartUpOptionLabel;
         private System.Windows.Forms.CheckBox StartupCheckBox;
         private System.Windows.Forms.TabControl SettingTab;
         private System.Windows.Forms.Button AddShortcutButton;
@@ -550,5 +559,7 @@ namespace ObjemDesktop
         private System.Windows.Forms.Label CreatedCertificate;
         private System.Windows.Forms.Label ReGenerateCACertLabel;
         private System.Windows.Forms.ListView CertListView;
+        private System.Windows.Forms.Label ServerIpAdressLabel;
+        private System.Windows.Forms.ComboBox ServerIpAddressComboBox;
     }
 }
