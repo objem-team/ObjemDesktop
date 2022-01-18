@@ -38,7 +38,7 @@ namespace ObjemDesktop
             {
                 DirectoryInfo info = new DirectoryInfo(@"certs\");
                 info.EnumerateFiles().ToList().ForEach(f => f.Delete());
-                Certificate.CertificateUtil.ExportAsPfx(Certificate.Certificate.CreateCACerttificate(), @"\certs\CAcert.pfx");
+                Certificate.CertificateUtil.ExportAsPfx(Certificate.Certificate.CreateCACerttificate(), @"certs\CAcert.pfx");
                 MessageBox.Show("再作成が完了しました\n");
                 RestartFlag = true;
             }

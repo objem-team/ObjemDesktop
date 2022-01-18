@@ -20,15 +20,10 @@ namespace ObjemDesktop.Certificate
             }
         }
 
-        internal static void ExportAsPem(X509Certificate2 cert, string v, string crt)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void ExportAsPfx(X509Certificate2 cert, string pathWithFileName, SecureString password)
+        public static void ExportAsPfx(X509Certificate2 cert, string pathWithFileName, string password)
         {
             byte[] certBytes = cert.Export(X509ContentType.Pfx, password);
-            using (FileStream fs = new FileStream(pathWithFileName + ".pfx", FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(pathWithFileName, FileMode.Create, FileAccess.Write))
             {
                 using (BinaryWriter writer = new BinaryWriter(fs))
                 {

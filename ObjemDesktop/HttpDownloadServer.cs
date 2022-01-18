@@ -41,7 +41,7 @@ namespace ObjemDesktop.window
                 response.ContentLength64 = Binary.Length;
                 response.Close(Binary, true);
             };
-            Server.Start();
+            //Server.Start();
 
         }
 

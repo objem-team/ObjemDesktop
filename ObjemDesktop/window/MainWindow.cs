@@ -36,7 +36,8 @@ namespace ObjemDesktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-
+            
+            
             List<IPAddress> ipAddresses = IPAddressUtil.getIPAdressList();
             ipAddresses.ForEach((ip) => {
                 Image qrcode = QrGenerater.Generate(ip.ToString(), QRCodeBox.Width, QRCodeBox.Height);
@@ -51,7 +52,7 @@ namespace ObjemDesktop
 
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
         {
-            SettingWindow.ShowDialog();     
+            SettingWindow.ShowDialog();    
         }
 
         private void IpAddressComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -67,11 +68,11 @@ namespace ObjemDesktop
         {
             if (count >= 1)
             {
-                Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));
+                //Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));
             }
             else
             {
-                Invoke((MethodInvoker)(() => status.Text = "Not connected"));
+              // Invoke((MethodInvoker)(() => status.Text = "Not connected"));
             }
         }
     }

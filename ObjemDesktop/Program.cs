@@ -17,6 +17,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Drawing;
 using System.Security.Principal;
+using System.Security;
 
 namespace ObjemDesktop
 {
@@ -28,6 +29,8 @@ namespace ObjemDesktop
         [MTAThread]
         static void Main()
         {
+
+           
             //証明書を取得
             var ipList = IPAddressUtil.getIPAdressList();
             var DIR = "certs";
@@ -53,10 +56,21 @@ namespace ObjemDesktop
             VolumeManager.OnSessionCreated += onSessionCreated;
             VolumeManager.OnSessionExpired += onSessionExpired;
             VolumeManager.OnVolumeChange += onVolumeChanged;
+
+
             WSServer WSS = WSServer.Instance;
             WSS.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[0]}.pfx");
             WSS.Port = 8000;
             WSS.Start();
+
+            Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
+            /*
+            var Server = new WebSocketServer(8000);
+            Server.AddWebSocketService<WebSocketService>("/");
+            Server.Start();
+            Thread.CurrentThread.Join();
+            */
+
             //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -66,7 +80,9 @@ namespace ObjemDesktop
                 MainWindow _MainWindow = MainWindow.Instance;
                 Application.Run();
             }
+            Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
             Application.Run(MainWindow.Instance);
+            
         }
 
         static void onSessionCreated(object sender,SessionCreatedEventArgs args)
