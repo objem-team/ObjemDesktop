@@ -1,9 +1,5 @@
-﻿using System;
-using System.Globalization;
-using System.Net.Security;
+﻿using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using WebSocketSharp;
 using WebSocketSharp.Server;
 
 namespace ObjemDesktop

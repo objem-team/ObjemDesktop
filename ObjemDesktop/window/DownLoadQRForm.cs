@@ -9,7 +9,7 @@ namespace ObjemDesktop.window
 {
     public partial class DownLoadQRForm : Form
     {
-        private IPAddress IPAddress;
+        private readonly IPAddress IPAddress;
         private HttpDownloadServer DownloadServer;
         private string url;
         public DownLoadQRForm(IPAddress address)
@@ -30,18 +30,18 @@ namespace ObjemDesktop.window
             DownloadQR.Image = QR;
             DownloadLinkLabel.Text = url;
             DownloadServer = new HttpDownloadServer(binary, port);
-            DownloadServer.start();
+            DownloadServer.Start();
         }
 
         private void CloseBtn_Click(object sender, EventArgs e)
         {
-            DownloadServer.stop();
+            DownloadServer.Stop();
             this.Close();
         }
 
         private void DownLoadQRForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            DownloadServer.stop();
+            DownloadServer.Stop();
         }
 
         private void DownloadLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

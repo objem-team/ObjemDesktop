@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObjemDesktop
 {
     class IPAddressUtil
     {
-        public static List<IPAddress> getIPAdressList()
+        public static List<IPAddress> GetIPAdressList()
         {
             //IPアドレス取得
             string hostname = Dns.GetHostName();

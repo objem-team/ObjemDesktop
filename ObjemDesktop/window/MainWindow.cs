@@ -5,22 +5,21 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using ObjemDesktop.Certificate;
 
 namespace ObjemDesktop
 {
     public partial class MainWindow : Form
     {   
         private static  MainWindow instance;
-        private static bool didLoaded;
-        private NotifyIcon notifyIcon;
-        private SettingWindow SettingWindow = new SettingWindow();
-        private List<IPConboBoxValue> list = new List<IPConboBoxValue> { };
+        private readonly SettingWindow SettingWindow = new SettingWindow();
+        private readonly List<IPConboBoxValue> list = new List<IPConboBoxValue> { };
         private MainWindow()
         {
-            notifyIcon = new NotifyIcon();
-            notifyIcon.Visible = true;
-            notifyIcon.Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory + @"\resources\favicon.ico");
+            new NotifyIcon
+            {
+                Visible = true,
+                Icon = new Icon(AppDomain.CurrentDomain.BaseDirectory + @"\resources\favicon.ico")
+            };
             Console.WriteLine("new");
             InitializeComponent();
         }
@@ -36,9 +35,7 @@ namespace ObjemDesktop
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            
-            
-            List<IPAddress> ipAddresses = IPAddressUtil.getIPAdressList();
+            List<IPAddress> ipAddresses = IPAddressUtil.GetIPAdressList();
             ipAddresses.ForEach((ip) => {
                 Image qrcode = QrGenerater.Generate(ip.ToString(), QRCodeBox.Width, QRCodeBox.Height);
                 X509Certificate2 cert = new X509Certificate2($"certs\\{ip}.pfx");
@@ -47,7 +44,7 @@ namespace ObjemDesktop
             IpAddressComboBox.DisplayMember = "ipaddress";
             IpAddressComboBox.DataSource=list.ToArray();
             QRCodeBox.Image = list[0].QRCode;
-            setStatuslabel(0);
+            SetStatuslabel(0);
         }
 
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
@@ -64,15 +61,15 @@ namespace ObjemDesktop
             QRCodeBox.Image = selected.QRCode;
         }
 
-        public void setStatuslabel(int count)
+        public void SetStatuslabel(int count)
         {
             if (count >= 1)
             {
-                //Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));
+                Invoke((MethodInvoker)(() => status.Text = String.Format("connected {0} client",count)));
             }
             else
             {
-              // Invoke((MethodInvoker)(() => status.Text = "Not connected"));
+                Invoke((MethodInvoker)(() => status.Text = "Not connected"));
             }
         }
     }

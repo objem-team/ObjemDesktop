@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.IO;
 using WebSocketSharp.Server;
 
 namespace ObjemDesktop.window
@@ -13,8 +6,8 @@ namespace ObjemDesktop.window
     class HttpDownloadServer
     {
         private HttpServer Server;
-        private byte[] Binary;
-        private int Port;
+        private readonly byte[] Binary;
+        private readonly int Port;
         public HttpDownloadServer(string filePath,int port)
         {
             FileStream fs = new FileStream(filePath, FileMode.Open);
@@ -29,7 +22,7 @@ namespace ObjemDesktop.window
             Port = port;
 
         }
-        public void start()
+        public void Start()
         {
             Server = new HttpServer(Port);
             Server.OnGet += (sender, e) =>
@@ -48,7 +41,7 @@ namespace ObjemDesktop.window
 
 
 
-        public void stop()
+        public void Stop()
         {
             Server.Stop();
         }

@@ -38,7 +38,7 @@ namespace ObjemDesktop.VolumeManaging
             Process process = Process.GetProcessById(audioSessionControl.ProcessID);
             ProcessId = audioSessionControl.ProcessID;
             Name = process.ProcessName;
-            Icon = getIcon(audioSessionControl);
+            Icon = GetIcon(audioSessionControl);
             //音量に変更があったとき
             AudioSessionControl.SimpleVolumeChanged += (sender, arg) => VolumeChanged?.Invoke(sender, new VolumeChangedEventArgs(this, arg.NewVolume, arg.IsMuted));
             //session が切れたとき
@@ -54,7 +54,7 @@ namespace ObjemDesktop.VolumeManaging
         }
 
 
-        private Icon getIcon(AudioSessionControl2 audioSessionControl)
+        private Icon GetIcon(AudioSessionControl2 audioSessionControl)
         {
             if (audioSessionControl.IconPath != string.Empty)
             {
@@ -72,7 +72,7 @@ namespace ObjemDesktop.VolumeManaging
             }
             catch (Exception)
             {
-                return IconExtracter.getDefaultIcon();
+                return IconExtracter.GetDefaultIcon();
             }
         }
 

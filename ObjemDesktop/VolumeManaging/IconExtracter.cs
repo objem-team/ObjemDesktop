@@ -11,8 +11,8 @@ namespace ObjemDesktop.VolumeManaging
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern bool DestroyIcon(IntPtr handle);
 
-        private static string DefaultIconPath = @"%SystemRoot%\System32\SHELL32.dll";
-        private static int DefaultIconIndex = 0;
+        private static readonly string DefaultIconPath = @"%SystemRoot%\System32\SHELL32.dll";
+        private static readonly int DefaultIconIndex = 0;
 
         public static Icon Extract(String iconPath, int index)
         {
@@ -35,7 +35,7 @@ namespace ObjemDesktop.VolumeManaging
             }
         }
 
-        public static Icon getDefaultIcon()
+        public static Icon GetDefaultIcon()
         {
             return Extract(DefaultIconPath, DefaultIconIndex);
         }

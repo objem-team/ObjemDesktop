@@ -1,12 +1,7 @@
 ﻿using ObjemDesktop.VolumeManaging;
 using ObjemDesktop.WebsocketMessageType;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WebSocketSharp.Server;
 
 namespace ObjemDesktop
@@ -24,7 +19,7 @@ namespace ObjemDesktop
                 }
         };
 
-        public static void broadCastSessions()
+        public static void BroadCastSessions()
         {
             WSServer WSS = WSServer.Instance;
             WebSocketServiceHost WebSocketService = WSS.Server.WebSocketServices["/"];

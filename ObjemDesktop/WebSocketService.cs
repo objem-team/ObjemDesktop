@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using ObjemDesktop.VolumeManaging;
@@ -46,12 +42,12 @@ namespace ObjemDesktop
                         {
                             VolumeChangeRequest request = JsonSerializer.Deserialize<VolumeChangeRequest>(message.Data.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                             VolumeManager volumeManager = VolumeManager.Instance;
-                            volumeManager.setVolume(request.ProcessId, request.Volume,request.IsMuted);
+                            volumeManager.SetVolume(request.ProcessId, request.Volume,request.IsMuted);
                         }
                         break;
                 }
             }
-            catch(Exception error)
+            catch(Exception)
             {
                 //ignore
                 Console.WriteLine("cannnot parse");
@@ -60,12 +56,12 @@ namespace ObjemDesktop
 
         protected override void OnOpen()
         {
-            MainWindow.Instance.setStatuslabel(Sessions.Count);
+            MainWindow.Instance.SetStatuslabel(Sessions.Count);
         }
 
         protected override void OnClose(CloseEventArgs e)
         {
-            MainWindow.Instance.setStatuslabel(Sessions.Count);
+            MainWindow.Instance.SetStatuslabel(Sessions.Count);
             base.OnClose(e);
         }
     }

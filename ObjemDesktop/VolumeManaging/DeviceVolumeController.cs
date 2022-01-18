@@ -2,14 +2,13 @@
 using CSCore.Win32;
 using System;
 using System.Drawing;
-using System.Security.Cryptography;
 
 namespace ObjemDesktop.VolumeManaging
 {
     class DeviceVolumeController : IVolumeController, IDisposable
     {
         public MMDevice Device;
-        AudioEndpointVolume AudioEndpointVolume;
+        private readonly AudioEndpointVolume AudioEndpointVolume;
 
         public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
 

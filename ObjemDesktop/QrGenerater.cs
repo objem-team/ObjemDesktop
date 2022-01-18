@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZXing;
 using ZXing.QrCode;
 using ZXing.QrCode.Internal;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Drawing;
-using System.Net;
 
 namespace ObjemDesktop
 {

@@ -28,7 +28,7 @@ namespace ObjemDesktop
 
         private void SettingWindow_Load(object sender, EventArgs e)
         {
-            DownloadServerIPComboBox.DataSource = IPAddressUtil.getIPAdressList();
+            DownloadServerIPComboBox.DataSource = IPAddressUtil.GetIPAdressList();
         }
 
         private void ReGenerateCACertBtn_Click(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace ObjemDesktop
             }
         }
 
-        private List<string> getCertFilesip()
+        private List<string> GetCertFilesip()
         {
             var files = Directory.GetFiles("certs\\", "*.*.*.*.pfx").ToList();
             var ipList = files.Select(f => Regex.Match(f, @"(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])").ToString()).ToList();
@@ -53,12 +53,12 @@ namespace ObjemDesktop
 
         private void FileExportBtn_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(() => save()));
+            Thread t = new Thread(new ThreadStart(() => Save()));
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
 
         }
-        private void save()
+        private void Save()
         {
             saveCACertFileDialog.FileName = "ObjemCAcert.crt";
             saveCACertFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);

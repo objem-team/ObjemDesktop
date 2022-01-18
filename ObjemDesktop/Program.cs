@@ -1,23 +1,13 @@
 ﻿using CSCore.CoreAudioAPI;
 using ObjemDesktop.Certificate;
 using ObjemDesktop.VolumeManaging;
-using ObjemDesktop.WebsocketMessageType;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebSocketSharp.Server;
-using ObjemDesktop.Certificate;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
-using System.Drawing;
 using System.Security.Principal;
-using System.Security;
 
 namespace ObjemDesktop
 {
@@ -32,7 +22,7 @@ namespace ObjemDesktop
 
            
             //証明書を取得
-            var ipList = IPAddressUtil.getIPAdressList();
+            var ipList = IPAddressUtil.GetIPAdressList();
             var DIR = "certs";
             var CA_CERT_PATH = $"{DIR}\\CAcert.pfx";
 
@@ -53,9 +43,9 @@ namespace ObjemDesktop
             });
 
             VolumeManager VolumeManager = VolumeManager.Instance;
-            VolumeManager.OnSessionCreated += onSessionCreated;
-            VolumeManager.OnSessionExpired += onSessionExpired;
-            VolumeManager.OnVolumeChange += onVolumeChanged;
+            VolumeManager.OnSessionCreated += OnSessionCreated;
+            VolumeManager.OnSessionExpired += OnSessionExpired;
+            VolumeManager.OnVolumeChange += OnVolumeChanged;
 
 
             WSServer WSS = WSServer.Instance;
@@ -85,23 +75,22 @@ namespace ObjemDesktop
             
         }
 
-        static void onSessionCreated(object sender,SessionCreatedEventArgs args)
+        static void OnSessionCreated(object sender,SessionCreatedEventArgs args)
         {
             VolumeManager VolumeManager = VolumeManager.Instance;
-            VolumeManager.addSession(args.NewSession);
-            WebSocketUtil.broadCastSessions();
+            VolumeManager.AddSession(args.NewSession);
+            WebSocketUtil.BroadCastSessions();
         }
 
-        static void onSessionExpired(object sender, SessionExpiredEventArg arg)
+        static void OnSessionExpired(object sender, SessionExpiredEventArg arg)
         {
             VolumeManager VolumeManager = VolumeManager.Instance;
             VolumeManager.list.Remove(arg.VolumeController);
-            WebSocketUtil.broadCastSessions();
+            WebSocketUtil.BroadCastSessions();
         }
 
-        static void  onVolumeChanged(object sender,VolumeChangedEventArgs arg)
+        static void  OnVolumeChanged(object sender,VolumeChangedEventArgs arg)
         {
-            Console.WriteLine(arg.VolumeController.Name);
             WebSocketUtil.SendNewVolume(arg);
         }
         public static  bool IsAdministrator()

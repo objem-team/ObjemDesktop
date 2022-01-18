@@ -1,10 +1,6 @@
 ﻿using CSCore.CoreAudioAPI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ObjemDesktop.VolumeManaging
@@ -14,9 +10,9 @@ namespace ObjemDesktop.VolumeManaging
         public static VolumeManager Instance = new VolumeManager();
 
         //DeviceのStatusを監視させるための
-        private MMDeviceEnumerator DeviceEnumerator;
+        private readonly MMDeviceEnumerator DeviceEnumerator;
         //AudioSessionNotificationを継承するクラスを作ってセッションの作成を監視
-        private AudioSessionManager2 AudioSessionManager;
+        private readonly AudioSessionManager2 AudioSessionManager;
 
         public List<IVolumeController> list = new List<IVolumeController>();
 
@@ -65,7 +61,7 @@ namespace ObjemDesktop.VolumeManaging
             {
                 try
                 {
-                    addSession(session);
+                    AddSession(session);
                 }
                 catch (Exception e)
                 {
@@ -75,22 +71,22 @@ namespace ObjemDesktop.VolumeManaging
 
         }
 
-        private void registerEvent(SessionVolumeController sessionVolumeController)
+        private void RegisterEvent(SessionVolumeController sessionVolumeController)
         {
             sessionVolumeController.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
             sessionVolumeController.SessionExpired += (sender, arg) => OnSessionExpired?.Invoke(sender, arg);
         }
 
-        public void addSession(AudioSessionControl session)
+        public void AddSession(AudioSessionControl session)
         {
             var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
             var sessionControl = session.QueryInterface<AudioSessionControl2>();
             SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
-            registerEvent(sessionVolumeController);
+            RegisterEvent(sessionVolumeController);
             list.Add(sessionVolumeController);
         }
 
-        public void setVolume(int processId,float volume,bool isMute)
+        public void SetVolume(int processId,float volume,bool isMute)
         {
             list.Find(x => x.ProcessId == processId).SetVolume(volume,isMute);
         }
