@@ -20,7 +20,7 @@ namespace ObjemDesktop
         static void Main()
         {
 
-           
+
             //証明書を取得
             var ipList = IPAddressUtil.GetIPAdressList();
             var DIR = "certs";

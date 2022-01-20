@@ -65,15 +65,15 @@ namespace ObjemDesktop
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
-            this.CACertExportLabel = new System.Windows.Forms.Label();
+            this.DownloadCAGroup = new System.Windows.Forms.GroupBox();
+            this.DownloadServerIPComboBox = new System.Windows.Forms.ComboBox();
+            this.DownloadServerIPLabel = new System.Windows.Forms.Label();
             this.DownLoadQRCodeBtn = new System.Windows.Forms.Button();
+            this.CACertExportLabel = new System.Windows.Forms.Label();
             this.FileExportBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.DownloadCAGroup = new System.Windows.Forms.GroupBox();
-            this.DownloadServerIPLabel = new System.Windows.Forms.Label();
-            this.DownloadServerIPComboBox = new System.Windows.Forms.ComboBox();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -358,7 +358,7 @@ namespace ObjemDesktop
             this.ShortcutsListView.HideSelection = false;
             this.ShortcutsListView.Location = new System.Drawing.Point(5, 6);
             this.ShortcutsListView.Name = "ShortcutsListView";
-            this.ShortcutsListView.Size = new System.Drawing.Size(186, 236);
+            this.ShortcutsListView.Size = new System.Drawing.Size(192, 225);
             this.ShortcutsListView.TabIndex = 0;
             this.ShortcutsListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -460,14 +460,35 @@ namespace ObjemDesktop
             this.CertificateTabPage.Text = "証明書";
             this.CertificateTabPage.UseVisualStyleBackColor = true;
             // 
-            // CACertExportLabel
+            // DownloadCAGroup
             // 
-            this.CACertExportLabel.AutoSize = true;
-            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
-            this.CACertExportLabel.Name = "CACertExportLabel";
-            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
-            this.CACertExportLabel.TabIndex = 7;
-            this.CACertExportLabel.Text = "CA証明書をエクスポートする";
+            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPComboBox);
+            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPLabel);
+            this.DownloadCAGroup.Controls.Add(this.DownLoadQRCodeBtn);
+            this.DownloadCAGroup.Location = new System.Drawing.Point(27, 117);
+            this.DownloadCAGroup.Name = "DownloadCAGroup";
+            this.DownloadCAGroup.Size = new System.Drawing.Size(411, 89);
+            this.DownloadCAGroup.TabIndex = 9;
+            this.DownloadCAGroup.TabStop = false;
+            this.DownloadCAGroup.Text = "他の端末へ転送する";
+            // 
+            // DownloadServerIPComboBox
+            // 
+            this.DownloadServerIPComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.DownloadServerIPComboBox.FormattingEnabled = true;
+            this.DownloadServerIPComboBox.Location = new System.Drawing.Point(268, 26);
+            this.DownloadServerIPComboBox.Name = "DownloadServerIPComboBox";
+            this.DownloadServerIPComboBox.Size = new System.Drawing.Size(121, 20);
+            this.DownloadServerIPComboBox.TabIndex = 8;
+            // 
+            // DownloadServerIPLabel
+            // 
+            this.DownloadServerIPLabel.AutoSize = true;
+            this.DownloadServerIPLabel.Location = new System.Drawing.Point(119, 29);
+            this.DownloadServerIPLabel.Name = "DownloadServerIPLabel";
+            this.DownloadServerIPLabel.Size = new System.Drawing.Size(120, 12);
+            this.DownloadServerIPLabel.TabIndex = 7;
+            this.DownloadServerIPLabel.Text = "表示するQRのIPアドレス";
             // 
             // DownLoadQRCodeBtn
             // 
@@ -478,6 +499,15 @@ namespace ObjemDesktop
             this.DownLoadQRCodeBtn.Text = "開始";
             this.DownLoadQRCodeBtn.UseVisualStyleBackColor = true;
             this.DownLoadQRCodeBtn.Click += new System.EventHandler(this.DownLoadQRCodeBtn_Click);
+            // 
+            // CACertExportLabel
+            // 
+            this.CACertExportLabel.AutoSize = true;
+            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
+            this.CACertExportLabel.Name = "CACertExportLabel";
+            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
+            this.CACertExportLabel.TabIndex = 7;
+            this.CACertExportLabel.Text = "CA証明書をエクスポートする";
             // 
             // FileExportBtn
             // 
@@ -507,36 +537,6 @@ namespace ObjemDesktop
             this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
-            // 
-            // DownloadCAGroup
-            // 
-            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPComboBox);
-            this.DownloadCAGroup.Controls.Add(this.DownloadServerIPLabel);
-            this.DownloadCAGroup.Controls.Add(this.DownLoadQRCodeBtn);
-            this.DownloadCAGroup.Location = new System.Drawing.Point(27, 117);
-            this.DownloadCAGroup.Name = "DownloadCAGroup";
-            this.DownloadCAGroup.Size = new System.Drawing.Size(411, 89);
-            this.DownloadCAGroup.TabIndex = 9;
-            this.DownloadCAGroup.TabStop = false;
-            this.DownloadCAGroup.Text = "他の端末へ転送する";
-            // 
-            // DownloadServerIPLabel
-            // 
-            this.DownloadServerIPLabel.AutoSize = true;
-            this.DownloadServerIPLabel.Location = new System.Drawing.Point(119, 29);
-            this.DownloadServerIPLabel.Name = "DownloadServerIPLabel";
-            this.DownloadServerIPLabel.Size = new System.Drawing.Size(120, 12);
-            this.DownloadServerIPLabel.TabIndex = 7;
-            this.DownloadServerIPLabel.Text = "表示するQRのIPアドレス";
-            // 
-            // DownloadServerIPComboBox
-            // 
-            this.DownloadServerIPComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.DownloadServerIPComboBox.FormattingEnabled = true;
-            this.DownloadServerIPComboBox.Location = new System.Drawing.Point(268, 26);
-            this.DownloadServerIPComboBox.Name = "DownloadServerIPComboBox";
-            this.DownloadServerIPComboBox.Size = new System.Drawing.Size(121, 20);
-            this.DownloadServerIPComboBox.TabIndex = 8;
             // 
             // SettingWindow
             // 
