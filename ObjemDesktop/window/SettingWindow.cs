@@ -77,6 +77,11 @@ namespace ObjemDesktop
             DownLoadQRForm form = new DownLoadQRForm((IPAddress)DownloadServerIPComboBox.SelectedItem);
             form.ShowDialog();
         }
-        
+
+        private void AddShortcutBtn_Click(object sender, EventArgs e)
+        {
+            AddShortcut addShortcut = new AddShortcut();
+            addShortcut.ShowDialog();
+        }
     }
 }

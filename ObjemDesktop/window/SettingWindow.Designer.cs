@@ -43,18 +43,12 @@ namespace ObjemDesktop
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.ShortcutsTabPage = new System.Windows.Forms.TabPage();
-            this.addShortcutGroupBox = new System.Windows.Forms.GroupBox();
-            this.KeyboardShortcutRadioButton = new System.Windows.Forms.RadioButton();
-            this.LaunchApplicationShortcutLabel = new System.Windows.Forms.Label();
-            this.LaunchApplicationRadioButton = new System.Windows.Forms.RadioButton();
-            this.KeyboardShortcutLabel = new System.Windows.Forms.Label();
-            this.SendCommandRadioButton = new System.Windows.Forms.RadioButton();
-            this.OpenKeyboardShortcutSettingButton = new System.Windows.Forms.Button();
-            this.CommandTextBox = new System.Windows.Forms.TextBox();
-            this.OpenLaunchApplicationShortSettingButton = new System.Windows.Forms.Button();
-            this.AddShortcutButton = new System.Windows.Forms.Button();
-            this.ShortcutNametextBox1 = new System.Windows.Forms.TextBox();
-            this.ShortcutName = new System.Windows.Forms.Label();
+            this.orderUpBtn = new System.Windows.Forms.Button();
+            this.orderDown = new System.Windows.Forms.Button();
+            this.AddShortcutBtn = new System.Windows.Forms.Button();
+            this.RemoveFromEnableListBtn = new System.Windows.Forms.Button();
+            this.AddToEnableBtn = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.ShortcutsListView = new System.Windows.Forms.ListView();
             this.GeneralTabPage = new System.Windows.Forms.TabPage();
             this.ServerIpAdressLabel = new System.Windows.Forms.Label();
@@ -78,7 +72,6 @@ namespace ObjemDesktop
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
             this.ShortcutsTabPage.SuspendLayout();
-            this.addShortcutGroupBox.SuspendLayout();
             this.GeneralTabPage.SuspendLayout();
             this.SettingTab.SuspendLayout();
             this.CertificateTabPage.SuspendLayout();
@@ -214,10 +207,12 @@ namespace ObjemDesktop
             // 
             // ShortcutsTabPage
             // 
-            this.ShortcutsTabPage.Controls.Add(this.addShortcutGroupBox);
-            this.ShortcutsTabPage.Controls.Add(this.AddShortcutButton);
-            this.ShortcutsTabPage.Controls.Add(this.ShortcutNametextBox1);
-            this.ShortcutsTabPage.Controls.Add(this.ShortcutName);
+            this.ShortcutsTabPage.Controls.Add(this.orderUpBtn);
+            this.ShortcutsTabPage.Controls.Add(this.orderDown);
+            this.ShortcutsTabPage.Controls.Add(this.AddShortcutBtn);
+            this.ShortcutsTabPage.Controls.Add(this.RemoveFromEnableListBtn);
+            this.ShortcutsTabPage.Controls.Add(this.AddToEnableBtn);
+            this.ShortcutsTabPage.Controls.Add(this.listView1);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutsListView);
             this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 22);
             this.ShortcutsTabPage.Name = "ShortcutsTabPage";
@@ -227,138 +222,68 @@ namespace ObjemDesktop
             this.ShortcutsTabPage.Text = "ショートカット";
             this.ShortcutsTabPage.UseVisualStyleBackColor = true;
             // 
-            // addShortcutGroupBox
+            // orderUpBtn
             // 
-            this.addShortcutGroupBox.Controls.Add(this.KeyboardShortcutRadioButton);
-            this.addShortcutGroupBox.Controls.Add(this.LaunchApplicationShortcutLabel);
-            this.addShortcutGroupBox.Controls.Add(this.LaunchApplicationRadioButton);
-            this.addShortcutGroupBox.Controls.Add(this.KeyboardShortcutLabel);
-            this.addShortcutGroupBox.Controls.Add(this.SendCommandRadioButton);
-            this.addShortcutGroupBox.Controls.Add(this.OpenKeyboardShortcutSettingButton);
-            this.addShortcutGroupBox.Controls.Add(this.CommandTextBox);
-            this.addShortcutGroupBox.Controls.Add(this.OpenLaunchApplicationShortSettingButton);
-            this.addShortcutGroupBox.Location = new System.Drawing.Point(206, 35);
-            this.addShortcutGroupBox.Name = "addShortcutGroupBox";
-            this.addShortcutGroupBox.Size = new System.Drawing.Size(239, 173);
-            this.addShortcutGroupBox.TabIndex = 15;
-            this.addShortcutGroupBox.TabStop = false;
+            this.orderUpBtn.Location = new System.Drawing.Point(292, 218);
+            this.orderUpBtn.Name = "orderUpBtn";
+            this.orderUpBtn.Size = new System.Drawing.Size(51, 23);
+            this.orderUpBtn.TabIndex = 6;
+            this.orderUpBtn.Tag = "";
+            this.orderUpBtn.Text = "↓";
+            this.orderUpBtn.UseVisualStyleBackColor = true;
             // 
-            // KeyboardShortcutRadioButton
+            // orderDown
             // 
-            this.KeyboardShortcutRadioButton.AutoSize = true;
-            this.KeyboardShortcutRadioButton.Location = new System.Drawing.Point(6, 18);
-            this.KeyboardShortcutRadioButton.Name = "KeyboardShortcutRadioButton";
-            this.KeyboardShortcutRadioButton.Size = new System.Drawing.Size(130, 16);
-            this.KeyboardShortcutRadioButton.TabIndex = 1;
-            this.KeyboardShortcutRadioButton.TabStop = true;
-            this.KeyboardShortcutRadioButton.Text = "キーボードショートカット";
-            this.KeyboardShortcutRadioButton.UseVisualStyleBackColor = true;
+            this.orderDown.Location = new System.Drawing.Point(388, 218);
+            this.orderDown.Name = "orderDown";
+            this.orderDown.Size = new System.Drawing.Size(51, 23);
+            this.orderDown.TabIndex = 5;
+            this.orderDown.Text = "↑";
+            this.orderDown.UseVisualStyleBackColor = true;
             // 
-            // LaunchApplicationShortcutLabel
+            // AddShortcutBtn
             // 
-            this.LaunchApplicationShortcutLabel.AutoSize = true;
-            this.LaunchApplicationShortcutLabel.Location = new System.Drawing.Point(29, 97);
-            this.LaunchApplicationShortcutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.LaunchApplicationShortcutLabel.Name = "LaunchApplicationShortcutLabel";
-            this.LaunchApplicationShortcutLabel.Size = new System.Drawing.Size(137, 12);
-            this.LaunchApplicationShortcutLabel.TabIndex = 14;
-            this.LaunchApplicationShortcutLabel.Text = "LaunchApplicationShortcu";
+            this.AddShortcutBtn.Location = new System.Drawing.Point(122, 217);
+            this.AddShortcutBtn.Name = "AddShortcutBtn";
+            this.AddShortcutBtn.Size = new System.Drawing.Size(75, 23);
+            this.AddShortcutBtn.TabIndex = 4;
+            this.AddShortcutBtn.Text = "追加";
+            this.AddShortcutBtn.UseVisualStyleBackColor = true;
+            this.AddShortcutBtn.Click += new System.EventHandler(this.AddShortcutBtn_Click);
             // 
-            // LaunchApplicationRadioButton
+            // RemoveFromEnableListBtn
             // 
-            this.LaunchApplicationRadioButton.AutoSize = true;
-            this.LaunchApplicationRadioButton.Location = new System.Drawing.Point(6, 70);
-            this.LaunchApplicationRadioButton.Name = "LaunchApplicationRadioButton";
-            this.LaunchApplicationRadioButton.Size = new System.Drawing.Size(116, 16);
-            this.LaunchApplicationRadioButton.TabIndex = 2;
-            this.LaunchApplicationRadioButton.TabStop = true;
-            this.LaunchApplicationRadioButton.Text = "アプリケーション起動";
-            this.LaunchApplicationRadioButton.UseVisualStyleBackColor = true;
+            this.RemoveFromEnableListBtn.Location = new System.Drawing.Point(203, 148);
+            this.RemoveFromEnableListBtn.Name = "RemoveFromEnableListBtn";
+            this.RemoveFromEnableListBtn.Size = new System.Drawing.Size(54, 23);
+            this.RemoveFromEnableListBtn.TabIndex = 3;
+            this.RemoveFromEnableListBtn.Text = "←";
+            this.RemoveFromEnableListBtn.UseVisualStyleBackColor = true;
             // 
-            // KeyboardShortcutLabel
+            // AddToEnableBtn
             // 
-            this.KeyboardShortcutLabel.AutoSize = true;
-            this.KeyboardShortcutLabel.Location = new System.Drawing.Point(27, 38);
-            this.KeyboardShortcutLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.KeyboardShortcutLabel.Name = "KeyboardShortcutLabel";
-            this.KeyboardShortcutLabel.Size = new System.Drawing.Size(95, 12);
-            this.KeyboardShortcutLabel.TabIndex = 13;
-            this.KeyboardShortcutLabel.Text = "KeyboardShortcut";
+            this.AddToEnableBtn.Location = new System.Drawing.Point(203, 72);
+            this.AddToEnableBtn.Name = "AddToEnableBtn";
+            this.AddToEnableBtn.Size = new System.Drawing.Size(55, 23);
+            this.AddToEnableBtn.TabIndex = 2;
+            this.AddToEnableBtn.Text = "→";
+            this.AddToEnableBtn.UseVisualStyleBackColor = true;
             // 
-            // SendCommandRadioButton
+            // listView1
             // 
-            this.SendCommandRadioButton.AutoSize = true;
-            this.SendCommandRadioButton.Location = new System.Drawing.Point(6, 125);
-            this.SendCommandRadioButton.Name = "SendCommandRadioButton";
-            this.SendCommandRadioButton.Size = new System.Drawing.Size(82, 16);
-            this.SendCommandRadioButton.TabIndex = 3;
-            this.SendCommandRadioButton.TabStop = true;
-            this.SendCommandRadioButton.Text = "コマンド送信";
-            this.SendCommandRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // OpenKeyboardShortcutSettingButton
-            // 
-            this.OpenKeyboardShortcutSettingButton.Location = new System.Drawing.Point(168, 38);
-            this.OpenKeyboardShortcutSettingButton.Margin = new System.Windows.Forms.Padding(2);
-            this.OpenKeyboardShortcutSettingButton.Name = "OpenKeyboardShortcutSettingButton";
-            this.OpenKeyboardShortcutSettingButton.Size = new System.Drawing.Size(56, 18);
-            this.OpenKeyboardShortcutSettingButton.TabIndex = 12;
-            this.OpenKeyboardShortcutSettingButton.Text = "編集";
-            this.OpenKeyboardShortcutSettingButton.UseVisualStyleBackColor = true;
-            // 
-            // CommandTextBox
-            // 
-            this.CommandTextBox.Location = new System.Drawing.Point(6, 147);
-            this.CommandTextBox.Margin = new System.Windows.Forms.Padding(2);
-            this.CommandTextBox.Name = "CommandTextBox";
-            this.CommandTextBox.Size = new System.Drawing.Size(220, 19);
-            this.CommandTextBox.TabIndex = 10;
-            // 
-            // OpenLaunchApplicationShortSettingButton
-            // 
-            this.OpenLaunchApplicationShortSettingButton.Location = new System.Drawing.Point(168, 91);
-            this.OpenLaunchApplicationShortSettingButton.Margin = new System.Windows.Forms.Padding(2);
-            this.OpenLaunchApplicationShortSettingButton.Name = "OpenLaunchApplicationShortSettingButton";
-            this.OpenLaunchApplicationShortSettingButton.Size = new System.Drawing.Size(56, 18);
-            this.OpenLaunchApplicationShortSettingButton.TabIndex = 11;
-            this.OpenLaunchApplicationShortSettingButton.Text = "選択";
-            this.OpenLaunchApplicationShortSettingButton.UseVisualStyleBackColor = true;
-            // 
-            // AddShortcutButton
-            // 
-            this.AddShortcutButton.Font = new System.Drawing.Font("MS UI Gothic", 8.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.AddShortcutButton.Location = new System.Drawing.Point(382, 213);
-            this.AddShortcutButton.Margin = new System.Windows.Forms.Padding(2);
-            this.AddShortcutButton.Name = "AddShortcutButton";
-            this.AddShortcutButton.Size = new System.Drawing.Size(63, 18);
-            this.AddShortcutButton.TabIndex = 8;
-            this.AddShortcutButton.Text = "追加";
-            this.AddShortcutButton.UseVisualStyleBackColor = true;
-            // 
-            // ShortcutNametextBox1
-            // 
-            this.ShortcutNametextBox1.Location = new System.Drawing.Point(290, 11);
-            this.ShortcutNametextBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.ShortcutNametextBox1.Name = "ShortcutNametextBox1";
-            this.ShortcutNametextBox1.Size = new System.Drawing.Size(155, 19);
-            this.ShortcutNametextBox1.TabIndex = 7;
-            // 
-            // ShortcutName
-            // 
-            this.ShortcutName.AutoSize = true;
-            this.ShortcutName.Location = new System.Drawing.Point(202, 14);
-            this.ShortcutName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.ShortcutName.Name = "ShortcutName";
-            this.ShortcutName.Size = new System.Drawing.Size(87, 12);
-            this.ShortcutName.TabIndex = 6;
-            this.ShortcutName.Text = "ショートカット名称";
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(264, 31);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(192, 180);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // ShortcutsListView
             // 
             this.ShortcutsListView.HideSelection = false;
-            this.ShortcutsListView.Location = new System.Drawing.Point(5, 6);
+            this.ShortcutsListView.Location = new System.Drawing.Point(5, 31);
             this.ShortcutsListView.Name = "ShortcutsListView";
-            this.ShortcutsListView.Size = new System.Drawing.Size(192, 225);
+            this.ShortcutsListView.Size = new System.Drawing.Size(192, 180);
             this.ShortcutsListView.TabIndex = 0;
             this.ShortcutsListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -558,9 +483,6 @@ namespace ObjemDesktop
             this.GestureSettingBox.ResumeLayout(false);
             this.GestureSettingBox.PerformLayout();
             this.ShortcutsTabPage.ResumeLayout(false);
-            this.ShortcutsTabPage.PerformLayout();
-            this.addShortcutGroupBox.ResumeLayout(false);
-            this.addShortcutGroupBox.PerformLayout();
             this.GeneralTabPage.ResumeLayout(false);
             this.GeneralTabPage.PerformLayout();
             this.SettingTab.ResumeLayout(false);
@@ -594,18 +516,6 @@ namespace ObjemDesktop
         private System.Windows.Forms.Label DisableProcessLabel;
         private System.Windows.Forms.CheckBox StartupCheckBox;
         private System.Windows.Forms.TabControl SettingTab;
-        private System.Windows.Forms.Button AddShortcutButton;
-        private System.Windows.Forms.TextBox ShortcutNametextBox1;
-        private System.Windows.Forms.Label ShortcutName;
-        private System.Windows.Forms.Label LaunchApplicationShortcutLabel;
-        private System.Windows.Forms.Label KeyboardShortcutLabel;
-        private System.Windows.Forms.Button OpenKeyboardShortcutSettingButton;
-        private System.Windows.Forms.Button OpenLaunchApplicationShortSettingButton;
-        private System.Windows.Forms.TextBox CommandTextBox;
-        private System.Windows.Forms.RadioButton SendCommandRadioButton;
-        private System.Windows.Forms.RadioButton LaunchApplicationRadioButton;
-        private System.Windows.Forms.RadioButton KeyboardShortcutRadioButton;
-        private System.Windows.Forms.GroupBox addShortcutGroupBox;
         private System.Windows.Forms.TabPage CertificateTabPage;
         private System.Windows.Forms.Button ReGenerateCACertBtn;
         private System.Windows.Forms.Label ReGenerateCACertLabel;
@@ -618,5 +528,11 @@ namespace ObjemDesktop
         private System.Windows.Forms.GroupBox DownloadCAGroup;
         private System.Windows.Forms.ComboBox DownloadServerIPComboBox;
         private System.Windows.Forms.Label DownloadServerIPLabel;
+        private System.Windows.Forms.Button orderUpBtn;
+        private System.Windows.Forms.Button orderDown;
+        private System.Windows.Forms.Button AddShortcutBtn;
+        private System.Windows.Forms.Button RemoveFromEnableListBtn;
+        private System.Windows.Forms.Button AddToEnableBtn;
+        private System.Windows.Forms.ListView listView1;
     }
 }

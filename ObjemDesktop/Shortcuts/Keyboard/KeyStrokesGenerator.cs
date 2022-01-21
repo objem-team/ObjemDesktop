@@ -12,8 +12,7 @@ namespace ObjemDesktop.Shortcuts.Keyboard
         {
             var strokes = new Input[keycodes.Length * 2];
             for (int i = 0; i < 2; i++)
-            {
-                Console.WriteLine($"{i}");
+            {                
                 strokes[i] = GenerateKeyDownInput(keycodes[i]);
                 strokes[keycodes.Length + i] = GenerateKeyUpInput(keycodes[i]);
             }
