@@ -76,6 +76,7 @@ namespace ObjemDesktop
         {   
             DownLoadQRForm form = new DownLoadQRForm((IPAddress)DownloadServerIPComboBox.SelectedItem);
             form.ShowDialog();
+            //Properties.Settings.Default.EnabledShortcut
         }
 
         private void AddShortcutBtn_Click(object sender, EventArgs e)

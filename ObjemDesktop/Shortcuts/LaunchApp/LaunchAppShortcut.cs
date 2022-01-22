@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ObjemDesktop.Shortcuts.LaunchApp
 {
-    class LaunchAppShortcut : ShortcutBase
+    public class LaunchAppShortcut : ShortcutBase
     {
         public LaunchAppShortcut(Guid guid,string name) : base(guid, name) { }
         public LaunchAppShortcut() { }

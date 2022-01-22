@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Security.Principal;
+using ObjemDesktop.Config;
+using ObjemDesktop.Shortcuts.Command;
+using ObjemDesktop.Shortcuts;
 
 namespace ObjemDesktop
 {
@@ -46,6 +49,7 @@ namespace ObjemDesktop
             VolumeManager.OnSessionCreated += OnSessionCreated;
             VolumeManager.OnSessionExpired += OnSessionExpired;
             VolumeManager.OnVolumeChange += OnVolumeChanged;
+            
 
 
             WSServer WSS = WSServer.Instance;

@@ -3,31 +3,35 @@ using ObjemDesktop.Shortcuts.Command;
 using ObjemDesktop.Shortcuts.Keyboard;
 using ObjemDesktop.Shortcuts.LaunchApp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ObjemDesktop.window
 {
     public partial class AddShortcut : Form
     {
-        ShortcutBase Shortcut;
+        private ShortcutBase _shortcut;
+        private bool _isOverWrite = false;
+        
         public AddShortcut() {
             InitializeComponent();
         }
         public AddShortcut(ShortcutBase shortcut)
         {
-            Shortcut = shortcut;
+            _shortcut = shortcut;
+            _isOverWrite = true;
             var typeName = typeof(Shortcut).Name;
             switch (typeName)
             {
-
                 case "KeyBoadShortcut":
-                    activateKeyboardShortcutInputs((KeyBoadShortcut)Shortcut);
+                    activateKeyboardShortcutInputs((KeyBoadShortcut)_shortcut);
                     break;
                 case "LaunchAppShortcut":
-                    activateLaunchAppShortcutInputs((LaunchAppShortcut)Shortcut);
+                    activateLaunchAppShortcutInputs((LaunchAppShortcut)_shortcut);
                     break;
                 case "CommandShortcut":
-                    activateCommandShortcutInputs((CommandShortcut)Shortcut);
+                    activateCommandShortcutInputs((CommandShortcut)_shortcut);
                     break;
                 default:
                     Console.WriteLine(typeName);
@@ -149,6 +153,18 @@ namespace ObjemDesktop.window
         {
             if (!CommandShortcutRadioBtn.Checked) return;
             activateCommandShortcutInputs();
+        }
+
+
+        private void CancelBtn_Click(object sender, EventArgs e)
+        {
+            
+            this.Close();
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

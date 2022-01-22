@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace ObjemDesktop.Shortcuts.Command
 {
-    class CommandShortcut : ShortcutBase
+    public class CommandShortcut : ShortcutBase
     {
         public CommandShortcut(Guid guid,string name) :base(guid,name){ }
         public CommandShortcut() { }

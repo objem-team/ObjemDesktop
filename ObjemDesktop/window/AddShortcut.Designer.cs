@@ -30,15 +30,15 @@ namespace ObjemDesktop.window
         private void InitializeComponent()
         {
             this.ShortcutGroupBox = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.KeyBoardShortcutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.LaunchAppShortcutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.CommandShortcutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.CommandTextBox = new System.Windows.Forms.TextBox();
-            this.LaunchAppPathTextBox = new System.Windows.Forms.TextBox();
-            this.SelectAppShortcutBtn = new System.Windows.Forms.Button();
-            this.KeyboardShortcutLabel = new System.Windows.Forms.Label();
             this.addKeyBoardShortcut = new System.Windows.Forms.Button();
+            this.KeyboardShortcutLabel = new System.Windows.Forms.Label();
+            this.SelectAppShortcutBtn = new System.Windows.Forms.Button();
+            this.LaunchAppPathTextBox = new System.Windows.Forms.TextBox();
+            this.CommandTextBox = new System.Windows.Forms.TextBox();
+            this.CommandShortcutRadioBtn = new System.Windows.Forms.RadioButton();
+            this.LaunchAppShortcutRadioBtn = new System.Windows.Forms.RadioButton();
+            this.KeyBoardShortcutRadioBtn = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.ShortcutNameLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
@@ -61,36 +61,46 @@ namespace ObjemDesktop.window
             this.ShortcutGroupBox.TabIndex = 0;
             this.ShortcutGroupBox.TabStop = false;
             // 
-            // textBox1
+            // addKeyBoardShortcut
             // 
-            this.textBox1.Location = new System.Drawing.Point(125, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(276, 19);
-            this.textBox1.TabIndex = 1;
+            this.addKeyBoardShortcut.Location = new System.Drawing.Point(308, 34);
+            this.addKeyBoardShortcut.Name = "addKeyBoardShortcut";
+            this.addKeyBoardShortcut.Size = new System.Drawing.Size(75, 23);
+            this.addKeyBoardShortcut.TabIndex = 7;
+            this.addKeyBoardShortcut.Text = "選択";
+            this.addKeyBoardShortcut.UseVisualStyleBackColor = true;
             // 
-            // KeyBoardShortcutRadioBtn
+            // KeyboardShortcutLabel
             // 
-            this.KeyBoardShortcutRadioBtn.AutoSize = true;
-            this.KeyBoardShortcutRadioBtn.Location = new System.Drawing.Point(16, 23);
-            this.KeyBoardShortcutRadioBtn.Name = "KeyBoardShortcutRadioBtn";
-            this.KeyBoardShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
-            this.KeyBoardShortcutRadioBtn.TabIndex = 0;
-            this.KeyBoardShortcutRadioBtn.TabStop = true;
-            this.KeyBoardShortcutRadioBtn.Text = "キーボードショートカット";
-            this.KeyBoardShortcutRadioBtn.UseVisualStyleBackColor = true;
-            this.KeyBoardShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.KeyBoardShortcutRadioBtn_CheckedChanged);
+            this.KeyboardShortcutLabel.AutoSize = true;
+            this.KeyboardShortcutLabel.Location = new System.Drawing.Point(32, 46);
+            this.KeyboardShortcutLabel.Name = "KeyboardShortcutLabel";
+            this.KeyboardShortcutLabel.Size = new System.Drawing.Size(135, 12);
+            this.KeyboardShortcutLabel.TabIndex = 6;
+            this.KeyboardShortcutLabel.Text = "設定されたショートカットキー";
             // 
-            // LaunchAppShortcutRadioBtn
+            // SelectAppShortcutBtn
             // 
-            this.LaunchAppShortcutRadioBtn.AutoSize = true;
-            this.LaunchAppShortcutRadioBtn.Location = new System.Drawing.Point(16, 82);
-            this.LaunchAppShortcutRadioBtn.Name = "LaunchAppShortcutRadioBtn";
-            this.LaunchAppShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
-            this.LaunchAppShortcutRadioBtn.TabIndex = 1;
-            this.LaunchAppShortcutRadioBtn.TabStop = true;
-            this.LaunchAppShortcutRadioBtn.Text = "アプリ起動ショートカット";
-            this.LaunchAppShortcutRadioBtn.UseVisualStyleBackColor = true;
-            this.LaunchAppShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.LaunchAppShortcutRadioBtn_CheckedChanged);
+            this.SelectAppShortcutBtn.Location = new System.Drawing.Point(308, 104);
+            this.SelectAppShortcutBtn.Name = "SelectAppShortcutBtn";
+            this.SelectAppShortcutBtn.Size = new System.Drawing.Size(75, 23);
+            this.SelectAppShortcutBtn.TabIndex = 5;
+            this.SelectAppShortcutBtn.Text = "選択";
+            this.SelectAppShortcutBtn.UseVisualStyleBackColor = true;
+            // 
+            // LaunchAppPathTextBox
+            // 
+            this.LaunchAppPathTextBox.Location = new System.Drawing.Point(34, 104);
+            this.LaunchAppPathTextBox.Name = "LaunchAppPathTextBox";
+            this.LaunchAppPathTextBox.Size = new System.Drawing.Size(244, 19);
+            this.LaunchAppPathTextBox.TabIndex = 4;
+            // 
+            // CommandTextBox
+            // 
+            this.CommandTextBox.Location = new System.Drawing.Point(32, 172);
+            this.CommandTextBox.Name = "CommandTextBox";
+            this.CommandTextBox.Size = new System.Drawing.Size(327, 19);
+            this.CommandTextBox.TabIndex = 3;
             // 
             // CommandShortcutRadioBtn
             // 
@@ -104,46 +114,36 @@ namespace ObjemDesktop.window
             this.CommandShortcutRadioBtn.UseVisualStyleBackColor = true;
             this.CommandShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.CommandShortcutRadioBtn_CheckedChanged);
             // 
-            // CommandTextBox
+            // LaunchAppShortcutRadioBtn
             // 
-            this.CommandTextBox.Location = new System.Drawing.Point(32, 172);
-            this.CommandTextBox.Name = "CommandTextBox";
-            this.CommandTextBox.Size = new System.Drawing.Size(327, 19);
-            this.CommandTextBox.TabIndex = 3;
+            this.LaunchAppShortcutRadioBtn.AutoSize = true;
+            this.LaunchAppShortcutRadioBtn.Location = new System.Drawing.Point(16, 82);
+            this.LaunchAppShortcutRadioBtn.Name = "LaunchAppShortcutRadioBtn";
+            this.LaunchAppShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
+            this.LaunchAppShortcutRadioBtn.TabIndex = 1;
+            this.LaunchAppShortcutRadioBtn.TabStop = true;
+            this.LaunchAppShortcutRadioBtn.Text = "アプリ起動ショートカット";
+            this.LaunchAppShortcutRadioBtn.UseVisualStyleBackColor = true;
+            this.LaunchAppShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.LaunchAppShortcutRadioBtn_CheckedChanged);
             // 
-            // LaunchAppPathTextBox
+            // KeyBoardShortcutRadioBtn
             // 
-            this.LaunchAppPathTextBox.Location = new System.Drawing.Point(34, 104);
-            this.LaunchAppPathTextBox.Name = "LaunchAppPathTextBox";
-            this.LaunchAppPathTextBox.Size = new System.Drawing.Size(244, 19);
-            this.LaunchAppPathTextBox.TabIndex = 4;
+            this.KeyBoardShortcutRadioBtn.AutoSize = true;
+            this.KeyBoardShortcutRadioBtn.Location = new System.Drawing.Point(16, 23);
+            this.KeyBoardShortcutRadioBtn.Name = "KeyBoardShortcutRadioBtn";
+            this.KeyBoardShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
+            this.KeyBoardShortcutRadioBtn.TabIndex = 0;
+            this.KeyBoardShortcutRadioBtn.TabStop = true;
+            this.KeyBoardShortcutRadioBtn.Text = "キーボードショートカット";
+            this.KeyBoardShortcutRadioBtn.UseVisualStyleBackColor = true;
+            this.KeyBoardShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.KeyBoardShortcutRadioBtn_CheckedChanged);
             // 
-            // SelectAppShortcutBtn
+            // textBox1
             // 
-            this.SelectAppShortcutBtn.Location = new System.Drawing.Point(308, 104);
-            this.SelectAppShortcutBtn.Name = "SelectAppShortcutBtn";
-            this.SelectAppShortcutBtn.Size = new System.Drawing.Size(75, 23);
-            this.SelectAppShortcutBtn.TabIndex = 5;
-            this.SelectAppShortcutBtn.Text = "選択";
-            this.SelectAppShortcutBtn.UseVisualStyleBackColor = true;
-            // 
-            // KeyboardShortcutLabel
-            // 
-            this.KeyboardShortcutLabel.AutoSize = true;
-            this.KeyboardShortcutLabel.Location = new System.Drawing.Point(32, 46);
-            this.KeyboardShortcutLabel.Name = "KeyboardShortcutLabel";
-            this.KeyboardShortcutLabel.Size = new System.Drawing.Size(135, 12);
-            this.KeyboardShortcutLabel.TabIndex = 6;
-            this.KeyboardShortcutLabel.Text = "設定されたショートカットキー";
-            // 
-            // addKeyBoardShortcut
-            // 
-            this.addKeyBoardShortcut.Location = new System.Drawing.Point(308, 34);
-            this.addKeyBoardShortcut.Name = "addKeyBoardShortcut";
-            this.addKeyBoardShortcut.Size = new System.Drawing.Size(75, 23);
-            this.addKeyBoardShortcut.TabIndex = 7;
-            this.addKeyBoardShortcut.Text = "選択";
-            this.addKeyBoardShortcut.UseVisualStyleBackColor = true;
+            this.textBox1.Location = new System.Drawing.Point(125, 15);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(276, 19);
+            this.textBox1.TabIndex = 1;
             // 
             // ShortcutNameLabel
             // 
@@ -162,6 +162,7 @@ namespace ObjemDesktop.window
             this.SaveBtn.TabIndex = 3;
             this.SaveBtn.Text = "保存";
             this.SaveBtn.UseVisualStyleBackColor = true;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // CancelBtn
             // 
@@ -171,6 +172,7 @@ namespace ObjemDesktop.window
             this.CancelBtn.TabIndex = 4;
             this.CancelBtn.Text = "キャンセル";
             this.CancelBtn.UseVisualStyleBackColor = true;
+            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
             // AddShortcut
             // 

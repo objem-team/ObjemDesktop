@@ -68,6 +68,7 @@ namespace ObjemDesktop
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.EditShortcutBtn = new System.Windows.Forms.Button();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -207,6 +208,7 @@ namespace ObjemDesktop
             // 
             // ShortcutsTabPage
             // 
+            this.ShortcutsTabPage.Controls.Add(this.EditShortcutBtn);
             this.ShortcutsTabPage.Controls.Add(this.orderUpBtn);
             this.ShortcutsTabPage.Controls.Add(this.orderDown);
             this.ShortcutsTabPage.Controls.Add(this.AddShortcutBtn);
@@ -463,6 +465,15 @@ namespace ObjemDesktop
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
+            // EditShortcutBtn
+            // 
+            this.EditShortcutBtn.Location = new System.Drawing.Point(17, 217);
+            this.EditShortcutBtn.Name = "EditShortcutBtn";
+            this.EditShortcutBtn.Size = new System.Drawing.Size(75, 23);
+            this.EditShortcutBtn.TabIndex = 7;
+            this.EditShortcutBtn.Text = "編集";
+            this.EditShortcutBtn.UseVisualStyleBackColor = true;
+            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -534,5 +545,6 @@ namespace ObjemDesktop
         private System.Windows.Forms.Button RemoveFromEnableListBtn;
         private System.Windows.Forms.Button AddToEnableBtn;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Button EditShortcutBtn;
     }
 }
