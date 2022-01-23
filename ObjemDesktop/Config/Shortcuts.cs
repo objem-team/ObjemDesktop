@@ -7,9 +7,14 @@ using System.Xml.Serialization;
 
 namespace ObjemDesktop.Config
 {
+    //xmlシリアライズしたときにリストを保持するクラス
     public class Shortcuts
     {
-       private List<ShortcutBase> _list;
+        private List<ShortcutBase> _list;
+        public Shortcuts()
+        {
+            _list = new List<ShortcutBase>();
+        }
 
 
         [XmlArrayItem(Type = typeof(KeyBoadShortcut)),
@@ -24,10 +29,6 @@ namespace ObjemDesktop.Config
                     _list = new List<ShortcutBase>();
                 }
                 return _list;
-            }
-            set
-            {
-                _list = value;
             }
         }
     }

@@ -5,7 +5,10 @@ namespace ObjemDesktop.Shortcuts.Command
 {
     public class CommandShortcut : ShortcutBase
     {
-        public CommandShortcut(Guid guid,string name) :base(guid,name){ }
+        public CommandShortcut(Guid guid, string name, string command) : base(guid, name)
+        {
+            Command = command;
+        }
         public CommandShortcut() { }
         public string Command { get; set; }
         public override void Execute()

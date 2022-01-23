@@ -6,12 +6,15 @@ namespace ObjemDesktop.Shortcuts.LaunchApp
 {
     public class LaunchAppShortcut : ShortcutBase
     {
-        public LaunchAppShortcut(Guid guid,string name) : base(guid, name) { }
+        public LaunchAppShortcut(Guid guid, string name, string path) : base(guid, name)
+        {
+            Path = path;
+        }
         public LaunchAppShortcut() { }
-        public string path {get;set;}
+        public string Path {get;set;}
         public override void Execute()
         {
-            ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", $"start {path}");
+            ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", $"start {Path}");
             Process.Start(processInfo);
         }
     }

@@ -37,8 +37,8 @@ namespace ObjemDesktop.window
             this.CommandTextBox = new System.Windows.Forms.TextBox();
             this.CommandShortcutRadioBtn = new System.Windows.Forms.RadioButton();
             this.LaunchAppShortcutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.KeyBoardShortcutRadioBtn = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.KeyboardShortcutRadioBtn = new System.Windows.Forms.RadioButton();
+            this.ShortcutNameInput = new System.Windows.Forms.TextBox();
             this.ShortcutNameLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
@@ -54,7 +54,7 @@ namespace ObjemDesktop.window
             this.ShortcutGroupBox.Controls.Add(this.CommandTextBox);
             this.ShortcutGroupBox.Controls.Add(this.CommandShortcutRadioBtn);
             this.ShortcutGroupBox.Controls.Add(this.LaunchAppShortcutRadioBtn);
-            this.ShortcutGroupBox.Controls.Add(this.KeyBoardShortcutRadioBtn);
+            this.ShortcutGroupBox.Controls.Add(this.KeyboardShortcutRadioBtn);
             this.ShortcutGroupBox.Location = new System.Drawing.Point(12, 40);
             this.ShortcutGroupBox.Name = "ShortcutGroupBox";
             this.ShortcutGroupBox.Size = new System.Drawing.Size(389, 216);
@@ -69,6 +69,7 @@ namespace ObjemDesktop.window
             this.addKeyBoardShortcut.TabIndex = 7;
             this.addKeyBoardShortcut.Text = "選択";
             this.addKeyBoardShortcut.UseVisualStyleBackColor = true;
+            this.addKeyBoardShortcut.Click += new System.EventHandler(this.addKeyBoardShortcut_Click);
             // 
             // KeyboardShortcutLabel
             // 
@@ -126,24 +127,24 @@ namespace ObjemDesktop.window
             this.LaunchAppShortcutRadioBtn.UseVisualStyleBackColor = true;
             this.LaunchAppShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.LaunchAppShortcutRadioBtn_CheckedChanged);
             // 
-            // KeyBoardShortcutRadioBtn
+            // KeyboardShortcutRadioBtn
             // 
-            this.KeyBoardShortcutRadioBtn.AutoSize = true;
-            this.KeyBoardShortcutRadioBtn.Location = new System.Drawing.Point(16, 23);
-            this.KeyBoardShortcutRadioBtn.Name = "KeyBoardShortcutRadioBtn";
-            this.KeyBoardShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
-            this.KeyBoardShortcutRadioBtn.TabIndex = 0;
-            this.KeyBoardShortcutRadioBtn.TabStop = true;
-            this.KeyBoardShortcutRadioBtn.Text = "キーボードショートカット";
-            this.KeyBoardShortcutRadioBtn.UseVisualStyleBackColor = true;
-            this.KeyBoardShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.KeyBoardShortcutRadioBtn_CheckedChanged);
+            this.KeyboardShortcutRadioBtn.AutoSize = true;
+            this.KeyboardShortcutRadioBtn.Location = new System.Drawing.Point(16, 23);
+            this.KeyboardShortcutRadioBtn.Name = "KeyboardShortcutRadioBtn";
+            this.KeyboardShortcutRadioBtn.Size = new System.Drawing.Size(130, 16);
+            this.KeyboardShortcutRadioBtn.TabIndex = 0;
+            this.KeyboardShortcutRadioBtn.TabStop = true;
+            this.KeyboardShortcutRadioBtn.Text = "キーボードショートカット";
+            this.KeyboardShortcutRadioBtn.UseVisualStyleBackColor = true;
+            this.KeyboardShortcutRadioBtn.CheckedChanged += new System.EventHandler(this.KeyBoardShortcutRadioBtn_CheckedChanged);
             // 
-            // textBox1
+            // ShortcutNameInput
             // 
-            this.textBox1.Location = new System.Drawing.Point(125, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(276, 19);
-            this.textBox1.TabIndex = 1;
+            this.ShortcutNameInput.Location = new System.Drawing.Point(125, 15);
+            this.ShortcutNameInput.Name = "ShortcutNameInput";
+            this.ShortcutNameInput.Size = new System.Drawing.Size(276, 19);
+            this.ShortcutNameInput.TabIndex = 1;
             // 
             // ShortcutNameLabel
             // 
@@ -182,7 +183,7 @@ namespace ObjemDesktop.window
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.ShortcutNameLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ShortcutNameInput);
             this.Controls.Add(this.ShortcutGroupBox);
             this.Name = "AddShortcut";
             this.Text = "AddShortcutDialog";
@@ -190,7 +191,6 @@ namespace ObjemDesktop.window
             this.ShortcutGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -203,8 +203,8 @@ namespace ObjemDesktop.window
         private System.Windows.Forms.TextBox CommandTextBox;
         private System.Windows.Forms.RadioButton CommandShortcutRadioBtn;
         private System.Windows.Forms.RadioButton LaunchAppShortcutRadioBtn;
-        private System.Windows.Forms.RadioButton KeyBoardShortcutRadioBtn;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton KeyboardShortcutRadioBtn;
+        private System.Windows.Forms.TextBox ShortcutNameInput;
         private System.Windows.Forms.Label ShortcutNameLabel;
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Button CancelBtn;

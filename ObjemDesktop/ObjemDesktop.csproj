@@ -148,6 +148,12 @@
       <DependentUpon>DownLoadQRForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HttpDownloadServer.cs" />
+    <Compile Include="window\KeyInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="window\KeyInputForm.Designer.cs">
+      <DependentUpon>KeyInputForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="window\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="window\DownLoadQRForm.resx">
       <DependentUpon>DownLoadQRForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="window\KeyInputForm.resx">
+      <DependentUpon>KeyInputForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="window\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

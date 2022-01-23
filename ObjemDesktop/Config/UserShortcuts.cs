@@ -1,10 +1,7 @@
-﻿using System;
+﻿using ObjemDesktop.Shortcuts;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ObjemDesktop.Config
@@ -16,22 +13,15 @@ namespace ObjemDesktop.Config
         public static UserShortcuts Instance = new UserShortcuts();
         private Shortcuts _shortcuts;
 
-        public Shortcuts Shortcuts
+        public List<ShortcutBase> Shortcuts
         {
             get 
             {
                 if(_shortcuts is null)
                 {
-                    return new Shortcuts();
+                    _shortcuts =new Shortcuts();
                 }
-                else
-                {
-                    return _shortcuts;
-                }
-            }
-            set
-            {
-                _shortcuts = value;
+                return _shortcuts.List;
             }
         }
 
@@ -68,5 +58,19 @@ namespace ObjemDesktop.Config
             serializer.Serialize(writer, _shortcuts);
             writer.Close();
         }
+
+        public void AddOrReplace(ShortcutBase shotcut)
+        {
+            var index = Shortcuts.FindIndex(s => s.Equals(shotcut));
+            if (index == -1)
+            {
+                Shortcuts.Add(shotcut);
+            }
+            else
+            {
+                Shortcuts[index] = shotcut;
+            }
+        }
+        
     }
 }
