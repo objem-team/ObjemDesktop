@@ -12,7 +12,7 @@ namespace ObjemDesktop
         public override Icon Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {   
             //ユースケースに無いため実装必要なし
-            throw new NotImplementedException();
+            return null;
         }
 
         public override void Write(Utf8JsonWriter writer, Icon value, JsonSerializerOptions options)

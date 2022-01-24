@@ -35,6 +35,11 @@ namespace ObjemDesktop.Config
             Serialize();
         }
 
+        public void Reload()
+        {
+            _shortcuts = Deserialize();
+        }
+
         private Shortcuts Deserialize()
         {
             try
