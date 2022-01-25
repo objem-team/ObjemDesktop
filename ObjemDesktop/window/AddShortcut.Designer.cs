@@ -42,6 +42,7 @@ namespace ObjemDesktop.window
             this.ShortcutNameLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
+            this.SelectApplicationDialog = new System.Windows.Forms.OpenFileDialog();
             this.ShortcutGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,6 +89,7 @@ namespace ObjemDesktop.window
             this.SelectAppShortcutBtn.TabIndex = 5;
             this.SelectAppShortcutBtn.Text = "選択";
             this.SelectAppShortcutBtn.UseVisualStyleBackColor = true;
+            this.SelectAppShortcutBtn.Click += new System.EventHandler(this.SelectAppShortcutBtn_Click);
             // 
             // LaunchAppPathTextBox
             // 
@@ -175,6 +177,10 @@ namespace ObjemDesktop.window
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
+            // SelectApplicationDialog
+            // 
+            this.SelectApplicationDialog.FileName = "openFileDialog1";
+            // 
             // AddShortcut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -208,5 +214,6 @@ namespace ObjemDesktop.window
         private System.Windows.Forms.Label ShortcutNameLabel;
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.OpenFileDialog SelectApplicationDialog;
     }
 }
