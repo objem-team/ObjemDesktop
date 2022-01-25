@@ -164,6 +164,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QrGenerater.cs" />
     <Compile Include="WebSocketService.cs" />
+    <Compile Include="window\ReturnableForm.cs" />
     <Compile Include="window\SettingWindow.cs">
       <SubType>Form</SubType>
     </Compile>
