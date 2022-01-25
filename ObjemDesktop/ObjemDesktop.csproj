@@ -108,6 +108,7 @@
     <Compile Include="Certificate\X509CertificateExtensionType.cs" />
     <Compile Include="Config\Shortcuts.cs" />
     <Compile Include="Config\UserShortcuts.cs" />
+    <Compile Include="ListUtil.cs" />
     <Compile Include="IconToDataURLJsonConverter.cs" />
     <Compile Include="IPAddressUtil.cs" />
     <Compile Include="IPConboBoxValue.cs" />
