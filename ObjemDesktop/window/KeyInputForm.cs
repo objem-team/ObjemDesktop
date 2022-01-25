@@ -5,10 +5,10 @@ using System.Windows.Forms;
 
 namespace ObjemDesktop.window
 {
-    public partial class KeyInputForm : Form
+    public partial class KeyInputForm : ReturnableValueForm<List<Keys>>
     {
         public List<Keys> Keys { get; }
-        public KeyInputForm()
+        public KeyInputForm(Action<List<Keys>> callback):base(callback)
         {
             Keys = new List<Keys>();
             InitializeComponent();
@@ -24,12 +24,12 @@ namespace ObjemDesktop.window
             e.Handled = false;
             Keys.Add(e.KeyCode);
             InputKeyLabel.Text = String.Join("+",Keys.Select(k=>Enum.GetName(typeof(Keys),k)));
-            Console.WriteLine(e.KeyCode);
         }
 
         private void CloseButton_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Close();
+            Callback(Keys);
+            Close();
         }
     }
 }

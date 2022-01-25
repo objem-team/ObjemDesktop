@@ -11,7 +11,6 @@ namespace ObjemDesktop
     public partial class MainWindow : Form
     {   
         private static  MainWindow instance;
-        private readonly SettingWindow SettingWindow = new SettingWindow();
         private readonly List<IPConboBoxValue> list = new List<IPConboBoxValue> { };
         private MainWindow()
         {
@@ -49,7 +48,7 @@ namespace ObjemDesktop
 
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
         {
-            SettingWindow.ShowDialog();    
+            new SettingWindow().ShowDialog();   
         }
 
         private void IpAddressComboBox_SelectedValueChanged(object sender, EventArgs e)

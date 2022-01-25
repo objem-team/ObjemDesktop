@@ -5,19 +5,21 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using ObjemDesktop.Config;
+using ObjemDesktop.Shortcuts;
 
 namespace ObjemDesktop
 {
     public partial class SettingWindow : Form
     {
         private bool RestartFlag = false;
-
+        private List<ShortcutBase> _shortcuts;
         public SettingWindow()
         {
+            //Instance.Shortcutsを直接参照させない
+            _shortcuts = UserShortcuts.Instance.Shortcuts.Select(x => x).ToList();
             InitializeComponent();
         }
 
@@ -42,19 +44,9 @@ namespace ObjemDesktop
             }
         }
 
-        private List<string> GetCertFilesip()
-        {
-            var files = Directory.GetFiles("certs\\", "*.*.*.*.pfx").ToList();
-            var ipList = files.Select(f =>
-                Regex.Match(f,
-                        @"(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])")
-                    .ToString()).ToList();
-            return ipList;
-        }
-
         private void FileExportBtn_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(() => SaveCertificate()));
+            Thread t = new Thread(SaveCertificate);
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
         }
@@ -78,42 +70,46 @@ namespace ObjemDesktop
             form.ShowDialog();
         }
 
-        private void AddShortcutBtn_Click(object sender, EventArgs e)
+        private void EditShortcutBtn_Click(object sender, EventArgs e)
         {
-            AddShortcut addShortcut = new AddShortcut();
+            var index = ShortcutsListBox.SelectedIndex >= 0 ? ShortcutsListBox.SelectedIndex : 0;
+            AddShortcut addShortcut = new AddShortcut(_shortcuts[index], shortcut =>
+            {
+                ListUtil.AddOrReplace(_shortcuts, shortcut);
+            });
             addShortcut.ShowDialog();
             _loadShortcuts();
+        }
+        private void AddShortcutBtn_Click(object sender, EventArgs e)
+        {
+            AddShortcut addShortcut = new AddShortcut(shortcut =>
+            {
+                ListUtil.AddOrReplace(_shortcuts, shortcut);
+            });
+            addShortcut.ShowDialog();
+            _loadShortcuts();
+        }
+        
+
+        private void ApplyBtn_Click(object sender, EventArgs e)
+        {
+            UserShortcuts.Instance.Shortcuts = _shortcuts;
+            Close();
+        }
+        
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void _loadShortcuts()
         {
             ShortcutsListBox.Items.Clear();
-            foreach (var shortcut in UserShortcuts.Instance.Shortcuts)
+            foreach (var shortcut in _shortcuts)
             {
                 ShortcutsListBox.Items.Add(shortcut.Name);
             }
         }
 
-        private void ApplyBtn_Click(object sender, EventArgs e)
-        {
-            UserShortcuts.Instance.Save();
-        }
-
-        private void EditShortcutBtn_Click(object sender, EventArgs e)
-        {
-            var index = ShortcutsListBox.SelectedIndex >= 0 ? ShortcutsListBox.SelectedIndex : 0;
-            AddShortcut addShortcut = new AddShortcut(UserShortcuts.Instance.Shortcuts[index]);
-            addShortcut.ShowDialog();
-            _loadShortcuts();
-        }
-
-        private void SettingWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            /*
-             * todo IOが増えないように変更前の値をディープコピーして持っておく
-             * ↓あんまよくない↓
-             */
-            UserShortcuts.Instance.Reload();
-        }
     }
 }

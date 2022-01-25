@@ -23,6 +23,7 @@ namespace ObjemDesktop.Config
                 }
                 return _shortcuts.List;
             }
+            set => _shortcuts.List = value;
         }
 
 

@@ -30,6 +30,7 @@ namespace ObjemDesktop.Config
                 }
                 return _list;
             }
+            set => _list = value;
         }
     }
 }

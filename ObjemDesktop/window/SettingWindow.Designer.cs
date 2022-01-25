@@ -87,6 +87,7 @@ namespace ObjemDesktop
             this.CancelButton.TabIndex = 1;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ApplyBtn
             // 
@@ -488,7 +489,6 @@ namespace ObjemDesktop
             this.MinimizeBox = false;
             this.Name = "SettingWindow";
             this.Text = "設定";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingWindow_FormClosed);
             this.Load += new System.EventHandler(this.SettingWindow_Load);
             this.OBSTabPage.ResumeLayout(false);
             this.OBSTabPage.PerformLayout();

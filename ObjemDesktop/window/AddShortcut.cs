@@ -10,7 +10,7 @@ using ObjemDesktop.Config;
 
 namespace ObjemDesktop.window
 {
-    public partial class AddShortcut : Form
+    public partial class AddShortcut : ReturnableValueForm<ShortcutBase>
     {
         public ShortcutBase Shortcut;
         private bool _isOverWrite = false;
@@ -19,13 +19,13 @@ namespace ObjemDesktop.window
         private string _command;
         private bool _isDialogShowing = false;
 
-        public AddShortcut()
+        public AddShortcut(Action<ShortcutBase> callback):base(callback)
         {
             InitializeComponent();
             activateKeyboardShortcutInputs();
         }
 
-        public AddShortcut(ShortcutBase shortcut)
+        public AddShortcut(ShortcutBase shortcut,Action<ShortcutBase> callback):base(callback)
         {
             
             InitializeComponent();
@@ -201,17 +201,19 @@ namespace ObjemDesktop.window
 
                     break;
             }
-
-            UserShortcuts.Instance.AddOrReplace(Shortcut);
+            
+            Callback(Shortcut);
             Close();
         }
 
         private void addKeyBoardShortcut_Click(object sender, EventArgs e)
         {
-            var dialog = new KeyInputForm();
+            var dialog = new KeyInputForm(keys =>
+            {
+                _keys = keys.Select(k => (ushort) k).ToArray();
+                KeyboardShortcutLabel.Text = String.Join("+", _keys.Select(k => Enum.GetName(typeof(Keys), k)));
+            });
             dialog.ShowDialog();
-            _keys = dialog.Keys.Select(keys => (ushort) keys).ToArray();
-            KeyboardShortcutLabel.Text = String.Join("+", _keys.Select(k => Enum.GetName(typeof(Keys), k)));
         }
 
         private void SelectAppShortcutBtn_Click(object sender, EventArgs e)
