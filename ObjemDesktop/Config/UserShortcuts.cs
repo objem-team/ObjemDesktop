@@ -1,4 +1,5 @@
-﻿using ObjemDesktop.Shortcuts;
+﻿using System;
+using ObjemDesktop.Shortcuts;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -25,7 +26,7 @@ namespace ObjemDesktop.Config
             }
             set => _shortcuts.List = value;
         }
-
+        public ShortcutBase this[Guid guid] => _shortcuts.List.Find(s=>s.Guid == guid);
 
         private UserShortcuts()
         {
@@ -63,19 +64,6 @@ namespace ObjemDesktop.Config
             StreamWriter writer = new StreamWriter(filePath);
             serializer.Serialize(writer, _shortcuts);
             writer.Close();
-        }
-
-        public void AddOrReplace(ShortcutBase shotcut)
-        {
-            var index = Shortcuts.FindIndex(s => s.Equals(shotcut));
-            if (index == -1)
-            {
-                Shortcuts.Add(shotcut);
-            }
-            else
-            {
-                Shortcuts[index] = shotcut;
-            }
         }
         
     }
