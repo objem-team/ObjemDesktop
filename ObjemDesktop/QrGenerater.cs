@@ -10,9 +10,9 @@ namespace ObjemDesktop
     {   
         
         //QRコード取得
-        public static Image Generate(String Str,int Width, int Height)
+        public static Image Generate(String str,int width, int height)
         {
-            var Writer = new BarcodeWriter
+            var writer = new BarcodeWriter
             {
                 Format = BarcodeFormat.QR_CODE,
                 Options = new QrCodeEncodingOptions
@@ -20,12 +20,12 @@ namespace ObjemDesktop
                     QrVersion = 5,
                     ErrorCorrection = ErrorCorrectionLevel.M,
                     CharacterSet = "UTF-8",
-                    Width = Width,
-                    Height = Height,
+                    Width = width,
+                    Height = height,
                     Margin = 5,
                 },
             };
-            return Writer.Write(Str);
+            return writer.Write(str);
         }
     }
 }

@@ -5,6 +5,7 @@ using WebSocketSharp.Server;
 using ObjemDesktop.VolumeManaging;
 using System.Text.Encodings.Web;
 using ObjemDesktop.WebsocketMessageType;
+using ObjemDesktop.window;
 
 namespace ObjemDesktop
 {
@@ -29,10 +30,10 @@ namespace ObjemDesktop
                                 Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
                                 Converters =
                                 {
-                                    new IconToDataURLJsonConverter()
+                                    new IconToDataUrlJsonConverter()
                                 }
                             };
-                            var sendMessage = new WebsocketSendMessage("session", volumeManager.list);
+                            var sendMessage = new WebsocketSendMessage("session", volumeManager.List);
                             string jsonString = JsonSerializer.Serialize(sendMessage, serializeOptions);
                             Send(jsonString);
                         }

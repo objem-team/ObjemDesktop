@@ -3,13 +3,13 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 namespace ObjemDesktop.VolumeManaging
 {
-    class IconExtracter
+    static class IconExtracter
     {
         [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
-        public static extern uint ExtractIconEx(string lpszFile, int nIconIndex, out IntPtr phiconLarge, out IntPtr phiconSmall, uint nIcons);
+        private static extern uint ExtractIconEx(string lpszFile, int nIconIndex, out IntPtr iconLarge, out IntPtr iconSmall, uint nIcons);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern bool DestroyIcon(IntPtr handle);
+        private static extern bool DestroyIcon(IntPtr handle);
 
         private static readonly string DefaultIconPath = @"%SystemRoot%\System32\SHELL32.dll";
         private static readonly int DefaultIconIndex = 0;
@@ -18,20 +18,18 @@ namespace ObjemDesktop.VolumeManaging
         {
             try
             {
-                IntPtr largeIconHandle = IntPtr.Zero;
-                IntPtr _SmallIconHandle = IntPtr.Zero;
                 //pathからアイコンを取得する
-                IconExtracter.ExtractIconEx(iconPath, index, out largeIconHandle, out _SmallIconHandle, 1);
+                ExtractIconEx(iconPath, index, out var largeIconHandle, out var smallIconHandle, 1);
                 Icon icon = (Icon)Icon.FromHandle(largeIconHandle).Clone();
-                IconExtracter.DestroyIcon(largeIconHandle);
-                IconExtracter.DestroyIcon(_SmallIconHandle);
+                DestroyIcon(largeIconHandle);
+                DestroyIcon(smallIconHandle);
 
                 return icon;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw e;
+                throw;
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace ObjemDesktop
+namespace ObjemDesktop.window
 {
     partial class MainWindow
     {

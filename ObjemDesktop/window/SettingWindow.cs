@@ -25,7 +25,7 @@ namespace ObjemDesktop
 
         private void SettingWindow_Load(object sender, EventArgs e)
         {
-            DownloadServerIPComboBox.DataSource = IPAddressUtil.GetIPAdressList();
+            DownloadServerIPComboBox.DataSource = IPAddressUtil.GetIpAdressList();
             _loadShortcuts();
         }
 
@@ -37,7 +37,7 @@ namespace ObjemDesktop
             {
                 DirectoryInfo info = new DirectoryInfo(@"certs\");
                 info.EnumerateFiles().ToList().ForEach(f => f.Delete());
-                Certificate.CertificateUtil.ExportAsPfx(Certificate.Certificate.CreateCACerttificate(),
+                Certificate.CertificateUtil.ExportAsPfx(Certificate.Certificate.CreateCertificate(),
                     @"certs\CAcert.pfx");
                 MessageBox.Show("再作成が完了しました\n");
                 RestartFlag = true;
@@ -66,7 +66,7 @@ namespace ObjemDesktop
 
         private void DownLoadQRCodeBtn_Click(object sender, EventArgs e)
         {
-            DownLoadQRForm form = new DownLoadQRForm((IPAddress) DownloadServerIPComboBox.SelectedItem);
+            DownLoadQrForm form = new DownLoadQrForm((IPAddress) DownloadServerIPComboBox.SelectedItem);
             form.ShowDialog();
         }
 

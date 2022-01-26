@@ -6,14 +6,14 @@ namespace ObjemDesktop
 {
     class IPAddressUtil
     {
-        public static List<IPAddress> GetIPAdressList()
+        public static List<IPAddress> GetIpAdressList()
         {
             //IPアドレス取得
-            string hostname = Dns.GetHostName();
-            string ip = string.Empty;
-            IPAddress[] Addresess = Dns.GetHostAddresses(hostname);
-            List<IPAddress> AddressList = Addresess.Where(address => address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToList();
-            return AddressList;
+            var hostname = Dns.GetHostName();
+            var ip = string.Empty;
+            IPAddress[] addresess = Dns.GetHostAddresses(hostname);
+            List<IPAddress> addressList = addresess.Where(address => address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToList();
+            return addressList;
         }
     }
 }

@@ -2,21 +2,21 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using ObjemDesktop.Shortcuts.Keyboard.Structs;
 
 namespace ObjemDesktop.Shortcuts.Keyboard
 {
-    public class KeyBoadShortcut : ShortcutBase
+    public class KeyBoardShortcut : ShortcutBase
     {
         public ushort[] Keys { get; set; }
-        public KeyBoadShortcut(Guid guid, string name, ushort[] keys) : base(guid, name) {
+        public KeyBoardShortcut(Guid guid, string name, ushort[] keys) : base(guid, name) {
             Keys = keys;
         }
-        public KeyBoadShortcut(Guid guid, string name, Keys[] keys) : base(guid, name)
+        public KeyBoardShortcut(Guid guid, string name, Keys[] keys) : base(guid, name)
         {
             Keys = keys.Select(k => (ushort)k).ToArray();
         }
-        public KeyBoadShortcut() { }
+        public KeyBoardShortcut() { }
         public override void Execute()
         {
             var inputs = KeyStrokesGenerator.Generate(Keys);
@@ -24,6 +24,6 @@ namespace ObjemDesktop.Shortcuts.Keyboard
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern uint SendInput(uint numberOfInputs, Input[] inputs, int sizeOfInputStructure);
+        private static extern uint SendInput(uint numberOfInputs, Input[] inputs, int sizeOfInputStructure);
     }
 }

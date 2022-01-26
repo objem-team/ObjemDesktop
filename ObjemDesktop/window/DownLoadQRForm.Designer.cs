@@ -1,7 +1,7 @@
 ﻿
 namespace ObjemDesktop.window
 {
-    partial class DownLoadQRForm
+    partial class DownLoadQrForm
     {
         /// <summary>
         /// Required designer variable.
@@ -72,7 +72,7 @@ namespace ObjemDesktop.window
             this.Controls.Add(this.CloseBtn);
             this.Controls.Add(this.DownloadLinkLabel);
             this.Controls.Add(this.DownloadQR);
-            this.Name = "DownLoadQRForm";
+            this.Name = "DownLoadQrForm";
             this.Text = "DownLoadQRForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DownLoadQRForm_FormClosed);
             this.Load += new System.EventHandler(this.DownLoadQRForm_Load);

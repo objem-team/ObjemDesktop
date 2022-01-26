@@ -7,7 +7,7 @@ namespace ObjemDesktop.window
 {
     public partial class KeyInputForm : ReturnableValueForm<List<Keys>>
     {
-        public List<Keys> Keys { get; }
+        private List<Keys> Keys { get; }
         public KeyInputForm(Action<List<Keys>> callback):base(callback)
         {
             Keys = new List<Keys>();

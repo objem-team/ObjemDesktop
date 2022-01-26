@@ -111,12 +111,12 @@
     <Compile Include="ListUtil.cs" />
     <Compile Include="IconToDataURLJsonConverter.cs" />
     <Compile Include="IPAddressUtil.cs" />
-    <Compile Include="IPConboBoxValue.cs" />
+    <Compile Include="IpComboBoxValue.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Shortcuts\Command\CommandShortcut.cs" />
     <Compile Include="Shortcuts\Keyboard\Structs\HardwareInput.cs" />
     <Compile Include="Shortcuts\Keyboard\Structs\Input.cs" />
-    <Compile Include="Shortcuts\Keyboard\KeyBoadShortcut.cs" />
+    <Compile Include="Shortcuts\Keyboard\KeyBoardShortcut.cs" />
     <Compile Include="Shortcuts\Keyboard\Structs\KeyboardInput.cs" />
     <Compile Include="Shortcuts\Keyboard\KeyBoardInputFlags.cs" />
     <Compile Include="Shortcuts\Keyboard\KeyStrokesGenerator.cs" />

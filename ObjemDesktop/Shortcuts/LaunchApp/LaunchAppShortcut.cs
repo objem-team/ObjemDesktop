@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace ObjemDesktop.Shortcuts.LaunchApp
 {
@@ -14,7 +13,7 @@ namespace ObjemDesktop.Shortcuts.LaunchApp
         public string Path {get;set;}
         public override void Execute()
         {
-            ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", $"start {Path}");
+            var processInfo = new ProcessStartInfo("cmd.exe", $"start {Path}");
             Process.Start(processInfo);
         }
     }

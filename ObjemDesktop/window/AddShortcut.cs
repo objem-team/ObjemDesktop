@@ -6,55 +6,54 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using ObjemDesktop.Config;
 
 namespace ObjemDesktop.window
 {
     public partial class AddShortcut : ReturnableValueForm<ShortcutBase>
     {
-        public ShortcutBase Shortcut;
-        private bool _isOverWrite = false;
+        private ShortcutBase _shortcut;
+        private readonly bool _isOverWrite;
         private ushort[] _keys;
         private string _path;
         private string _command;
-        private bool _isDialogShowing = false;
+        private bool _isDialogShowing;
 
         public AddShortcut(Action<ShortcutBase> callback):base(callback)
         {
             InitializeComponent();
-            activateKeyboardShortcutInputs();
+            ActivateKeyboardShortcutInputs();
         }
 
         public AddShortcut(ShortcutBase shortcut,Action<ShortcutBase> callback):base(callback)
         {
             
             InitializeComponent();
-            Shortcut = shortcut;
+            _shortcut = shortcut;
             _isOverWrite = true;
             var typeName = shortcut.GetType().Name;
             ShortcutNameInput.Text = shortcut.Name;
             switch (typeName)
             {
-                case "KeyBoadShortcut":
-                    activateKeyboardShortcutInputs((KeyBoadShortcut) Shortcut);
+                case "KeyBoardShortcut":
+                    ActivateKeyboardShortcutInputs((KeyBoardShortcut) _shortcut);
                     break;
                 case "LaunchAppShortcut":
-                    activateLaunchAppShortcutInputs((LaunchAppShortcut) Shortcut);
+                    ActivateLaunchAppShortcutInputs((LaunchAppShortcut) _shortcut);
                     break;
                 case "CommandShortcut":
-                    activateCommandShortcutInputs((CommandShortcut) Shortcut);
+                    ActivateCommandShortcutInputs((CommandShortcut) _shortcut);
                     break;
             }
 
         }
 
-        private void activateKeyboardShortcutInputs(KeyBoadShortcut shortcut)
+        private void ActivateKeyboardShortcutInputs(KeyBoardShortcut shortcut)
         {
             _keys = shortcut.Keys;
-            activateKeyboardShortcutInputs();
+            ActivateKeyboardShortcutInputs();
         }
 
-        private void activateKeyboardShortcutInputs()
+        private void ActivateKeyboardShortcutInputs()
         {
             KeyboardShortcutRadioBtn.Checked = true;
             addKeyBoardShortcut.Enabled = true;
@@ -70,13 +69,13 @@ namespace ObjemDesktop.window
             CommandTextBox.Text = "";
         }
 
-        private void activateLaunchAppShortcutInputs(LaunchAppShortcut shortcut)
+        private void ActivateLaunchAppShortcutInputs(LaunchAppShortcut shortcut)
         {
             _path = shortcut.Path;
-            activateLaunchAppShortcutInputs();
+            ActivateLaunchAppShortcutInputs();
         }
 
-        private void activateLaunchAppShortcutInputs()
+        private void ActivateLaunchAppShortcutInputs()
         {
             KeyboardShortcutRadioBtn.Checked = false;
             addKeyBoardShortcut.Enabled = false;
@@ -93,13 +92,13 @@ namespace ObjemDesktop.window
             CommandTextBox.Text = "";
         }
 
-        private void activateCommandShortcutInputs(CommandShortcut shortcut)
+        private void ActivateCommandShortcutInputs(CommandShortcut shortcut)
         {
             _command = shortcut.Command;
-            activateCommandShortcutInputs();
+            ActivateCommandShortcutInputs();
         }
 
-        private void activateCommandShortcutInputs()
+        private void ActivateCommandShortcutInputs()
         {
             KeyboardShortcutRadioBtn.Checked = false;
             addKeyBoardShortcut.Enabled = false;
@@ -118,19 +117,19 @@ namespace ObjemDesktop.window
         private void KeyBoardShortcutRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (!KeyboardShortcutRadioBtn.Checked) return;
-            activateKeyboardShortcutInputs();
+            ActivateKeyboardShortcutInputs();
         }
 
         private void LaunchAppShortcutRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (!LaunchAppShortcutRadioBtn.Checked) return;
-            activateLaunchAppShortcutInputs();
+            ActivateLaunchAppShortcutInputs();
         }
 
         private void CommandShortcutRadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (!CommandShortcutRadioBtn.Checked) return;
-            activateCommandShortcutInputs();
+            ActivateCommandShortcutInputs();
         }
 
 
@@ -159,12 +158,12 @@ namespace ObjemDesktop.window
 
                     if (_isOverWrite)
                     {
-                        Shortcut = new KeyBoadShortcut(this.Shortcut.Guid, shortcutName,
+                        _shortcut = new KeyBoardShortcut(this._shortcut.Guid, shortcutName,
                             _keys);
                     }
                     else
                     {
-                        Shortcut = new KeyBoadShortcut(Guid.NewGuid(), shortcutName, _keys);
+                        _shortcut = new KeyBoardShortcut(Guid.NewGuid(), shortcutName, _keys);
                     }
 
                     break;
@@ -174,14 +173,7 @@ namespace ObjemDesktop.window
                         MessageBox.Show("起動するアプリが設定されていません。");
                         return;
                     }
-                    if (_isOverWrite)
-                    {
-                        Shortcut = new LaunchAppShortcut(this.Shortcut.Guid, shortcutName, LaunchAppPathTextBox.Text);
-                    }
-                    else
-                    {
-                        Shortcut = new LaunchAppShortcut(Guid.NewGuid(), shortcutName, LaunchAppPathTextBox.Text);
-                    }
+                    _shortcut = _isOverWrite ? new LaunchAppShortcut(_shortcut.Guid, shortcutName, LaunchAppPathTextBox.Text) : new LaunchAppShortcut(Guid.NewGuid(), shortcutName, LaunchAppPathTextBox.Text);
 
                     break;
                 case string name when name.StartsWith("Command"):
@@ -190,19 +182,12 @@ namespace ObjemDesktop.window
                         MessageBox.Show("コマンドが設定されていません。");
                         return;
                     }
-                    if (_isOverWrite)
-                    {
-                        Shortcut = new CommandShortcut(this.Shortcut.Guid, shortcutName, CommandTextBox.Text);
-                    }
-                    else
-                    {
-                        Shortcut = new CommandShortcut(Guid.NewGuid(), shortcutName, CommandTextBox.Text);
-                    }
+                    _shortcut = _isOverWrite ? new CommandShortcut(_shortcut.Guid, shortcutName, CommandTextBox.Text) : new CommandShortcut(Guid.NewGuid(), shortcutName, CommandTextBox.Text);
 
                     break;
             }
             
-            Callback(Shortcut);
+            Callback(_shortcut);
             Close();
         }
 
@@ -218,7 +203,7 @@ namespace ObjemDesktop.window
 
         private void SelectAppShortcutBtn_Click(object sender, EventArgs e)
         {
-            Thread t = new Thread(() => OpenSelectApplicationDialog());
+            Thread t = new Thread(OpenSelectApplicationDialog);
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
         }

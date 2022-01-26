@@ -8,14 +8,14 @@ namespace ObjemDesktop
     {
         public WebSocketServer Server { get; set; }
         public X509Certificate2 ServerCertificate { get; set; }
-        private static WSServer instance;
+        private static WSServer _instance;
         public int Port { get; set; }
         public static WSServer Instance
         {
             get 
             {
-                if (instance is null) instance = new WSServer();
-                return instance;
+                if (_instance is null) _instance = new WSServer();
+                return _instance;
             }
         }
         public void Start()

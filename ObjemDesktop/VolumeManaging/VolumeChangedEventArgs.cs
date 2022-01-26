@@ -5,12 +5,12 @@
         public float NewVolume { get; }
         public bool IsMuted { get; }
 
-        public IVolumeController VolumeController;
-        public VolumeChangedEventArgs(IVolumeController volumeController, float NewVolume, bool IsMuted)
+        public readonly IVolumeController VolumeController;
+        public VolumeChangedEventArgs(IVolumeController volumeController, float newVolume, bool isMuted)
         {
             this.VolumeController = volumeController;
-            this.NewVolume = NewVolume;
-            this.IsMuted = IsMuted;
+            this.NewVolume = newVolume;
+            this.IsMuted = isMuted;
         }
     }
 }

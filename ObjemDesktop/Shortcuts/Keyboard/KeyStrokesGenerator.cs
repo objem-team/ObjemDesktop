@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ObjemDesktop.Shortcuts.Keyboard.Structs;
 
 namespace ObjemDesktop.Shortcuts.Keyboard
 {
-    class KeyStrokesGenerator
+    static class KeyStrokesGenerator
     {
         [DllImport("user32.dll", EntryPoint = "MapVirtualKeyA")]
-        private extern static uint MapVirtualKey(uint wCode, uint wMapType);
+        private static extern uint MapVirtualKey(uint wCode, uint wMapType);
 
         public static Input[] Generate(ushort[] keycodes)
         {
@@ -21,10 +22,10 @@ namespace ObjemDesktop.Shortcuts.Keyboard
 
         private static bool IsExtendedKey(uint keycode)
         {
-            var scancode = MapVirtualKey(keycode, 4); //4 is MAPVK_VK_TO_VSC_EX, so return with prefix;
+            var scancode = MapVirtualKey(keycode, 4); //4 is MAP_VK_TO_VSC_EX, so return with prefix;
             if (scancode == 0) return false;
-            const uint EXTENDEDKEY_PREFIX = 0xE0;
-            return (scancode >> 8 & EXTENDEDKEY_PREFIX) > 0;
+            const uint extendedkeyPrefix = 0xE0;
+            return (scancode >> 8 & extendedkeyPrefix) > 0;
         }
         private static Input GenerateKeyDownInput(uint keycode)
         {
@@ -38,7 +39,7 @@ namespace ObjemDesktop.Shortcuts.Keyboard
                     {
                         keyCode = (ushort)keycode,
                         scanCode = (ushort)MapVirtualKey(keycode, 1),
-                        flags = (isExtendedKey ? KeyBoardInputFlags.KEYEVENTF_EXTENDEDKEY : 0x0) | KeyBoardInputFlags.KEYEVENTF_DOWN,
+                        flags = (isExtendedKey ? KeyBoardInputFlags.Extendedkey : 0x0) | KeyBoardInputFlags.Down,
                         time = 0,
                         extraInfo = IntPtr.Zero
                     }
@@ -58,7 +59,7 @@ namespace ObjemDesktop.Shortcuts.Keyboard
                     {
                         keyCode = (ushort)keycode,
                         scanCode = (ushort)MapVirtualKey(keycode, 1),
-                        flags = (isExtendedKey ? KeyBoardInputFlags.KEYEVENTF_EXTENDEDKEY : 0x0) | KeyBoardInputFlags.KEYEVENTF_KEYUP,
+                        flags = (isExtendedKey ? KeyBoardInputFlags.Extendedkey : 0x0) | KeyBoardInputFlags.Keyup,
                         time = 0,
                         extraInfo = IntPtr.Zero
                     }

@@ -10,7 +10,7 @@ namespace ObjemDesktop.Shortcuts.Command
             Command = command;
         }
         public CommandShortcut() { }
-        public string Command { get; set; }
+        public string Command { get; }
         public override void Execute()
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", Command);

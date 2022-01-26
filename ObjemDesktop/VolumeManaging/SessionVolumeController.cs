@@ -6,27 +6,15 @@ namespace ObjemDesktop.VolumeManaging
 {
     internal class SessionVolumeController:IVolumeController
     {
-        public AudioSessionControl2 AudioSessionControl { get; }
-        public SimpleAudioVolume SimpleAudioVolume { get; }
+        private AudioSessionControl2 AudioSessionControl { get; }
+        private SimpleAudioVolume SimpleAudioVolume { get; }
         public int ProcessId { get; }
         public string Name { get; }
         public Icon Icon { get; }
 
-        public float Volume
-        {
-            get 
-            {
-                return SimpleAudioVolume.MasterVolume;
-            }
-        }
+        public float Volume => SimpleAudioVolume.MasterVolume;
 
-        public bool IsMuted
-        {
-            get
-            {
-                return SimpleAudioVolume.IsMuted;
-            }
-        }
+        public bool IsMuted => SimpleAudioVolume.IsMuted;
 
         public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
         public event EventHandler<SessionExpiredEventArg> SessionExpired;
@@ -68,7 +56,9 @@ namespace ObjemDesktop.VolumeManaging
             }
             try
             {
-                return System.Drawing.Icon.ExtractAssociatedIcon(audioSessionControl.Process.MainModule.FileName);
+                if (audioSessionControl.Process.MainModule != null)
+                    return Icon.ExtractAssociatedIcon(audioSessionControl.Process.MainModule.FileName);
+                return IconExtracter.GetDefaultIcon();
             }
             catch (Exception)
             {
@@ -93,7 +83,7 @@ namespace ObjemDesktop.VolumeManaging
 
         public bool Equals(IVolumeController other)
         {
-            return (ProcessId == other.ProcessId);
+            return other != null && (ProcessId == other.ProcessId);
         }
     }
 }

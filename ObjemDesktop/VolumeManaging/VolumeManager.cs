@@ -7,17 +7,12 @@ namespace ObjemDesktop.VolumeManaging
 {
     class VolumeManager
     {
-        public static VolumeManager Instance = new VolumeManager();
+        public static readonly VolumeManager Instance = new VolumeManager();
 
         //DeviceのStatusを監視させるための
-        private readonly MMDeviceEnumerator DeviceEnumerator;
         //AudioSessionNotificationを継承するクラスを作ってセッションの作成を監視
-        private readonly AudioSessionManager2 AudioSessionManager;
 
-        public List<IVolumeController> list = new List<IVolumeController>();
-
-        public MMDevice DefaultRenderDevice;
-        public MMDevice DefaultCaptureDevice;
+        public readonly List<IVolumeController> List = new List<IVolumeController>();
 
         public event EventHandler<VolumeChangedEventArgs> OnVolumeChange;
         public event EventHandler<SessionExpiredEventArg> OnSessionExpired;
@@ -27,37 +22,37 @@ namespace ObjemDesktop.VolumeManaging
         private VolumeManager()
         {
             //デフォルトのマイクとスピーカーを取得
-            DeviceEnumerator = new MMDeviceEnumerator();
-            DefaultRenderDevice = DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            DefaultCaptureDevice = DeviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
+            var deviceEnumerator = new MMDeviceEnumerator();
+            var defaultRenderDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var defaultCaptureDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
 
 
             //デバイス音量が変更されたときのイベントを登録
-            DeviceVolumeController RenderDeviceVolumeContoroller = new DeviceVolumeController(DefaultRenderDevice);
-            RenderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            list.Add(RenderDeviceVolumeContoroller);
+            DeviceVolumeController renderDeviceVolumeContoroller = new DeviceVolumeController(defaultRenderDevice);
+            renderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            List.Add(renderDeviceVolumeContoroller);
 
-            DeviceVolumeController CaputureDeviceVolumeContoroller = new DeviceVolumeController(DefaultCaptureDevice);
-            CaputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            list.Add(CaputureDeviceVolumeContoroller);
+            DeviceVolumeController caputureDeviceVolumeContoroller = new DeviceVolumeController(defaultCaptureDevice);
+            caputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+            List.Add(caputureDeviceVolumeContoroller);
 
             //デフォルトのデバイスが変更されたときのイベントを登録
             MMNotificationClient notificationClient = new MMNotificationClient();
-            notificationClient.DefaultDeviceChanged += (object sender, DefaultDeviceChangedEventArgs eventArgs) => OnDefaultDeviceChanged?.Invoke(sender, eventArgs);
-            DeviceEnumerator.RegisterEndpointNotificationCallback(notificationClient);
+            notificationClient.DefaultDeviceChanged += (sender, eventArgs) => OnDefaultDeviceChanged?.Invoke(sender, eventArgs);
+            deviceEnumerator.RegisterEndpointNotificationCallback(notificationClient);
 
             //セッションの追加を監視
-            AudioSessionManager = AudioSessionManager2.FromMMDevice(DefaultRenderDevice);
+            var audioSessionManager = AudioSessionManager2.FromMMDevice(defaultRenderDevice);
             AudioSessionNotification audioSessionNotification = new AudioSessionNotification();
-            audioSessionNotification.SessionCreated += (object sender, SessionCreatedEventArgs eventArgs) => OnSessionCreated?.Invoke(sender, eventArgs);
-            AudioSessionManager.RegisterSessionNotification(audioSessionNotification);
+            audioSessionNotification.SessionCreated += (sender, eventArgs) => OnSessionCreated?.Invoke(sender, eventArgs);
+            audioSessionManager.RegisterSessionNotification(audioSessionNotification);
 
             //おまじない   https://github.com/filoe/cscore/issues/216
             //using (var sessionEnumerator = AudioSessionManager.GetSessionEnumerator()) { }
 
             //sessionの音量が変更されたときのイベントを登録
-            AudioSessionEnumerator AudioSessionEnumerator = AudioSessionManager.GetSessionEnumerator();
-            foreach (var session in AudioSessionEnumerator)
+            AudioSessionEnumerator audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
+            foreach (var session in audioSessionEnumerator)
             {
                 try
                 {
@@ -83,12 +78,12 @@ namespace ObjemDesktop.VolumeManaging
             var sessionControl = session.QueryInterface<AudioSessionControl2>();
             SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
             RegisterEvent(sessionVolumeController);
-            list.Add(sessionVolumeController);
+            List.Add(sessionVolumeController);
         }
 
         public void SetVolume(int processId,float volume,bool isMute)
         {
-            list.Find(x => x.ProcessId == processId).SetVolume(volume,isMute);
+            List.Find(x => x.ProcessId == processId).SetVolume(volume,isMute);
         }
     }
 

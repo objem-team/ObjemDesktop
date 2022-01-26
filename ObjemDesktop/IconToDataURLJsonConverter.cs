@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace ObjemDesktop
 {
-    class IconToDataURLJsonConverter : JsonConverter<Icon>
+    class IconToDataUrlJsonConverter : JsonConverter<Icon>
     {
         public override Icon Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {   
@@ -17,20 +17,20 @@ namespace ObjemDesktop
 
         public override void Write(Utf8JsonWriter writer, Icon value, JsonSerializerOptions options)
         {
-            string IconBase64String = ByteToBase64(IconToBytes(value));
-            writer.WriteStringValue($"data:image/png;base64,{IconBase64String}");
+            var iconBase64String = ByteToBase64(IconToBytes(value));
+            writer.WriteStringValue($"data:image/png;base64,{iconBase64String}");
         }
 
-        public string ByteToBase64(byte[] bytes)
+        private static string ByteToBase64(byte[] bytes)
         {
             return Convert.ToBase64String(bytes);
         }
 
-        public static byte[] IconToBytes(Icon icon)
+        private static byte[] IconToBytes(Icon icon)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
-                Bitmap bitmap = icon.ToBitmap();
+                var bitmap = icon.ToBitmap();
                 bitmap.Save(ms, ImageFormat.Png);
                 return ms.ToArray();
             }

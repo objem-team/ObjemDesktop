@@ -17,19 +17,12 @@ namespace ObjemDesktop.Config
         }
 
 
-        [XmlArrayItem(Type = typeof(KeyBoadShortcut)),
+        [XmlArrayItem(Type = typeof(KeyBoardShortcut)),
         XmlArrayItem(Type = typeof(CommandShortcut)),
         XmlArrayItem(Type = typeof(LaunchAppShortcut))]
         public List<ShortcutBase> List 
         {
-            get
-            {
-                if(_list is null)
-                {
-                    _list = new List<ShortcutBase>();
-                }
-                return _list;
-            }
+            get => _list ?? (_list = new List<ShortcutBase>());
             set => _list = value;
         }
     }

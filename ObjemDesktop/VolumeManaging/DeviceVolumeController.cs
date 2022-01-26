@@ -5,10 +5,10 @@ using System.Drawing;
 
 namespace ObjemDesktop.VolumeManaging
 {
-    class DeviceVolumeController : IVolumeController, IDisposable
+    internal class DeviceVolumeController : IVolumeController, IDisposable
     {
-        public MMDevice Device;
-        private readonly AudioEndpointVolume AudioEndpointVolume;
+        private readonly MMDevice _device;
+        private readonly AudioEndpointVolume _audioEndpointVolume;
 
         public event EventHandler<VolumeChangedEventArgs> VolumeChanged;
 
@@ -18,65 +18,54 @@ namespace ObjemDesktop.VolumeManaging
         public string Name { get; }
         public Icon Icon { get; }
 
-        public float Volume {
-            get 
-            {
-                return AudioEndpointVolume.MasterVolumeLevelScalar;
-            }
-        }
-        public bool IsMuted
-        {
-            get
-            {
-                return AudioEndpointVolume.IsMuted;
-            }
-        }
+        public float Volume => _audioEndpointVolume.MasterVolumeLevelScalar;
+
+        public bool IsMuted => _audioEndpointVolume.IsMuted;
+
         public DeviceVolumeController(MMDevice device)
         {
-            using (var enumerator = new MMDeviceEnumerator())
+            /*
+             * sessionとかぶることのないマイナス値をIDに用いる
+             * デバイスidの文字列をbyteに変換し最後の4bitを用いてintに変換する
+             */
+            var deviceId = System.Text.Encoding.UTF8.GetBytes(device.DeviceID);
+            var processId = BitConverter.ToInt32(deviceId, deviceId.Length - 4);
+            ProcessId = processId * -1;
+            _device = device;
+            _audioEndpointVolume = AudioEndpointVolume.FromDevice(_device);
+            Name = _device.FriendlyName;
+            using (var propertyStore = _device.PropertyStore)
             {
-                /*
-                 * sessionとかぶることのないマイナス値をIDに用いる
-                 * デバイスidの文字列をbyteに変換し最後の4bitを用いてintに変換する
-                 */
-                byte[] deviceID = System.Text.Encoding.UTF8.GetBytes(device.DeviceID);
-                int processID = BitConverter.ToInt32(deviceID,deviceID.Length-4);
-                ProcessId = processID*-1;
-                Device = device;
-                AudioEndpointVolume = AudioEndpointVolume.FromDevice(Device);
-                Name = Device.FriendlyName;
-                using (var PropertyStore = Device.PropertyStore)
-                {
-                    //Iconを取得する
-                    PropertyKey key = new PropertyKey(Guid.Parse("259abffc-50a7-47ce-af08-68c9a7d73366"), 12);
-                    string[] results = PropertyStore.GetValue(key).ToString().Split(',');
-                    string path = results[0].Trim().Trim('@');
-                    int index = Int32.Parse(results[1]);
-                    //pathからアイコンを取得する
-                    Icon = IconExtracter.Extract(path, index);
-                }
-                AudioEndpointVolumeCallback callback = new AudioEndpointVolumeCallback();
-                callback.NotifyRecived += (sender, arg) => VolumeChanged?.Invoke(sender, new VolumeChangedEventArgs(this, arg.MasterVolume, arg.IsMuted));
-                AudioEndpointVolume.RegisterControlChangeNotify(callback);
+                //Iconを取得する
+                var key = new PropertyKey(Guid.Parse("259abffc-50a7-47ce-af08-68c9a7d73366"), 12);
+                var results = propertyStore.GetValue(key).ToString().Split(',');
+                var path = results[0].Trim().Trim('@');
+                var index = Int32.Parse(results[1]);
+                //pathからアイコンを取得する
+                Icon = IconExtracter.Extract(path, index);
             }
 
+            AudioEndpointVolumeCallback callback = new AudioEndpointVolumeCallback();
+            callback.NotifyRecived += (sender, arg) =>
+                VolumeChanged?.Invoke(sender, new VolumeChangedEventArgs(this, arg.MasterVolume, arg.IsMuted));
+            _audioEndpointVolume.RegisterControlChangeNotify(callback);
         }
 
-        public void SetVolume(float newVolume,bool isMute)
+        public void SetVolume(float newVolume, bool isMute)
         {
-            AudioEndpointVolume.MasterVolumeLevelScalar = newVolume;
-            AudioEndpointVolume.IsMuted = isMute;
+            _audioEndpointVolume.MasterVolumeLevelScalar = newVolume;
+            _audioEndpointVolume.IsMuted = isMute;
         }
 
         public void Dispose()
         {
-            Device.Dispose();
-            AudioEndpointVolume.Dispose();
+            _device.Dispose();
+            _audioEndpointVolume.Dispose();
         }
 
         public bool Equals(IVolumeController other)
         {
-            return (ProcessId == other.ProcessId);
+            return other != null && (ProcessId == other.ProcessId);
         }
     }
 }

@@ -7,11 +7,11 @@ using System.Xml.Serialization;
 
 namespace ObjemDesktop.Config
 {
-    class UserShortcuts
+    internal class UserShortcuts
     {
-        private string  filePath = @"shortcuts.xml";
+        private const string FilePath = @"shortcuts.xml";
 
-        public static UserShortcuts Instance = new UserShortcuts();
+        public static readonly UserShortcuts Instance = new UserShortcuts();
         private Shortcuts _shortcuts;
 
         public List<ShortcutBase> Shortcuts
@@ -47,7 +47,7 @@ namespace ObjemDesktop.Config
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(Shortcuts));
-                StreamReader reader = new StreamReader(filePath, new UTF8Encoding(false));
+                StreamReader reader = new StreamReader(FilePath, new UTF8Encoding(false));
                 Shortcuts shortcuts = (Shortcuts)serializer.Deserialize(reader);
                 reader.Close();
                 return shortcuts;
@@ -61,7 +61,7 @@ namespace ObjemDesktop.Config
         private void Serialize()
         {
             var serializer = new XmlSerializer(typeof(Shortcuts));
-            StreamWriter writer = new StreamWriter(filePath);
+            StreamWriter writer = new StreamWriter(FilePath);
             serializer.Serialize(writer, _shortcuts);
             writer.Close();
         }

@@ -11,6 +11,7 @@ using System.Security.Principal;
 using ObjemDesktop.Config;
 using ObjemDesktop.Shortcuts.Command;
 using ObjemDesktop.Shortcuts;
+using ObjemDesktop.window;
 
 namespace ObjemDesktop
 {
@@ -25,37 +26,37 @@ namespace ObjemDesktop
 
 
             //証明書を取得
-            var ipList = IPAddressUtil.GetIPAdressList();
-            var DIR = "certs";
-            var CA_CERT_PATH = $"{DIR}\\CAcert.pfx";
+            var ipList = IPAddressUtil.GetIpAdressList();
+            const string DIR = "certs";
+            var caCertPath = $"{DIR}\\CAcert.pfx";
 
 
             if (!Directory.Exists(DIR)) Directory.CreateDirectory(DIR);
 
-            if (!File.Exists(CA_CERT_PATH))
+            if (!File.Exists(caCertPath))
             {
-               var cert = Certificate.Certificate.CreateCACerttificate();
-               CertificateUtil.ExportAsPfx(cert, CA_CERT_PATH);
+               var cert = Certificate.Certificate.CreateCertificate();
+               CertificateUtil.ExportAsPfx(cert, caCertPath);
             }
-            var CAcert = new X509Certificate2(CA_CERT_PATH);
+            var cAcert = new X509Certificate2(caCertPath);
             List<IPAddress> notExitsts = ipList.FindAll(ip => !File.Exists($"{DIR}\\{ip}{X509CertificateExtensionType.Crt}"));
             notExitsts.ForEach(ip => 
             {
-                var cert = Certificate.Certificate.CreateSignedServerCertificate(CAcert, ip);
+                var cert = Certificate.Certificate.CreateSignedServerCertificate(cAcert, ip);
                 CertificateUtil.ExportAsPfx(cert, $"{DIR}\\{ip}.pfx");
             });
 
-            VolumeManager VolumeManager = VolumeManager.Instance;
-            VolumeManager.OnSessionCreated += OnSessionCreated;
-            VolumeManager.OnSessionExpired += OnSessionExpired;
-            VolumeManager.OnVolumeChange += OnVolumeChanged;
+            var volumeManager = VolumeManager.Instance;
+            volumeManager.OnSessionCreated += OnSessionCreated;
+            volumeManager.OnSessionExpired += OnSessionExpired;
+            volumeManager.OnVolumeChange += OnVolumeChanged;
             
 
 
-            WSServer WSS = WSServer.Instance;
-            WSS.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[0]}.pfx");
-            WSS.Port = 8000;
-            WSS.Start();
+            var wss = WSServer.Instance;
+            wss.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[0]}.pfx");
+            wss.Port = 8000;
+            wss.Start();
 
             Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
             /*
@@ -68,10 +69,10 @@ namespace ObjemDesktop
             //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            if (Environment.CommandLine.IndexOf("--no-window") != -1)
+            if (Environment.CommandLine.IndexOf("--no-window", StringComparison.Ordinal) != -1)
             {
                 //最小化で起動    
-                MainWindow _MainWindow = MainWindow.Instance;
+                MainWindow mainWindow = MainWindow.Instance;
                 Application.Run();
             }
             Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
@@ -89,7 +90,7 @@ namespace ObjemDesktop
         static void OnSessionExpired(object sender, SessionExpiredEventArg arg)
         {
             VolumeManager VolumeManager = VolumeManager.Instance;
-            VolumeManager.list.Remove(arg.VolumeController);
+            VolumeManager.List.Remove(arg.VolumeController);
             WebSocketUtil.BroadCastSessions();
         }
 

@@ -5,12 +5,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ObjemDesktop.Certificate
 {
-    class Certificate
+    internal static class Certificate
     {
-        public static X509Certificate2 CreateCACerttificate()
+        public static X509Certificate2 CreateCertificate()
         {
-            RSACryptoServiceProvider rsaPrivateKey = new RSACryptoServiceProvider(2048);
-            CertificateRequest request = new CertificateRequest(
+            var rsaPrivateKey = new RSACryptoServiceProvider(2048);
+            var request = new CertificateRequest(
                 "CN=objem, O=Objem, C=JP",
                 rsaPrivateKey,
                 HashAlgorithmName.SHA256,
@@ -26,23 +26,23 @@ namespace ObjemDesktop.Certificate
             return certificate;
         }
 
-        public static X509Certificate2 CreateSignedServerCertificate(X509Certificate2 CAcert,IPAddress iPAddress)
+        public static X509Certificate2 CreateSignedServerCertificate(X509Certificate2 caCert,IPAddress iPAddress)
         {
-            RSACryptoServiceProvider rsaPrivateKey = new RSACryptoServiceProvider(2048);
-            CertificateRequest request = new CertificateRequest(
+            var rsaPrivateKey = new RSACryptoServiceProvider(2048);
+            var request = new CertificateRequest(
                 $"CN={iPAddress}, O=Objem, C=JP",
                 rsaPrivateKey,
                 HashAlgorithmName.SHA256,
                 RSASignaturePadding.Pkcs1
             );
-            SubjectAlternativeNameBuilder subjectAlternativeNameBuilder = new SubjectAlternativeNameBuilder();
+            var subjectAlternativeNameBuilder = new SubjectAlternativeNameBuilder();
             //実在するドメインを指定しないと死ぬ気がする:(
             subjectAlternativeNameBuilder.AddDnsName("objem.app");
             subjectAlternativeNameBuilder.AddIpAddress(iPAddress);
             var sans = subjectAlternativeNameBuilder.Build();
             request.CertificateExtensions.Add(sans);
-            var certificate_befor = request.Create(CAcert, DateTime.UtcNow, new DateTimeOffset(DateTime.UtcNow.AddDays(365)), BitConverter.GetBytes(DateTime.Now.Ticks));
-            var certificate = RSACertificateExtensions.CopyWithPrivateKey(certificate_befor, rsaPrivateKey);
+            var certificateBefore = request.Create(caCert, DateTime.UtcNow, new DateTimeOffset(DateTime.UtcNow.AddDays(365)), BitConverter.GetBytes(DateTime.Now.Ticks));
+            var certificate = certificateBefore.CopyWithPrivateKey(rsaPrivateKey);
             return certificate;
         }
     }

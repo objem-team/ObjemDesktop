@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ObjemDesktop.Certificate
 {
-    class CertificateUtil
+    internal static class CertificateUtil
     {
         public static void ExportAsPem(X509Certificate2 cert, string path)
         {
@@ -21,10 +21,10 @@ namespace ObjemDesktop.Certificate
 
         public static void ExportAsPfx(X509Certificate2 cert, string pathWithFileName, string password)
         {
-            byte[] certBytes = cert.Export(X509ContentType.Pfx, password);
+            var certBytes = cert.Export(X509ContentType.Pfx, password);
             using (FileStream fs = new FileStream(pathWithFileName, FileMode.Create, FileAccess.Write))
             {
-                using (BinaryWriter writer = new BinaryWriter(fs))
+                using (var writer = new BinaryWriter(fs))
                 {
                     writer.Write(certBytes);
                 }
@@ -32,10 +32,10 @@ namespace ObjemDesktop.Certificate
         }
         public static void ExportAsPfx(X509Certificate2 cert, string path)
         {
-            byte[] certBytes = cert.Export(X509ContentType.Pfx);
-            using (FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            var certBytes = cert.Export(X509ContentType.Pfx);
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
             {
-                using (BinaryWriter writer = new BinaryWriter(fs))
+                using (var writer = new BinaryWriter(fs))
                 {
                     writer.Write(certBytes);
                 }

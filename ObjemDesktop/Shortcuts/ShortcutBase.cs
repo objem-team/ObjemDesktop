@@ -21,8 +21,7 @@ namespace ObjemDesktop.Shortcuts
 
         public bool Equals(ShortcutBase other)
         {
-            if (other == null) return false;
-            return Guid.Equals(other.Guid);
+            return other != null && Guid.Equals(other.Guid);
         }
     }
 }
