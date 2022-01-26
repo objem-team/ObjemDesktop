@@ -22,5 +22,99 @@ namespace ObjemDesktop.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoStartup {
+            get {
+                return ((bool)(this["AutoStartup"]));
+            }
+            set {
+                this["AutoStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ServerIpAddress {
+            get {
+                return ((string)(this["ServerIpAddress"]));
+            }
+            set {
+                this["ServerIpAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection DisabledProcess {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DisabledProcess"]));
+            }
+            set {
+                this["DisabledProcess"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection EnabledShortcuts {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["EnabledShortcuts"]));
+            }
+            set {
+                this["EnabledShortcuts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsEnableGesture {
+            get {
+                return ((bool)(this["IsEnableGesture"]));
+            }
+            set {
+                this["IsEnableGesture"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Fader1GestureGuid {
+            get {
+                return ((string)(this["Fader1GestureGuid"]));
+            }
+            set {
+                this["Fader1GestureGuid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Fader2GestureGUID {
+            get {
+                return ((string)(this["Fader2GestureGUID"]));
+            }
+            set {
+                this["Fader2GestureGUID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OBSWebSocketURL {
+            get {
+                return ((string)(this["OBSWebSocketURL"]));
+            }
+            set {
+                this["OBSWebSocketURL"] = value;
+            }
+        }
     }
 }

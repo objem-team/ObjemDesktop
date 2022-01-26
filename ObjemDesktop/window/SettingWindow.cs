@@ -15,11 +15,11 @@ namespace ObjemDesktop
     public partial class SettingWindow : Form
     {
         private bool RestartFlag = false;
-        private List<ShortcutBase> _shortcuts;
+        private readonly List<ShortcutBase> _shortcuts;
         public SettingWindow()
         {
             //Instance.Shortcutsを直接参照させない
-            _shortcuts = UserShortcuts.Instance.Shortcuts.Select(x => x).ToList();
+            _shortcuts = UserShortcuts.Instance.Shortcuts.ToList();
             InitializeComponent();
         }
 
