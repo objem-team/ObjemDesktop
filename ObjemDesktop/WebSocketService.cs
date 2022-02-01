@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using ObjemDesktop.VolumeManaging;
 using System.Text.Encodings.Web;
+using ObjemDesktop.Config;
 using ObjemDesktop.WebsocketMessageType;
 using ObjemDesktop.window;
 
@@ -17,7 +19,7 @@ namespace ObjemDesktop
             {
                 WebsocketMessage message = JsonSerializer.Deserialize<WebsocketMessage>(e.Data,new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 Console.WriteLine(e.Data);
-
+                if (message is null) return;
                 switch (message.EventName)
                 {
                     case "requestSession":
@@ -42,8 +44,30 @@ namespace ObjemDesktop
                     case "setVolume":
                         {
                             VolumeChangeRequest request = JsonSerializer.Deserialize<VolumeChangeRequest>(message.Data.ToString(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                            if (request is null) return;
                             VolumeManager volumeManager = VolumeManager.Instance;
                             volumeManager.SetVolume(request.ProcessId, request.Volume,request.IsMuted);
+                        }
+                        break;
+                    case "requestShortcuts":
+                    {
+                        var guids= Properties.Settings.Default.EnabledShortcuts.Cast<string>().ToList();
+                        var sendMessage = new WebsocketSendMessage("shortcuts", JsonSerializer.Serialize(guids));
+                        string jsonString = JsonSerializer.Serialize(sendMessage);
+                        Send(jsonString);
+                        break;
+
+                    }
+                    case "doshortcut":
+                        try
+                        {
+                            var guid = Guid.Parse(e.Data);
+                            var shortcut = UserShortcuts.Instance.Shortcuts.Find(s => s.Guid.Equals(guid));
+                            shortcut.Execute();
+                        }
+                        catch (Exception)
+                        {
+                            //ignore
                         }
                         break;
                 }
@@ -51,7 +75,7 @@ namespace ObjemDesktop
             catch(Exception)
             {
                 //ignore
-                Console.WriteLine("cannnot parse");
+                Console.WriteLine("can not parse");
             }
         }
 
