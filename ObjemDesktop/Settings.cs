@@ -24,17 +24,5 @@
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
             // SettingsSaving イベントを処理するコードをここに追加してください。
         }
-        [System.Configuration.UserScopedSetting()]
-        public System.Collections.Generic.List<string> EnabledShortcut
-        {
-            get
-            {
-                return ((System.Collections.Generic.List<string>)(this["EnabledShortcut"]));
-            }
-            set
-            {
-                this["EnabledShortcut"] = value;
-            }
-        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace ObjemDesktop
+namespace ObjemDesktop.window
 {
     partial class SettingWindow
     {
@@ -43,6 +43,7 @@ namespace ObjemDesktop
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.ShortcutsTabPage = new System.Windows.Forms.TabPage();
+            this.EnabledShortcutsListBox = new System.Windows.Forms.ListBox();
             this.ShortcutsListBox = new System.Windows.Forms.ListBox();
             this.EditShortcutBtn = new System.Windows.Forms.Button();
             this.orderUpBtn = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@ namespace ObjemDesktop
             this.AddShortcutBtn = new System.Windows.Forms.Button();
             this.RemoveFromEnableListBtn = new System.Windows.Forms.Button();
             this.AddToEnableBtn = new System.Windows.Forms.Button();
-            this.SelectedShortCutListview = new System.Windows.Forms.ListView();
             this.GeneralTabPage = new System.Windows.Forms.TabPage();
             this.ServerIpAdressLabel = new System.Windows.Forms.Label();
             this.ServerIpAddressComboBox = new System.Windows.Forms.ComboBox();
@@ -69,6 +69,7 @@ namespace ObjemDesktop
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.SelectDisableApplicationDialog = new System.Windows.Forms.OpenFileDialog();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -152,6 +153,7 @@ namespace ObjemDesktop
             this.EnableGestureCheckBox.TabIndex = 6;
             this.EnableGestureCheckBox.Text = "ジェスチャーの有効化";
             this.EnableGestureCheckBox.UseVisualStyleBackColor = true;
+            this.EnableGestureCheckBox.CheckedChanged += new System.EventHandler(this.EnableGestureCheckBox_CheckedChanged);
             // 
             // GestureSettingBox
             // 
@@ -210,6 +212,7 @@ namespace ObjemDesktop
             // 
             // ShortcutsTabPage
             // 
+            this.ShortcutsTabPage.Controls.Add(this.EnabledShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.EditShortcutBtn);
             this.ShortcutsTabPage.Controls.Add(this.orderUpBtn);
@@ -217,7 +220,6 @@ namespace ObjemDesktop
             this.ShortcutsTabPage.Controls.Add(this.AddShortcutBtn);
             this.ShortcutsTabPage.Controls.Add(this.RemoveFromEnableListBtn);
             this.ShortcutsTabPage.Controls.Add(this.AddToEnableBtn);
-            this.ShortcutsTabPage.Controls.Add(this.SelectedShortCutListview);
             this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 22);
             this.ShortcutsTabPage.Name = "ShortcutsTabPage";
             this.ShortcutsTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -225,6 +227,15 @@ namespace ObjemDesktop
             this.ShortcutsTabPage.TabIndex = 1;
             this.ShortcutsTabPage.Text = "ショートカット";
             this.ShortcutsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // EnabledShortcutsListBox
+            // 
+            this.EnabledShortcutsListBox.FormattingEnabled = true;
+            this.EnabledShortcutsListBox.ItemHeight = 12;
+            this.EnabledShortcutsListBox.Location = new System.Drawing.Point(277, 31);
+            this.EnabledShortcutsListBox.Name = "EnabledShortcutsListBox";
+            this.EnabledShortcutsListBox.Size = new System.Drawing.Size(179, 172);
+            this.EnabledShortcutsListBox.TabIndex = 9;
             // 
             // ShortcutsListBox
             // 
@@ -282,6 +293,7 @@ namespace ObjemDesktop
             this.RemoveFromEnableListBtn.TabIndex = 3;
             this.RemoveFromEnableListBtn.Text = "←";
             this.RemoveFromEnableListBtn.UseVisualStyleBackColor = true;
+            this.RemoveFromEnableListBtn.Click += new System.EventHandler(this.RemoveFromEnableListBtn_Click);
             // 
             // AddToEnableBtn
             // 
@@ -291,15 +303,7 @@ namespace ObjemDesktop
             this.AddToEnableBtn.TabIndex = 2;
             this.AddToEnableBtn.Text = "→";
             this.AddToEnableBtn.UseVisualStyleBackColor = true;
-            // 
-            // SelectedShortCutListview
-            // 
-            this.SelectedShortCutListview.HideSelection = false;
-            this.SelectedShortCutListview.Location = new System.Drawing.Point(264, 31);
-            this.SelectedShortCutListview.Name = "SelectedShortCutListview";
-            this.SelectedShortCutListview.Size = new System.Drawing.Size(192, 180);
-            this.SelectedShortCutListview.TabIndex = 1;
-            this.SelectedShortCutListview.UseCompatibleStateImageBehavior = false;
+            this.AddToEnableBtn.Click += new System.EventHandler(this.AddToEnableBtn_Click);
             // 
             // GeneralTabPage
             // 
@@ -342,6 +346,7 @@ namespace ObjemDesktop
             this.DisableProcessAddButton.TabIndex = 4;
             this.DisableProcessAddButton.Text = "追加";
             this.DisableProcessAddButton.UseVisualStyleBackColor = true;
+            this.DisableProcessAddButton.Click += new System.EventHandler(this.DisableProcessAddButton_Click);
             // 
             // DisableProcessListBox
             // 
@@ -505,7 +510,10 @@ namespace ObjemDesktop
             this.DownloadCAGroup.ResumeLayout(false);
             this.DownloadCAGroup.PerformLayout();
             this.ResumeLayout(false);
+
         }
+
+        private System.Windows.Forms.ListBox EnabledShortcutsListBox;
 
         private System.Windows.Forms.ListBox ShortcutsListBox;
 
@@ -547,7 +555,7 @@ namespace ObjemDesktop
         private System.Windows.Forms.Button AddShortcutBtn;
         private System.Windows.Forms.Button RemoveFromEnableListBtn;
         private System.Windows.Forms.Button AddToEnableBtn;
-        private System.Windows.Forms.ListView SelectedShortCutListview;
         private System.Windows.Forms.Button EditShortcutBtn;
+        private System.Windows.Forms.OpenFileDialog SelectDisableApplicationDialog;
     }
 }

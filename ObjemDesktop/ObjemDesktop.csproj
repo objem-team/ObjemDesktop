@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingListUtil.cs" />
     <Compile Include="Certificate\Certificate.cs" />
     <Compile Include="Certificate\CertificateUtil.cs" />
     <Compile Include="Certificate\X509CertificateExtensionType.cs" />
