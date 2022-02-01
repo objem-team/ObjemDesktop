@@ -10,23 +10,82 @@ using System.Windows.Forms;
 using ObjemDesktop.Config;
 using ObjemDesktop.Shortcuts;
 
+using System.Text.RegularExpressions;
+using System.Collections.Specialized;
+
 namespace ObjemDesktop
 {
     public partial class SettingWindow : Form
     {
         private bool RestartFlag = false;
         private readonly List<ShortcutBase> _shortcuts;
+        private readonly List<IPAddress> _ipAddress;
         public SettingWindow()
         {
             //Instance.Shortcutsを直接参照させない
             _shortcuts = UserShortcuts.Instance.Shortcuts.ToList();
             InitializeComponent();
+
+            _ipAddress = IPAddressUtil.GetIpAdressList();
         }
 
         private void SettingWindow_Load(object sender, EventArgs e)
         {
             DownloadServerIPComboBox.DataSource = IPAddressUtil.GetIpAdressList();
             _loadShortcuts();
+
+            //初期表示
+            StartupCheckBox.Checked = Properties.Settings.Default.AutoStartup;
+
+
+            ServerIpAddressComboBox.Items.AddRange(_ipAddress.ToArray());
+            if (Properties.Settings.Default.ServerIpAddress != null)
+            {
+                int index = _ipAddress.FindIndex(n => n.ToString() == Properties.Settings.Default.ServerIpAddress);
+                index = index >= 0 ? index : 0;
+                ServerIpAddressComboBox.SelectedIndex = index;
+            }
+
+
+            //未
+            if (Properties.Settings.Default.DisabledProcess != null)
+            {
+                string[] DisabledList = Properties.Settings.Default.DisabledProcess.Cast<string>().ToArray();
+                DisableProcessListBox.Items.AddRange(DisabledList);
+            }
+
+
+            //未
+            if (Properties.Settings.Default.EnabledShortcuts != null)
+            {
+                string[] EnabledList = Properties.Settings.Default.EnabledShortcuts.Cast<string>().ToArray();
+                SelectedShortCutListview.Items.AddRange(EnabledList);
+            }
+
+            Feader1GestureComboBox.Items.AddRange(_shortcuts.ToArray());
+            if (Properties.Settings.Default.Fader1GestureGuid != null && _shortcuts.Count>0)
+            {
+                var index = _shortcuts.FindIndex(s => s.Guid.ToString() == Properties.Settings.Default.Fader1GestureGuid);
+                index = index >= 0 ? index : 0;
+                Feader1GestureComboBox.SelectedIndex = index;
+            }
+
+            Feader2GestureComboBox.Items.AddRange(_shortcuts.ToArray());
+            if (Properties.Settings.Default.Fader2GestureGUID != null && _shortcuts.Count > 0)
+            {
+                var index = _shortcuts.FindIndex(s => s.Guid.ToString() == Properties.Settings.Default.Fader2GestureGUID);
+                index = index >= 0 ? index : 0;
+                Feader2GestureComboBox.SelectedIndex = index;
+            }
+
+
+            EnableGestureCheckBox.Checked = (Properties.Settings.Default.IsEnableGesture);
+
+            if (Properties.Settings.Default.OBSWebSocketURL != null)
+            {
+                WebSocketURL.Text = (Properties.Settings.Default.OBSWebSocketURL);
+            }
+
         }
 
         private void ReGenerateCACertBtn_Click(object sender, EventArgs e)
@@ -95,6 +154,16 @@ namespace ObjemDesktop
         {
             UserShortcuts.Instance.Shortcuts = _shortcuts;
             Close();
+
+            //保存
+            Properties.Settings.Default.AutoStartup = StartupCheckBox.Checked;
+            Properties.Settings.Default.ServerIpAddress = ServerIpAddressComboBox.Text;
+
+            Properties.Settings.Default.Fader1GestureGuid = Feader1GestureComboBox.Text;
+            Properties.Settings.Default.Fader2GestureGUID = Feader2GestureComboBox.Text;
+            Properties.Settings.Default.IsEnableGesture = EnableGestureCheckBox.Checked;
+            Properties.Settings.Default.OBSWebSocketURL = WebSocketURL.Text;
+            Properties.Settings.Default.Save();
         }
         
         private void CancelButton_Click(object sender, EventArgs e)
@@ -105,11 +174,13 @@ namespace ObjemDesktop
         private void _loadShortcuts()
         {
             ShortcutsListBox.Items.Clear();
-            foreach (var shortcut in _shortcuts)
-            {
-                ShortcutsListBox.Items.Add(shortcut.Name);
-            }
+            ShortcutsListBox.DisplayMember = "name";
+            ShortcutsListBox.Items.AddRange(_shortcuts.ToArray());
+            Feader1GestureComboBox.Items.Clear();
+            Feader1GestureComboBox.Items.AddRange(_shortcuts.ToArray());
+                
         }
+
 
     }
 }
