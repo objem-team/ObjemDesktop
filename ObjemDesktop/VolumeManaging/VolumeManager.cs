@@ -44,11 +44,15 @@ namespace ObjemDesktop.VolumeManaging
             //セッションの追加を監視
             var audioSessionManager = AudioSessionManager2.FromMMDevice(defaultRenderDevice);
             AudioSessionNotification audioSessionNotification = new AudioSessionNotification();
-            audioSessionNotification.SessionCreated += (sender, eventArgs) => OnSessionCreated?.Invoke(sender, eventArgs);
+            audioSessionNotification.SessionCreated += (sender, eventArgs) => {
+                OnSessionCreated?.Invoke(sender, eventArgs);
+                audioSessionManager.GetSessionEnumerator();
+                //おまじない   https://github.com/filoe/cscore/issues/216
+                //カウンタを意図的にリセットする。
+                //using (var sessionEnumerator = AudioSessionManager.GetSessionEnumerator()) { }
+            };
             audioSessionManager.RegisterSessionNotification(audioSessionNotification);
 
-            //おまじない   https://github.com/filoe/cscore/issues/216
-            //using (var sessionEnumerator = AudioSessionManager.GetSessionEnumerator()) { }
 
             //sessionの音量が変更されたときのイベントを登録
             AudioSessionEnumerator audioSessionEnumerator = audioSessionManager.GetSessionEnumerator();
