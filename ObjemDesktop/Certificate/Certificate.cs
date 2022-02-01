@@ -18,11 +18,6 @@ namespace ObjemDesktop.Certificate
                 );
             request.CertificateExtensions.Add(new X509BasicConstraintsExtension(true, false, 0, false));
             var certificate = request.CreateSelfSigned(DateTime.UtcNow, new DateTimeOffset(DateTime.UtcNow.AddDays(365*5)));
-            /*
-             * 別に書く
-            byte[] pfxByte = certificate.Export(X509ContentType.Pfx, "password");
-            File.WriteAllBytes("CA.pfx", pfxByte);
-            */
             return certificate;
         }
 
@@ -36,7 +31,6 @@ namespace ObjemDesktop.Certificate
                 RSASignaturePadding.Pkcs1
             );
             var subjectAlternativeNameBuilder = new SubjectAlternativeNameBuilder();
-            //実在するドメインを指定しないと死ぬ気がする:(
             subjectAlternativeNameBuilder.AddDnsName("objem.app");
             subjectAlternativeNameBuilder.AddIpAddress(iPAddress);
             var sans = subjectAlternativeNameBuilder.Build();

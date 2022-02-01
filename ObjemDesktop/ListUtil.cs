@@ -18,7 +18,6 @@ namespace ObjemDesktop
             {
                 array[index] = value;
             }
-            
             return array;
         }
     }

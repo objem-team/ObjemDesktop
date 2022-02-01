@@ -10,7 +10,6 @@ namespace ObjemDesktop
         {
             //IPアドレス取得
             var hostname = Dns.GetHostName();
-            var ip = string.Empty;
             IPAddress[] addresess = Dns.GetHostAddresses(hostname);
             List<IPAddress> addressList = addresess.Where(address => address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToList();
             return addressList;
