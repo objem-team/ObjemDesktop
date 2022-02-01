@@ -51,9 +51,15 @@ namespace ObjemDesktop
                         break;
                     case "requestShortcuts":
                     {
+                        var serializeOptions = new JsonSerializerOptions
+                        {   
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                            WriteIndented = true,
+                            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                        };
                         var guids= Properties.Settings.Default.EnabledShortcuts.Cast<string>().ToList();
                         var sendMessage = new WebsocketSendMessage("shortcuts", JsonSerializer.Serialize(guids));
-                        string jsonString = JsonSerializer.Serialize(sendMessage);
+                        string jsonString = JsonSerializer.Serialize(sendMessage,serializeOptions);
                         Send(jsonString);
                         break;
 
@@ -61,7 +67,8 @@ namespace ObjemDesktop
                     case "doshortcut":
                         try
                         {
-                            var guid = Guid.Parse(e.Data);
+                           
+                            var guid = Guid.Parse(message.Data.ToString());
                             var shortcut = UserShortcuts.Instance.Shortcuts.Find(s => s.Guid.Equals(guid));
                             shortcut.Execute();
                         }
