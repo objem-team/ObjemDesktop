@@ -8,9 +8,6 @@ using System.Windows.Forms;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Security.Principal;
-using ObjemDesktop.Config;
-using ObjemDesktop.Shortcuts.Command;
-using ObjemDesktop.Shortcuts;
 using ObjemDesktop.window;
 
 namespace ObjemDesktop

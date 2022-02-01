@@ -1,5 +1,5 @@
 ﻿
-namespace ObjemDesktop
+namespace ObjemDesktop.window
 {
     partial class SettingWindow
     {
@@ -43,7 +43,7 @@ namespace ObjemDesktop
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.ShortcutsTabPage = new System.Windows.Forms.TabPage();
-            this.SelectedShortCutListview = new System.Windows.Forms.ListBox();
+            this.EnabledShortcutsListBox = new System.Windows.Forms.ListBox();
             this.ShortcutsListBox = new System.Windows.Forms.ListBox();
             this.EditShortcutBtn = new System.Windows.Forms.Button();
             this.orderUpBtn = new System.Windows.Forms.Button();
@@ -69,6 +69,7 @@ namespace ObjemDesktop
             this.ReGenerateCACertBtn = new System.Windows.Forms.Button();
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.SelectDisableApplicationDialog = new System.Windows.Forms.OpenFileDialog();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -81,10 +82,9 @@ namespace ObjemDesktop
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(539, 372);
-            this.CancelButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CancelButton.Location = new System.Drawing.Point(404, 298);
             this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(100, 29);
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 1;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
@@ -93,10 +93,9 @@ namespace ObjemDesktop
             // ApplyBtn
             // 
             this.ApplyBtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ApplyBtn.Location = new System.Drawing.Point(433, 372);
-            this.ApplyBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.ApplyBtn.Location = new System.Drawing.Point(325, 298);
             this.ApplyBtn.Name = "ApplyBtn";
-            this.ApplyBtn.Size = new System.Drawing.Size(84, 29);
+            this.ApplyBtn.Size = new System.Drawing.Size(63, 23);
             this.ApplyBtn.TabIndex = 2;
             this.ApplyBtn.Text = "適用";
             this.ApplyBtn.UseVisualStyleBackColor = false;
@@ -106,30 +105,27 @@ namespace ObjemDesktop
             // 
             this.OBSTabPage.Controls.Add(this.WebSocketURL);
             this.OBSTabPage.Controls.Add(this.WebSocketURLLabel);
-            this.OBSTabPage.Location = new System.Drawing.Point(4, 25);
-            this.OBSTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.OBSTabPage.Location = new System.Drawing.Point(4, 22);
             this.OBSTabPage.Name = "OBSTabPage";
-            this.OBSTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.OBSTabPage.Size = new System.Drawing.Size(619, 313);
+            this.OBSTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.OBSTabPage.Size = new System.Drawing.Size(462, 248);
             this.OBSTabPage.TabIndex = 3;
             this.OBSTabPage.Text = "OBS設定";
             this.OBSTabPage.UseVisualStyleBackColor = true;
             // 
             // WebSocketURL
             // 
-            this.WebSocketURL.Location = new System.Drawing.Point(29, 59);
-            this.WebSocketURL.Margin = new System.Windows.Forms.Padding(4);
+            this.WebSocketURL.Location = new System.Drawing.Point(22, 47);
             this.WebSocketURL.Name = "WebSocketURL";
-            this.WebSocketURL.Size = new System.Drawing.Size(455, 22);
+            this.WebSocketURL.Size = new System.Drawing.Size(342, 19);
             this.WebSocketURL.TabIndex = 1;
             // 
             // WebSocketURLLabel
             // 
             this.WebSocketURLLabel.AutoSize = true;
-            this.WebSocketURLLabel.Location = new System.Drawing.Point(27, 28);
-            this.WebSocketURLLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.WebSocketURLLabel.Location = new System.Drawing.Point(20, 22);
             this.WebSocketURLLabel.Name = "WebSocketURLLabel";
-            this.WebSocketURLLabel.Size = new System.Drawing.Size(105, 15);
+            this.WebSocketURLLabel.Size = new System.Drawing.Size(83, 12);
             this.WebSocketURLLabel.TabIndex = 0;
             this.WebSocketURLLabel.Text = "WebSocketURL";
             // 
@@ -138,11 +134,10 @@ namespace ObjemDesktop
             this.GestureTabPage.Controls.Add(this.EnableGestureCheckBox);
             this.GestureTabPage.Controls.Add(this.GestureSettingBox);
             this.GestureTabPage.Controls.Add(this.GestureDescriptionLabel);
-            this.GestureTabPage.Location = new System.Drawing.Point(4, 25);
-            this.GestureTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.GestureTabPage.Location = new System.Drawing.Point(4, 22);
             this.GestureTabPage.Name = "GestureTabPage";
-            this.GestureTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.GestureTabPage.Size = new System.Drawing.Size(619, 313);
+            this.GestureTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.GestureTabPage.Size = new System.Drawing.Size(462, 248);
             this.GestureTabPage.TabIndex = 2;
             this.GestureTabPage.Text = "ジェスチャー";
             this.GestureTabPage.UseVisualStyleBackColor = true;
@@ -152,13 +147,13 @@ namespace ObjemDesktop
             this.EnableGestureCheckBox.AutoSize = true;
             this.EnableGestureCheckBox.Checked = true;
             this.EnableGestureCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.EnableGestureCheckBox.Location = new System.Drawing.Point(40, 52);
-            this.EnableGestureCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.EnableGestureCheckBox.Location = new System.Drawing.Point(30, 42);
             this.EnableGestureCheckBox.Name = "EnableGestureCheckBox";
-            this.EnableGestureCheckBox.Size = new System.Drawing.Size(152, 19);
+            this.EnableGestureCheckBox.Size = new System.Drawing.Size(123, 16);
             this.EnableGestureCheckBox.TabIndex = 6;
             this.EnableGestureCheckBox.Text = "ジェスチャーの有効化";
             this.EnableGestureCheckBox.UseVisualStyleBackColor = true;
+            this.EnableGestureCheckBox.CheckedChanged += new System.EventHandler(this.EnableGestureCheckBox_CheckedChanged);
             // 
             // GestureSettingBox
             // 
@@ -166,65 +161,58 @@ namespace ObjemDesktop
             this.GestureSettingBox.Controls.Add(this.Fader1Label);
             this.GestureSettingBox.Controls.Add(this.Feader2GestureComboBox);
             this.GestureSettingBox.Controls.Add(this.Feader1GestureComboBox);
-            this.GestureSettingBox.Location = new System.Drawing.Point(40, 94);
-            this.GestureSettingBox.Margin = new System.Windows.Forms.Padding(4);
+            this.GestureSettingBox.Location = new System.Drawing.Point(30, 75);
             this.GestureSettingBox.Name = "GestureSettingBox";
-            this.GestureSettingBox.Padding = new System.Windows.Forms.Padding(4);
-            this.GestureSettingBox.Size = new System.Drawing.Size(551, 195);
+            this.GestureSettingBox.Size = new System.Drawing.Size(413, 156);
             this.GestureSettingBox.TabIndex = 5;
             this.GestureSettingBox.TabStop = false;
             // 
             // Fader2Label
             // 
             this.Fader2Label.AutoSize = true;
-            this.Fader2Label.Location = new System.Drawing.Point(9, 99);
-            this.Fader2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Fader2Label.Location = new System.Drawing.Point(7, 79);
             this.Fader2Label.Name = "Fader2Label";
-            this.Fader2Label.Size = new System.Drawing.Size(51, 15);
+            this.Fader2Label.Size = new System.Drawing.Size(40, 12);
             this.Fader2Label.TabIndex = 3;
             this.Fader2Label.Text = "Feder2";
             // 
             // Fader1Label
             // 
             this.Fader1Label.AutoSize = true;
-            this.Fader1Label.Location = new System.Drawing.Point(9, 18);
-            this.Fader1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Fader1Label.Location = new System.Drawing.Point(7, 14);
             this.Fader1Label.Name = "Fader1Label";
-            this.Fader1Label.Size = new System.Drawing.Size(50, 15);
+            this.Fader1Label.Size = new System.Drawing.Size(40, 12);
             this.Fader1Label.TabIndex = 2;
             this.Fader1Label.Text = "Fader1";
             // 
             // Feader2GestureComboBox
             // 
             this.Feader2GestureComboBox.FormattingEnabled = true;
-            this.Feader2GestureComboBox.Location = new System.Drawing.Point(27, 138);
-            this.Feader2GestureComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Feader2GestureComboBox.Location = new System.Drawing.Point(20, 110);
             this.Feader2GestureComboBox.Name = "Feader2GestureComboBox";
-            this.Feader2GestureComboBox.Size = new System.Drawing.Size(480, 23);
+            this.Feader2GestureComboBox.Size = new System.Drawing.Size(361, 20);
             this.Feader2GestureComboBox.TabIndex = 1;
             // 
             // Feader1GestureComboBox
             // 
             this.Feader1GestureComboBox.FormattingEnabled = true;
-            this.Feader1GestureComboBox.Location = new System.Drawing.Point(27, 49);
-            this.Feader1GestureComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.Feader1GestureComboBox.Location = new System.Drawing.Point(20, 39);
             this.Feader1GestureComboBox.Name = "Feader1GestureComboBox";
-            this.Feader1GestureComboBox.Size = new System.Drawing.Size(480, 23);
+            this.Feader1GestureComboBox.Size = new System.Drawing.Size(361, 20);
             this.Feader1GestureComboBox.TabIndex = 0;
             // 
             // GestureDescriptionLabel
             // 
             this.GestureDescriptionLabel.AutoSize = true;
-            this.GestureDescriptionLabel.Location = new System.Drawing.Point(37, 18);
-            this.GestureDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.GestureDescriptionLabel.Location = new System.Drawing.Point(28, 14);
             this.GestureDescriptionLabel.Name = "GestureDescriptionLabel";
-            this.GestureDescriptionLabel.Size = new System.Drawing.Size(345, 15);
+            this.GestureDescriptionLabel.Size = new System.Drawing.Size(276, 12);
             this.GestureDescriptionLabel.TabIndex = 4;
             this.GestureDescriptionLabel.Text = "フェーダーのノブを2回タップ時のショートカットを設定します。\r\n";
             // 
             // ShortcutsTabPage
             // 
-            this.ShortcutsTabPage.Controls.Add(this.SelectedShortCutListview);
+            this.ShortcutsTabPage.Controls.Add(this.EnabledShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.EditShortcutBtn);
             this.ShortcutsTabPage.Controls.Add(this.orderUpBtn);
@@ -232,41 +220,37 @@ namespace ObjemDesktop
             this.ShortcutsTabPage.Controls.Add(this.AddShortcutBtn);
             this.ShortcutsTabPage.Controls.Add(this.RemoveFromEnableListBtn);
             this.ShortcutsTabPage.Controls.Add(this.AddToEnableBtn);
-            this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 25);
-            this.ShortcutsTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.ShortcutsTabPage.Location = new System.Drawing.Point(4, 22);
             this.ShortcutsTabPage.Name = "ShortcutsTabPage";
-            this.ShortcutsTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.ShortcutsTabPage.Size = new System.Drawing.Size(619, 313);
+            this.ShortcutsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.ShortcutsTabPage.Size = new System.Drawing.Size(462, 248);
             this.ShortcutsTabPage.TabIndex = 1;
             this.ShortcutsTabPage.Text = "ショートカット";
             this.ShortcutsTabPage.UseVisualStyleBackColor = true;
             // 
-            // SelectedShortCutListview
+            // EnabledShortcutsListBox
             // 
-            this.SelectedShortCutListview.FormattingEnabled = true;
-            this.SelectedShortCutListview.IntegralHeight = false;
-            this.SelectedShortCutListview.ItemHeight = 15;
-            this.SelectedShortCutListview.Location = new System.Drawing.Point(352, 39);
-            this.SelectedShortCutListview.Name = "SelectedShortCutListview";
-            this.SelectedShortCutListview.Size = new System.Drawing.Size(255, 224);
-            this.SelectedShortCutListview.TabIndex = 9;
+            this.EnabledShortcutsListBox.FormattingEnabled = true;
+            this.EnabledShortcutsListBox.ItemHeight = 12;
+            this.EnabledShortcutsListBox.Location = new System.Drawing.Point(277, 31);
+            this.EnabledShortcutsListBox.Name = "EnabledShortcutsListBox";
+            this.EnabledShortcutsListBox.Size = new System.Drawing.Size(179, 172);
+            this.EnabledShortcutsListBox.TabIndex = 9;
             // 
             // ShortcutsListBox
             // 
             this.ShortcutsListBox.FormattingEnabled = true;
-            this.ShortcutsListBox.ItemHeight = 15;
-            this.ShortcutsListBox.Location = new System.Drawing.Point(25, 39);
-            this.ShortcutsListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ShortcutsListBox.ItemHeight = 12;
+            this.ShortcutsListBox.Location = new System.Drawing.Point(19, 31);
             this.ShortcutsListBox.Name = "ShortcutsListBox";
-            this.ShortcutsListBox.Size = new System.Drawing.Size(235, 214);
+            this.ShortcutsListBox.Size = new System.Drawing.Size(177, 172);
             this.ShortcutsListBox.TabIndex = 8;
             // 
             // EditShortcutBtn
             // 
-            this.EditShortcutBtn.Location = new System.Drawing.Point(23, 271);
-            this.EditShortcutBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.EditShortcutBtn.Location = new System.Drawing.Point(17, 217);
             this.EditShortcutBtn.Name = "EditShortcutBtn";
-            this.EditShortcutBtn.Size = new System.Drawing.Size(100, 29);
+            this.EditShortcutBtn.Size = new System.Drawing.Size(75, 23);
             this.EditShortcutBtn.TabIndex = 7;
             this.EditShortcutBtn.Text = "編集";
             this.EditShortcutBtn.UseVisualStyleBackColor = true;
@@ -274,10 +258,9 @@ namespace ObjemDesktop
             // 
             // orderUpBtn
             // 
-            this.orderUpBtn.Location = new System.Drawing.Point(389, 272);
-            this.orderUpBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.orderUpBtn.Location = new System.Drawing.Point(292, 218);
             this.orderUpBtn.Name = "orderUpBtn";
-            this.orderUpBtn.Size = new System.Drawing.Size(68, 29);
+            this.orderUpBtn.Size = new System.Drawing.Size(51, 23);
             this.orderUpBtn.TabIndex = 6;
             this.orderUpBtn.Tag = "";
             this.orderUpBtn.Text = "↓";
@@ -285,20 +268,18 @@ namespace ObjemDesktop
             // 
             // orderDown
             // 
-            this.orderDown.Location = new System.Drawing.Point(517, 272);
-            this.orderDown.Margin = new System.Windows.Forms.Padding(4);
+            this.orderDown.Location = new System.Drawing.Point(388, 218);
             this.orderDown.Name = "orderDown";
-            this.orderDown.Size = new System.Drawing.Size(68, 29);
+            this.orderDown.Size = new System.Drawing.Size(51, 23);
             this.orderDown.TabIndex = 5;
             this.orderDown.Text = "↑";
             this.orderDown.UseVisualStyleBackColor = true;
             // 
             // AddShortcutBtn
             // 
-            this.AddShortcutBtn.Location = new System.Drawing.Point(163, 271);
-            this.AddShortcutBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.AddShortcutBtn.Location = new System.Drawing.Point(122, 217);
             this.AddShortcutBtn.Name = "AddShortcutBtn";
-            this.AddShortcutBtn.Size = new System.Drawing.Size(100, 29);
+            this.AddShortcutBtn.Size = new System.Drawing.Size(75, 23);
             this.AddShortcutBtn.TabIndex = 4;
             this.AddShortcutBtn.Text = "追加";
             this.AddShortcutBtn.UseVisualStyleBackColor = true;
@@ -306,23 +287,23 @@ namespace ObjemDesktop
             // 
             // RemoveFromEnableListBtn
             // 
-            this.RemoveFromEnableListBtn.Location = new System.Drawing.Point(271, 185);
-            this.RemoveFromEnableListBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.RemoveFromEnableListBtn.Location = new System.Drawing.Point(203, 148);
             this.RemoveFromEnableListBtn.Name = "RemoveFromEnableListBtn";
-            this.RemoveFromEnableListBtn.Size = new System.Drawing.Size(72, 29);
+            this.RemoveFromEnableListBtn.Size = new System.Drawing.Size(54, 23);
             this.RemoveFromEnableListBtn.TabIndex = 3;
             this.RemoveFromEnableListBtn.Text = "←";
             this.RemoveFromEnableListBtn.UseVisualStyleBackColor = true;
+            this.RemoveFromEnableListBtn.Click += new System.EventHandler(this.RemoveFromEnableListBtn_Click);
             // 
             // AddToEnableBtn
             // 
-            this.AddToEnableBtn.Location = new System.Drawing.Point(271, 90);
-            this.AddToEnableBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.AddToEnableBtn.Location = new System.Drawing.Point(203, 72);
             this.AddToEnableBtn.Name = "AddToEnableBtn";
-            this.AddToEnableBtn.Size = new System.Drawing.Size(73, 29);
+            this.AddToEnableBtn.Size = new System.Drawing.Size(55, 23);
             this.AddToEnableBtn.TabIndex = 2;
             this.AddToEnableBtn.Text = "→";
             this.AddToEnableBtn.UseVisualStyleBackColor = true;
+            this.AddToEnableBtn.Click += new System.EventHandler(this.AddToEnableBtn_Click);
             // 
             // GeneralTabPage
             // 
@@ -332,11 +313,10 @@ namespace ObjemDesktop
             this.GeneralTabPage.Controls.Add(this.DisableProcessListBox);
             this.GeneralTabPage.Controls.Add(this.DisableProcessLabel);
             this.GeneralTabPage.Controls.Add(this.StartupCheckBox);
-            this.GeneralTabPage.Location = new System.Drawing.Point(4, 25);
-            this.GeneralTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.GeneralTabPage.Location = new System.Drawing.Point(4, 22);
             this.GeneralTabPage.Name = "GeneralTabPage";
-            this.GeneralTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.GeneralTabPage.Size = new System.Drawing.Size(619, 313);
+            this.GeneralTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.GeneralTabPage.Size = new System.Drawing.Size(462, 248);
             this.GeneralTabPage.TabIndex = 0;
             this.GeneralTabPage.Text = "一般";
             this.GeneralTabPage.UseVisualStyleBackColor = true;
@@ -344,59 +324,54 @@ namespace ObjemDesktop
             // ServerIpAdressLabel
             // 
             this.ServerIpAdressLabel.AutoSize = true;
-            this.ServerIpAdressLabel.Location = new System.Drawing.Point(41, 66);
-            this.ServerIpAdressLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ServerIpAdressLabel.Location = new System.Drawing.Point(31, 53);
             this.ServerIpAdressLabel.Name = "ServerIpAdressLabel";
-            this.ServerIpAdressLabel.Size = new System.Drawing.Size(125, 15);
+            this.ServerIpAdressLabel.Size = new System.Drawing.Size(101, 12);
             this.ServerIpAdressLabel.TabIndex = 6;
             this.ServerIpAdressLabel.Text = "サーバーのIPアドレス";
             // 
             // ServerIpAddressComboBox
             // 
             this.ServerIpAddressComboBox.FormattingEnabled = true;
-            this.ServerIpAddressComboBox.Location = new System.Drawing.Point(259, 62);
-            this.ServerIpAddressComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.ServerIpAddressComboBox.Location = new System.Drawing.Point(194, 50);
             this.ServerIpAddressComboBox.Name = "ServerIpAddressComboBox";
-            this.ServerIpAddressComboBox.Size = new System.Drawing.Size(309, 23);
+            this.ServerIpAddressComboBox.Size = new System.Drawing.Size(233, 20);
             this.ServerIpAddressComboBox.TabIndex = 5;
             // 
             // DisableProcessAddButton
             // 
-            this.DisableProcessAddButton.Location = new System.Drawing.Point(488, 272);
-            this.DisableProcessAddButton.Margin = new System.Windows.Forms.Padding(4);
+            this.DisableProcessAddButton.Location = new System.Drawing.Point(366, 218);
             this.DisableProcessAddButton.Name = "DisableProcessAddButton";
-            this.DisableProcessAddButton.Size = new System.Drawing.Size(91, 24);
+            this.DisableProcessAddButton.Size = new System.Drawing.Size(68, 19);
             this.DisableProcessAddButton.TabIndex = 4;
             this.DisableProcessAddButton.Text = "追加";
             this.DisableProcessAddButton.UseVisualStyleBackColor = true;
+            this.DisableProcessAddButton.Click += new System.EventHandler(this.DisableProcessAddButton_Click);
             // 
             // DisableProcessListBox
             // 
             this.DisableProcessListBox.FormattingEnabled = true;
-            this.DisableProcessListBox.ItemHeight = 15;
-            this.DisableProcessListBox.Location = new System.Drawing.Point(44, 149);
-            this.DisableProcessListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DisableProcessListBox.ItemHeight = 12;
+            this.DisableProcessListBox.Location = new System.Drawing.Point(33, 119);
             this.DisableProcessListBox.Name = "DisableProcessListBox";
-            this.DisableProcessListBox.Size = new System.Drawing.Size(524, 109);
+            this.DisableProcessListBox.Size = new System.Drawing.Size(394, 88);
             this.DisableProcessListBox.TabIndex = 3;
             // 
             // DisableProcessLabel
             // 
             this.DisableProcessLabel.AutoSize = true;
-            this.DisableProcessLabel.Location = new System.Drawing.Point(41, 110);
-            this.DisableProcessLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DisableProcessLabel.Location = new System.Drawing.Point(31, 88);
             this.DisableProcessLabel.Name = "DisableProcessLabel";
-            this.DisableProcessLabel.Size = new System.Drawing.Size(384, 15);
+            this.DisableProcessLabel.Size = new System.Drawing.Size(309, 12);
             this.DisableProcessLabel.TabIndex = 2;
             this.DisableProcessLabel.Text = "プロセスの無効化(Webアプリ及びハードウェアには表示されません)";
             // 
             // StartupCheckBox
             // 
             this.StartupCheckBox.AutoSize = true;
-            this.StartupCheckBox.Location = new System.Drawing.Point(44, 22);
-            this.StartupCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            this.StartupCheckBox.Location = new System.Drawing.Point(33, 18);
             this.StartupCheckBox.Name = "StartupCheckBox";
-            this.StartupCheckBox.Size = new System.Drawing.Size(232, 19);
+            this.StartupCheckBox.Size = new System.Drawing.Size(188, 16);
             this.StartupCheckBox.TabIndex = 0;
             this.StartupCheckBox.Text = "システム起動時のObjem自動起動";
             this.StartupCheckBox.UseVisualStyleBackColor = true;
@@ -409,11 +384,10 @@ namespace ObjemDesktop
             this.SettingTab.Controls.Add(this.GestureTabPage);
             this.SettingTab.Controls.Add(this.OBSTabPage);
             this.SettingTab.Controls.Add(this.CertificateTabPage);
-            this.SettingTab.Location = new System.Drawing.Point(16, 22);
-            this.SettingTab.Margin = new System.Windows.Forms.Padding(4);
+            this.SettingTab.Location = new System.Drawing.Point(12, 18);
             this.SettingTab.Name = "SettingTab";
             this.SettingTab.SelectedIndex = 0;
-            this.SettingTab.Size = new System.Drawing.Size(627, 342);
+            this.SettingTab.Size = new System.Drawing.Size(470, 274);
             this.SettingTab.TabIndex = 1;
             // 
             // CertificateTabPage
@@ -423,10 +397,9 @@ namespace ObjemDesktop
             this.CertificateTabPage.Controls.Add(this.FileExportBtn);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertBtn);
             this.CertificateTabPage.Controls.Add(this.ReGenerateCACertLabel);
-            this.CertificateTabPage.Location = new System.Drawing.Point(4, 25);
-            this.CertificateTabPage.Margin = new System.Windows.Forms.Padding(4);
+            this.CertificateTabPage.Location = new System.Drawing.Point(4, 22);
             this.CertificateTabPage.Name = "CertificateTabPage";
-            this.CertificateTabPage.Size = new System.Drawing.Size(619, 313);
+            this.CertificateTabPage.Size = new System.Drawing.Size(462, 248);
             this.CertificateTabPage.TabIndex = 4;
             this.CertificateTabPage.Text = "証明書";
             this.CertificateTabPage.UseVisualStyleBackColor = true;
@@ -436,11 +409,9 @@ namespace ObjemDesktop
             this.DownloadCAGroup.Controls.Add(this.DownloadServerIPComboBox);
             this.DownloadCAGroup.Controls.Add(this.DownloadServerIPLabel);
             this.DownloadCAGroup.Controls.Add(this.DownLoadQRCodeBtn);
-            this.DownloadCAGroup.Location = new System.Drawing.Point(36, 146);
-            this.DownloadCAGroup.Margin = new System.Windows.Forms.Padding(4);
+            this.DownloadCAGroup.Location = new System.Drawing.Point(27, 117);
             this.DownloadCAGroup.Name = "DownloadCAGroup";
-            this.DownloadCAGroup.Padding = new System.Windows.Forms.Padding(4);
-            this.DownloadCAGroup.Size = new System.Drawing.Size(548, 111);
+            this.DownloadCAGroup.Size = new System.Drawing.Size(411, 89);
             this.DownloadCAGroup.TabIndex = 9;
             this.DownloadCAGroup.TabStop = false;
             this.DownloadCAGroup.Text = "他の端末へ転送する";
@@ -449,28 +420,25 @@ namespace ObjemDesktop
             // 
             this.DownloadServerIPComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DownloadServerIPComboBox.FormattingEnabled = true;
-            this.DownloadServerIPComboBox.Location = new System.Drawing.Point(357, 32);
-            this.DownloadServerIPComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.DownloadServerIPComboBox.Location = new System.Drawing.Point(268, 26);
             this.DownloadServerIPComboBox.Name = "DownloadServerIPComboBox";
-            this.DownloadServerIPComboBox.Size = new System.Drawing.Size(160, 23);
+            this.DownloadServerIPComboBox.Size = new System.Drawing.Size(121, 20);
             this.DownloadServerIPComboBox.TabIndex = 8;
             // 
             // DownloadServerIPLabel
             // 
             this.DownloadServerIPLabel.AutoSize = true;
-            this.DownloadServerIPLabel.Location = new System.Drawing.Point(159, 36);
-            this.DownloadServerIPLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DownloadServerIPLabel.Location = new System.Drawing.Point(119, 29);
             this.DownloadServerIPLabel.Name = "DownloadServerIPLabel";
-            this.DownloadServerIPLabel.Size = new System.Drawing.Size(150, 15);
+            this.DownloadServerIPLabel.Size = new System.Drawing.Size(120, 12);
             this.DownloadServerIPLabel.TabIndex = 7;
             this.DownloadServerIPLabel.Text = "表示するQRのIPアドレス";
             // 
             // DownLoadQRCodeBtn
             // 
-            this.DownLoadQRCodeBtn.Location = new System.Drawing.Point(421, 75);
-            this.DownLoadQRCodeBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.DownLoadQRCodeBtn.Location = new System.Drawing.Point(316, 60);
             this.DownLoadQRCodeBtn.Name = "DownLoadQRCodeBtn";
-            this.DownLoadQRCodeBtn.Size = new System.Drawing.Size(97, 29);
+            this.DownLoadQRCodeBtn.Size = new System.Drawing.Size(73, 23);
             this.DownLoadQRCodeBtn.TabIndex = 6;
             this.DownLoadQRCodeBtn.Text = "開始";
             this.DownLoadQRCodeBtn.UseVisualStyleBackColor = true;
@@ -479,19 +447,17 @@ namespace ObjemDesktop
             // CACertExportLabel
             // 
             this.CACertExportLabel.AutoSize = true;
-            this.CACertExportLabel.Location = new System.Drawing.Point(33, 90);
-            this.CACertExportLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CACertExportLabel.Location = new System.Drawing.Point(25, 72);
             this.CACertExportLabel.Name = "CACertExportLabel";
-            this.CACertExportLabel.Size = new System.Drawing.Size(173, 15);
+            this.CACertExportLabel.Size = new System.Drawing.Size(139, 12);
             this.CACertExportLabel.TabIndex = 7;
             this.CACertExportLabel.Text = "CA証明書をエクスポートする";
             // 
             // FileExportBtn
             // 
-            this.FileExportBtn.Location = new System.Drawing.Point(457, 84);
-            this.FileExportBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.FileExportBtn.Location = new System.Drawing.Point(343, 67);
             this.FileExportBtn.Name = "FileExportBtn";
-            this.FileExportBtn.Size = new System.Drawing.Size(127, 29);
+            this.FileExportBtn.Size = new System.Drawing.Size(95, 23);
             this.FileExportBtn.TabIndex = 5;
             this.FileExportBtn.Text = "エクスポート";
             this.FileExportBtn.UseVisualStyleBackColor = true;
@@ -499,10 +465,9 @@ namespace ObjemDesktop
             // 
             // ReGenerateCACertBtn
             // 
-            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(487, 26);
-            this.ReGenerateCACertBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.ReGenerateCACertBtn.Location = new System.Drawing.Point(365, 21);
             this.ReGenerateCACertBtn.Name = "ReGenerateCACertBtn";
-            this.ReGenerateCACertBtn.Size = new System.Drawing.Size(100, 29);
+            this.ReGenerateCACertBtn.Size = new System.Drawing.Size(75, 23);
             this.ReGenerateCACertBtn.TabIndex = 3;
             this.ReGenerateCACertBtn.Text = "再作成";
             this.ReGenerateCACertBtn.UseVisualStyleBackColor = true;
@@ -511,22 +476,20 @@ namespace ObjemDesktop
             // ReGenerateCACertLabel
             // 
             this.ReGenerateCACertLabel.AutoSize = true;
-            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(33, 32);
-            this.ReGenerateCACertLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ReGenerateCACertLabel.Location = new System.Drawing.Point(25, 26);
             this.ReGenerateCACertLabel.Name = "ReGenerateCACertLabel";
-            this.ReGenerateCACertLabel.Size = new System.Drawing.Size(299, 15);
+            this.ReGenerateCACertLabel.Size = new System.Drawing.Size(240, 12);
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
             // SettingWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 416);
+            this.ClientSize = new System.Drawing.Size(494, 333);
             this.Controls.Add(this.ApplyBtn);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SettingTab);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingWindow";
@@ -549,6 +512,8 @@ namespace ObjemDesktop
             this.ResumeLayout(false);
 
         }
+
+        private System.Windows.Forms.ListBox EnabledShortcutsListBox;
 
         private System.Windows.Forms.ListBox ShortcutsListBox;
 
@@ -591,6 +556,6 @@ namespace ObjemDesktop
         private System.Windows.Forms.Button RemoveFromEnableListBtn;
         private System.Windows.Forms.Button AddToEnableBtn;
         private System.Windows.Forms.Button EditShortcutBtn;
-        private System.Windows.Forms.ListBox SelectedShortCutListview;
+        private System.Windows.Forms.OpenFileDialog SelectDisableApplicationDialog;
     }
 }
