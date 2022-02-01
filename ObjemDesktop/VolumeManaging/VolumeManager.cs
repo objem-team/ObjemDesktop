@@ -1,6 +1,7 @@
 ﻿using CSCore.CoreAudioAPI;
 using System;
 using System.Collections.Generic;
+using ObjemDesktop.Properties;
 
 
 namespace ObjemDesktop.VolumeManaging
@@ -28,13 +29,19 @@ namespace ObjemDesktop.VolumeManaging
 
 
             //デバイス音量が変更されたときのイベントを登録
-            DeviceVolumeController renderDeviceVolumeContoroller = new DeviceVolumeController(defaultRenderDevice);
-            renderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            List.Add(renderDeviceVolumeContoroller);
+            if (defaultRenderDevice != null)
+            {
+                DeviceVolumeController renderDeviceVolumeContoroller = new DeviceVolumeController(defaultRenderDevice);
+                renderDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+                List.Add(renderDeviceVolumeContoroller);
+            }
 
-            DeviceVolumeController caputureDeviceVolumeContoroller = new DeviceVolumeController(defaultCaptureDevice);
-            caputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
-            List.Add(caputureDeviceVolumeContoroller);
+            if (defaultCaptureDevice != null)
+            {
+                DeviceVolumeController caputureDeviceVolumeContoroller = new DeviceVolumeController(defaultCaptureDevice);
+                caputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
+                List.Add(caputureDeviceVolumeContoroller);
+            }
 
             //デフォルトのデバイスが変更されたときのイベントを登録
             MMNotificationClient notificationClient = new MMNotificationClient();
@@ -42,6 +49,7 @@ namespace ObjemDesktop.VolumeManaging
             deviceEnumerator.RegisterEndpointNotificationCallback(notificationClient);
 
             //セッションの追加を監視
+            if (defaultRenderDevice is null) return;
             var audioSessionManager = AudioSessionManager2.FromMMDevice(defaultRenderDevice);
             AudioSessionNotification audioSessionNotification = new AudioSessionNotification();
             audioSessionNotification.SessionCreated += (sender, eventArgs) => {
@@ -80,6 +88,7 @@ namespace ObjemDesktop.VolumeManaging
         {
             var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
             var sessionControl = session.QueryInterface<AudioSessionControl2>();
+            if (sessionControl.Process.MainModule != null && Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)) return;
             SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
             RegisterEvent(sessionVolumeController);
             List.Add(sessionVolumeController);
