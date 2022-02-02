@@ -176,8 +176,8 @@ namespace ObjemDesktop.window
             disabledList.AddRange(_disabledList.ToArray());
             Properties.Settings.Default.AutoStartup = StartupCheckBox.Checked;
             Properties.Settings.Default.ServerIpAddress = ServerIpAddressComboBox.Text;
-            Properties.Settings.Default.Fader1GestureGuid = _shortcuts[Feader1GestureComboBox.SelectedIndex].Guid.ToString();
-            Properties.Settings.Default.Fader2GestureGUID = _shortcuts[Feader2GestureComboBox.SelectedIndex].Guid.ToString();
+            if (Feader1GestureComboBox.SelectedIndex >= 0) Properties.Settings.Default.Fader1GestureGuid = _shortcuts[Feader1GestureComboBox.SelectedIndex].Guid.ToString();
+            if (Feader2GestureComboBox.SelectedIndex >= 0) Properties.Settings.Default.Fader2GestureGUID = _shortcuts[Feader2GestureComboBox.SelectedIndex].Guid.ToString();
             Properties.Settings.Default.EnabledShortcuts = enabledShortcutsGuids;
             Properties.Settings.Default.DisabledProcess = disabledList;
             Properties.Settings.Default.IsEnableGesture = EnableGestureCheckBox.Checked;

@@ -40,10 +40,19 @@ namespace ObjemDesktop.window
                 X509Certificate2 cert = new X509Certificate2($"certs\\{ip}.pfx");
                 _list.Add(new IpComboBoxValue(ip,qrcode,cert));
             });
-            var arr = _list.Select((item, i) => new {Items = item, Index = i})
-                .Where(obj => obj.Items.IpAddress.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)))
-                .Select(obj => obj.Index).ToArray();
-            var index = arr.Length > 0 ? arr[0] : 0;
+            var index = 0;
+            var arr = new int[] { };
+            try
+            {
+                arr = _list.Select((item, i) => new { Items = item, Index = i })
+                    .Where(obj => obj.Items.IpAddress.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)))
+                    .Select(obj => obj.Index).ToArray();
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
+            index = arr.Length > 0 ? arr[0] : 0;
             AddressLabel.Text = _list[index].IpAddress.ToString();
             QRCodeBox.Image = _list[index].QrCode;
         }

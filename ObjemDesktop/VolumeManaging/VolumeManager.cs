@@ -86,12 +86,24 @@ namespace ObjemDesktop.VolumeManaging
 
         public void AddSession(AudioSessionControl session)
         {
-            var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
-            var sessionControl = session.QueryInterface<AudioSessionControl2>();
-            if (sessionControl.Process.MainModule != null && Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)) return;
-            SessionVolumeController sessionVolumeController = new SessionVolumeController(sessionControl, simpleVolume);
-            RegisterEvent(sessionVolumeController);
-            List.Add(sessionVolumeController);
+            try
+            {
+                var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
+                var sessionControl = session.QueryInterface<AudioSessionControl2>();
+                 if(Settings.Default.DisabledProcess != null)
+                {
+                    if (sessionControl.Process.MainModule != null &&
+                        Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)) return;
+                }
+                SessionVolumeController sessionVolumeController =
+                    new SessionVolumeController(sessionControl, simpleVolume);
+                RegisterEvent(sessionVolumeController);
+                List.Add(sessionVolumeController);
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
         }
 
         public void SetVolume(int processId,float volume,bool isMute)

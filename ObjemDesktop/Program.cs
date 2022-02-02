@@ -61,11 +61,23 @@ namespace ObjemDesktop
                 CertificateUtil.ExportAsPfx(cert, $"{DIR}\\{ip}.pfx");
             });
 
-            var foundIndex = ipList.FindIndex(ip=>ip.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)));
+            var foundIndex = 0;
+            if(Settings.Default.ServerIpAddress != null)
+            {
+                try
+                {
+                    foundIndex = ipList.FindIndex(ip => ip.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)));
+                }
+                catch (Exception) { 
+                    //Ignore
+                   }
+            }
+            
             var index = foundIndex < 0 ? 0 : foundIndex;
             
-
             var volumeManager = VolumeManager.Instance;
+
+            
             volumeManager.OnSessionCreated += OnSessionCreated;
             volumeManager.OnSessionExpired += OnSessionExpired;
             volumeManager.OnVolumeChange += OnVolumeChanged;

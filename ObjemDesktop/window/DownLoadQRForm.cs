@@ -21,7 +21,7 @@ namespace ObjemDesktop.window
         private void DownLoadQRForm_Load(object sender, EventArgs e)
         {
             int port = 4000;
-            _url = $"{_ipAddress}:{port}";
+            _url = $"http://{_ipAddress}:{port}";
             var qr = QrGenerater.Generate(_url, DownloadQR.Width, DownloadQR.Height);
             var cert = Certificate.CertificateUtil.ExportToPemString(new X509Certificate2(@"certs\CAcert.pfx"));
 
