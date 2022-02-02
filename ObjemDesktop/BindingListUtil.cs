@@ -29,5 +29,10 @@ namespace ObjemDesktop
             }
             list.Add(target);
         }
+
+        public static void Replace<T>(BindingList<T> list, int targetIndex, int replaceIndex)
+        {
+            (list[replaceIndex], list[targetIndex]) = (list[targetIndex], list[replaceIndex]);
+        }
     }
 }

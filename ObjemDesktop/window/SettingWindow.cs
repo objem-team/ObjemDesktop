@@ -39,8 +39,14 @@ namespace ObjemDesktop.window
             _enableShortcuts = new BindingList<ShortcutBase>(new List<ShortcutBase>());
             if (Properties.Settings.Default.EnabledShortcuts != null)
             {
-                var shortcuts = _shortcuts
-                    .Where(s => Properties.Settings.Default.EnabledShortcuts.Contains(s.Guid.ToString())).ToList();
+                var guids = Properties.Settings.Default.EnabledShortcuts.Cast<string>().ToArray();
+                var shortcuts = new List<ShortcutBase>();
+                foreach (var guid in guids)
+                {
+                    var shortcut = _shortcuts.FirstOrDefault(s => s.Guid.ToString().Equals(guid));
+                    if (shortcut is null) return;
+                    shortcuts.Add(shortcut);
+                }
                 _enableShortcuts = new BindingList<ShortcutBase>(shortcuts);
             }
 
@@ -208,9 +214,11 @@ namespace ObjemDesktop.window
             }
             var guids = _enableShortcuts.Select(s=>s.Guid).ToArray();
             _enableShortcuts.Clear();
-            foreach (var shortcut in _shortcuts.Where(shortcut=>guids.Any(guid=>guid == shortcut.Guid)))
+            foreach (var guid in guids)
             {
-                _enableShortcuts.Add(shortcut);
+                var shortcut = _shortcuts.FirstOrDefault(s => s.Guid.Equals(guid));
+               if (shortcut is null) return;
+               _enableShortcuts.Add(shortcut);
             }
             
         }
@@ -277,6 +285,20 @@ namespace ObjemDesktop.window
         {
             if (ShortcutsListBox.SelectedIndex < 0) return;
             _shortcuts.RemoveAt(ShortcutsListBox.SelectedIndex);
+        }
+
+        private void orderUpBtn_Click(object sender, EventArgs e)
+        {
+            if (EnabledShortcutsListBox.SelectedIndex - 1 < 0) return;
+            BindingListUtil.Replace(_enableShortcuts,EnabledShortcutsListBox.SelectedIndex,EnabledShortcutsListBox.SelectedIndex-1);
+            EnabledShortcutsListBox.SelectedIndex -= 1;
+        }
+
+        private void orderDown_Click(object sender, EventArgs e)
+        {
+            if (EnabledShortcutsListBox.SelectedIndex >= _enableShortcuts.Count-1) return;
+            BindingListUtil.Replace(_enableShortcuts,EnabledShortcutsListBox.SelectedIndex,EnabledShortcutsListBox.SelectedIndex+1);
+            EnabledShortcutsListBox.SelectedIndex += 1;
         }
     }
 }
