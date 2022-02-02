@@ -29,6 +29,7 @@ namespace ObjemDesktop.window
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CancelButton = new System.Windows.Forms.Button();
             this.ApplyBtn = new System.Windows.Forms.Button();
             this.OBSTabPage = new System.Windows.Forms.TabPage();
@@ -70,6 +71,10 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SelectDisableApplicationDialog = new System.Windows.Forms.OpenFileDialog();
+            this.DisableProcessListBoxContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteDisableProcessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShortcutsListBoxContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.DeleteShortcutListBoxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -78,6 +83,8 @@ namespace ObjemDesktop.window
             this.SettingTab.SuspendLayout();
             this.CertificateTabPage.SuspendLayout();
             this.DownloadCAGroup.SuspendLayout();
+            this.DisableProcessListBoxContextMenu.SuspendLayout();
+            this.ShortcutsListBoxContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // CancelButton
@@ -239,6 +246,7 @@ namespace ObjemDesktop.window
             // 
             // ShortcutsListBox
             // 
+            this.ShortcutsListBox.ContextMenuStrip = this.ShortcutsListBoxContextMenu;
             this.ShortcutsListBox.FormattingEnabled = true;
             this.ShortcutsListBox.ItemHeight = 12;
             this.ShortcutsListBox.Location = new System.Drawing.Point(19, 31);
@@ -350,6 +358,7 @@ namespace ObjemDesktop.window
             // 
             // DisableProcessListBox
             // 
+            this.DisableProcessListBox.ContextMenuStrip = this.DisableProcessListBoxContextMenu;
             this.DisableProcessListBox.FormattingEnabled = true;
             this.DisableProcessListBox.ItemHeight = 12;
             this.DisableProcessListBox.Location = new System.Drawing.Point(33, 119);
@@ -482,6 +491,34 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
+            // DisableProcessListBoxContextMenu
+            // 
+            this.DisableProcessListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteDisableProcessMenuItem});
+            this.DisableProcessListBoxContextMenu.Name = "DisableProcessListBoxContextMenu";
+            this.DisableProcessListBoxContextMenu.Size = new System.Drawing.Size(99, 26);
+            // 
+            // DeleteDisableProcessMenuItem
+            // 
+            this.DeleteDisableProcessMenuItem.Name = "DeleteDisableProcessMenuItem";
+            this.DeleteDisableProcessMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DeleteDisableProcessMenuItem.Text = "削除";
+            this.DeleteDisableProcessMenuItem.Click += new System.EventHandler(this.DeleteDisableProcessMenuItem_Click);
+            // 
+            // ShortcutsListBoxContextMenu
+            // 
+            this.ShortcutsListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteShortcutListBoxToolStripMenuItem});
+            this.ShortcutsListBoxContextMenu.Name = "ShortcutsListBoxContextMenu";
+            this.ShortcutsListBoxContextMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // DeleteShortcutListBoxToolStripMenuItem
+            // 
+            this.DeleteShortcutListBoxToolStripMenuItem.Name = "DeleteShortcutListBoxToolStripMenuItem";
+            this.DeleteShortcutListBoxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DeleteShortcutListBoxToolStripMenuItem.Text = "削除";
+            this.DeleteShortcutListBoxToolStripMenuItem.Click += new System.EventHandler(this.DeleteShortcutListBoxToolStripMenuItem_Click);
+            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -509,6 +546,8 @@ namespace ObjemDesktop.window
             this.CertificateTabPage.PerformLayout();
             this.DownloadCAGroup.ResumeLayout(false);
             this.DownloadCAGroup.PerformLayout();
+            this.DisableProcessListBoxContextMenu.ResumeLayout(false);
+            this.ShortcutsListBoxContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -557,5 +596,9 @@ namespace ObjemDesktop.window
         private System.Windows.Forms.Button AddToEnableBtn;
         private System.Windows.Forms.Button EditShortcutBtn;
         private System.Windows.Forms.OpenFileDialog SelectDisableApplicationDialog;
+        private System.Windows.Forms.ContextMenuStrip ShortcutsListBoxContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem DeleteShortcutListBoxToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip DisableProcessListBoxContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem DeleteDisableProcessMenuItem;
     }
 }

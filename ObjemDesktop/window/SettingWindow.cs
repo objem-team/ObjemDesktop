@@ -266,5 +266,17 @@ namespace ObjemDesktop.window
 
             _isDialogShowing = false;
         }
+
+        private void DeleteDisableProcessMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DisableProcessListBox.SelectedIndex < 0) return;
+            _disabledList.RemoveAt(DisableProcessListBox.SelectedIndex);
+        }
+
+        private void DeleteShortcutListBoxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ShortcutsListBox.SelectedIndex < 0) return;
+            _shortcuts.RemoveAt(ShortcutsListBox.SelectedIndex);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using ObjemDesktop.Properties;
 
 namespace ObjemDesktop.window
 {
@@ -26,30 +28,31 @@ namespace ObjemDesktop.window
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            _setDefaultValue();
+            SetStatuslabel(0);
+        }
+
+        private void _setDefaultValue()
+        {
             List<IPAddress> ipAddresses = IPAddressUtil.GetIpAdressList();
             ipAddresses.ForEach((ip) => {
                 Image qrcode = QrGenerater.Generate(ip.ToString(), QRCodeBox.Width, QRCodeBox.Height);
                 X509Certificate2 cert = new X509Certificate2($"certs\\{ip}.pfx");
                 _list.Add(new IpComboBoxValue(ip,qrcode,cert));
             });
-            IpAddressComboBox.DisplayMember = "IpAddress";
-            IpAddressComboBox.DataSource=_list.ToArray();
-            QRCodeBox.Image = _list[0].QrCode;
-            SetStatuslabel(0);
+            var arr = _list.Select((item, i) => new {Items = item, Index = i})
+                .Where(obj => obj.Items.IpAddress.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)))
+                .Select(obj => obj.Index).ToArray();
+            var index = arr.Length > 0 ? arr[0] : 0;
+            AddressLabel.Text = _list[index].IpAddress.ToString();
+            QRCodeBox.Image = _list[index].QrCode;
         }
-
+        
         private void OpenSettingsBtn_Click(object sender, EventArgs e)
         {
-            new SettingWindow().ShowDialog();   
-        }
-
-        private void IpAddressComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            WSServer wss = WSServer.Instance;
-            IpComboBoxValue selected = (IpComboBoxValue)IpAddressComboBox.SelectedItem;
-            wss.ServerCertificate = selected.Certificate;
-            wss.Restart();
-            QRCodeBox.Image = selected.QrCode;
+            new SettingWindow().ShowDialog();
+            Program.StartService();
+            _setDefaultValue();
         }
 
         public void SetStatuslabel(int count)

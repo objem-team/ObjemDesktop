@@ -13,7 +13,7 @@ namespace ObjemDesktop.Shortcuts.LaunchApp
         public string Path {get;set;}
         public override void Execute()
         {
-            var processInfo = new ProcessStartInfo("cmd.exe", $"start {Path}");
+            var processInfo = new ProcessStartInfo($"{Path}");
             Process.Start(processInfo);
         }
     }

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
 using System.Security.Principal;
+using ObjemDesktop.Properties;
 using ObjemDesktop.window;
 
 namespace ObjemDesktop
@@ -20,48 +21,7 @@ namespace ObjemDesktop
         [MTAThread]
         static void Main()
         {
-
-
-            //証明書を取得
-            var ipList = IPAddressUtil.GetIpAdressList();
-            const string DIR = "certs";
-            var caCertPath = $"{DIR}\\CAcert.pfx";
-
-
-            if (!Directory.Exists(DIR)) Directory.CreateDirectory(DIR);
-
-            if (!File.Exists(caCertPath))
-            {
-               var cert = Certificate.Certificate.CreateCertificate();
-               CertificateUtil.ExportAsPfx(cert, caCertPath);
-            }
-            var cAcert = new X509Certificate2(caCertPath);
-            List<IPAddress> notExitsts = ipList.FindAll(ip => !File.Exists($"{DIR}\\{ip}{X509CertificateExtensionType.Crt}"));
-            notExitsts.ForEach(ip => 
-            {
-                var cert = Certificate.Certificate.CreateSignedServerCertificate(cAcert, ip);
-                CertificateUtil.ExportAsPfx(cert, $"{DIR}\\{ip}.pfx");
-            });
-
-            var volumeManager = VolumeManager.Instance;
-            volumeManager.OnSessionCreated += OnSessionCreated;
-            volumeManager.OnSessionExpired += OnSessionExpired;
-            volumeManager.OnVolumeChange += OnVolumeChanged;
-            
-
-
-            var wss = WSServer.Instance;
-            wss.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[0]}.pfx");
-            wss.Port = 8000;
-            wss.Start();
-
-            Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
-            /*
-            var Server = new WebSocketServer(8000);
-            Server.AddWebSocketService<WebSocketService>("/");
-            Server.Start();
-            Thread.CurrentThread.Join();
-            */
+            StartService();
 
             //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             Application.EnableVisualStyles();
@@ -75,6 +35,48 @@ namespace ObjemDesktop
             Console.WriteLine(WSServer.Instance.Server.WebSocketServices.Count);
             Application.Run(MainWindow.Instance);
             
+        }
+
+       public static void StartService()
+        {
+            
+            //証明書を取得
+            var ipList = IPAddressUtil.GetIpAdressList();
+            const string DIR = "certs";
+            var caCertPath = $"{DIR}\\CAcert.pfx";
+
+
+            if (!Directory.Exists(DIR)) Directory.CreateDirectory(DIR);
+
+            if (!File.Exists(caCertPath))
+            {
+                var cert = Certificate.Certificate.CreateCertificate();
+                CertificateUtil.ExportAsPfx(cert, caCertPath);
+            }
+            var cAcert = new X509Certificate2(caCertPath);
+            List<IPAddress> notExitsts = ipList.FindAll(ip => !File.Exists($"{DIR}\\{ip}{X509CertificateExtensionType.Crt}"));
+            notExitsts.ForEach(ip => 
+            {
+                var cert = Certificate.Certificate.CreateSignedServerCertificate(cAcert, ip);
+                CertificateUtil.ExportAsPfx(cert, $"{DIR}\\{ip}.pfx");
+            });
+
+            var foundIndex = ipList.FindIndex(ip=>ip.Equals(IPAddress.Parse(Settings.Default.ServerIpAddress)));
+            var index = foundIndex < 0 ? 0 : foundIndex;
+            
+
+            var volumeManager = VolumeManager.Instance;
+            volumeManager.OnSessionCreated += OnSessionCreated;
+            volumeManager.OnSessionExpired += OnSessionExpired;
+            volumeManager.OnVolumeChange += OnVolumeChanged;
+            
+
+            var wss = WSServer.Instance;
+            if(wss.Server != null && wss.Server.IsListening) wss.Server.Stop();
+            wss.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[index]}.pfx");
+            wss.Port = 8000;
+            wss.Start();
+
         }
 
         static void OnSessionCreated(object sender,SessionCreatedEventArgs args)
