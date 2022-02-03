@@ -3,6 +3,7 @@ using ObjemDesktop.Shortcuts.Command;
 using ObjemDesktop.Shortcuts.Keyboard;
 using ObjemDesktop.Shortcuts.LaunchApp;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -43,6 +44,11 @@ namespace ObjemDesktop.window
                 case "CommandShortcut":
                     ActivateCommandShortcutInputs((CommandShortcut) _shortcut);
                     break;
+            }
+            string path = $"icons/{shortcut.Guid}.png";
+            if (File.Exists(path))
+            {
+                Icon.ImageLocation = path;
             }
 
         }

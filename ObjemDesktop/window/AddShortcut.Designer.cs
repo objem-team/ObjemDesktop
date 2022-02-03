@@ -43,7 +43,11 @@ namespace ObjemDesktop.window
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
             this.SelectApplicationDialog = new System.Windows.Forms.OpenFileDialog();
+            this.Iconlabel = new System.Windows.Forms.Label();
+            this.IconButton = new System.Windows.Forms.Button();
+            this.Icon = new System.Windows.Forms.PictureBox();
             this.ShortcutGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Icon)).BeginInit();
             this.SuspendLayout();
             // 
             // ShortcutGroupBox
@@ -56,7 +60,7 @@ namespace ObjemDesktop.window
             this.ShortcutGroupBox.Controls.Add(this.CommandShortcutRadioBtn);
             this.ShortcutGroupBox.Controls.Add(this.LaunchAppShortcutRadioBtn);
             this.ShortcutGroupBox.Controls.Add(this.KeyboardShortcutRadioBtn);
-            this.ShortcutGroupBox.Location = new System.Drawing.Point(12, 40);
+            this.ShortcutGroupBox.Location = new System.Drawing.Point(12, 86);
             this.ShortcutGroupBox.Name = "ShortcutGroupBox";
             this.ShortcutGroupBox.Size = new System.Drawing.Size(389, 216);
             this.ShortcutGroupBox.TabIndex = 0;
@@ -159,7 +163,7 @@ namespace ObjemDesktop.window
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(235, 268);
+            this.SaveBtn.Location = new System.Drawing.Point(235, 314);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 3;
@@ -169,7 +173,7 @@ namespace ObjemDesktop.window
             // 
             // CancelBtn
             // 
-            this.CancelBtn.Location = new System.Drawing.Point(336, 268);
+            this.CancelBtn.Location = new System.Drawing.Point(336, 314);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 4;
@@ -181,11 +185,40 @@ namespace ObjemDesktop.window
             // 
             this.SelectApplicationDialog.FileName = "openFileDialog1";
             // 
+            // Iconlabel
+            // 
+            this.Iconlabel.AutoSize = true;
+            this.Iconlabel.Location = new System.Drawing.Point(26, 57);
+            this.Iconlabel.Name = "Iconlabel";
+            this.Iconlabel.Size = new System.Drawing.Size(40, 12);
+            this.Iconlabel.TabIndex = 5;
+            this.Iconlabel.Text = "アイコン";
+            // 
+            // IconButton
+            // 
+            this.IconButton.Location = new System.Drawing.Point(320, 52);
+            this.IconButton.Name = "IconButton";
+            this.IconButton.Size = new System.Drawing.Size(75, 23);
+            this.IconButton.TabIndex = 6;
+            this.IconButton.Text = "参照";
+            this.IconButton.UseVisualStyleBackColor = true;
+            // 
+            // Icon
+            // 
+            this.Icon.Location = new System.Drawing.Point(253, 40);
+            this.Icon.Name = "Icon";
+            this.Icon.Size = new System.Drawing.Size(48, 48);
+            this.Icon.TabIndex = 7;
+            this.Icon.TabStop = false;
+            // 
             // AddShortcut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 303);
+            this.ClientSize = new System.Drawing.Size(423, 344);
+            this.Controls.Add(this.Icon);
+            this.Controls.Add(this.IconButton);
+            this.Controls.Add(this.Iconlabel);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.ShortcutNameLabel);
@@ -195,8 +228,10 @@ namespace ObjemDesktop.window
             this.Text = "AddShortcutDialog";
             this.ShortcutGroupBox.ResumeLayout(false);
             this.ShortcutGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -215,5 +250,8 @@ namespace ObjemDesktop.window
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Button CancelBtn;
         private System.Windows.Forms.OpenFileDialog SelectApplicationDialog;
+        private System.Windows.Forms.Label Iconlabel;
+        private System.Windows.Forms.Button IconButton;
+        private System.Windows.Forms.PictureBox Icon;
     }
 }
