@@ -15,6 +15,7 @@ namespace ObjemDesktop
 {
     static class Program
     {
+        static OMFService service = null;
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -22,7 +23,7 @@ namespace ObjemDesktop
         static void Main()
         {
             StartService();
-
+            service = new OMFService();
             //Console.WriteLine(Environment.CommandLine.IndexOf("--no-window"));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -74,15 +75,12 @@ namespace ObjemDesktop
             }
             
             var index = foundIndex < 0 ? 0 : foundIndex;
-            
-            var volumeManager = VolumeManager.Instance;
 
-            
+            var volumeManager = VolumeManager.Instance;
             volumeManager.OnSessionCreated += OnSessionCreated;
             volumeManager.OnSessionExpired += OnSessionExpired;
             volumeManager.OnVolumeChange += OnVolumeChanged;
             
-
             var wss = WSServer.Instance;
             if(wss.Server != null && wss.Server.IsListening) wss.Server.Stop();
             wss.ServerCertificate = new X509Certificate2($"{DIR}\\{ipList[index]}.pfx");
@@ -90,6 +88,7 @@ namespace ObjemDesktop
             wss.Start();
 
         }
+
 
         static void OnSessionCreated(object sender,SessionCreatedEventArgs args)
         {
@@ -108,12 +107,6 @@ namespace ObjemDesktop
         static void  OnVolumeChanged(object sender,VolumeChangedEventArgs arg)
         {
             WebSocketUtil.SendNewVolume(arg);
-        }
-        public static  bool IsAdministrator()
-        {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
