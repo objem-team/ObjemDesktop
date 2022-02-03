@@ -24,7 +24,7 @@ namespace ObjemDesktop.window
         private readonly List<IPAddress> _ipAddress;
         private readonly BindingList<string> _disabledList;
         private bool _isDialogShowing;
-        private Dictionary<string, Bitmap> _unsavedImages = new Dictionary<string, Bitmap>();
+        private Dictionary<string, Bitmap> _unsavedImages;
 
         public SettingWindow()
         {
@@ -32,6 +32,7 @@ namespace ObjemDesktop.window
             _shortcuts2 = new BindingList<ShortcutBase>(UserShortcuts.Instance.Shortcuts.ToList());
             _shortcuts.ListChanged += (s, e) =>_syncShortcutDataSource();
             _ipAddress = IPAddressUtil.GetIpAdressList();
+            _unsavedImages = new Dictionary<string, Bitmap>();
 
             _disabledList = new BindingList<string>(new List<string>());
             if (Properties.Settings.Default.DisabledProcess != null)
@@ -184,6 +185,7 @@ namespace ObjemDesktop.window
             
             foreach (var pair in _unsavedImages)
             {
+                if (pair.Value is null) continue;
                 pair.Value.Save($"icons/{pair.Key}.png",ImageFormat.Png);
                 pair.Value.Dispose();
             }

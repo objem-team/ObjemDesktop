@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingListUtil.cs" />
+    <Compile Include="BitmapToDataUrlJsonConverte.cs" />
     <Compile Include="Certificate\Certificate.cs" />
     <Compile Include="Certificate\CertificateUtil.cs" />
     <Compile Include="Certificate\X509CertificateExtensionType.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="VolumeManaging\SessionVolumeController.cs" />
     <Compile Include="VolumeManaging\VolumeChangedEventArgs.cs" />
     <Compile Include="VolumeManaging\VolumeManager.cs" />
+    <Compile Include="WebsocketMessageType\Shortcut.cs" />
     <Compile Include="WebsocketMessageType\VolumeChangeMessage.cs" />
     <Compile Include="WebsocketMessageType\VolumeChangeRequest.cs" />
     <Compile Include="WebsocketMessageType\WebsocketMessage.cs" />

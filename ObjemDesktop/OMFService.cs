@@ -92,7 +92,7 @@ namespace ObjemDesktop.window
                 serialPort.BaudRate = 9600;
                 serialPort.Parity = Parity.None;
                 serialPort.StopBits = StopBits.One;
-                serialPort.WriteTimeout = 1000; //ms
+                serialPort.WriteTimeout = 10; //ms
                 serialPort.DataBits = 8;
                 serialPort.Handshake = Handshake.None;
                 serialPort.RtsEnable = true;
