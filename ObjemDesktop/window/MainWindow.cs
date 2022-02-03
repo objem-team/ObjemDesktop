@@ -34,6 +34,7 @@ namespace ObjemDesktop.window
 
         private void _setDefaultValue()
         {
+            _list.Clear();
             List<IPAddress> ipAddresses = IPAddressUtil.GetIpAdressList();
             ipAddresses.ForEach((ip) => {
                 Image qrcode = QrGenerater.Generate(ip.ToString(), QRCodeBox.Width, QRCodeBox.Height);
