@@ -47,7 +47,7 @@ namespace ObjemDesktop.window
             this.IconButton = new System.Windows.Forms.Button();
             this.Icon = new System.Windows.Forms.PictureBox();
             this.ShortcutGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Icon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.Icon)).BeginInit();
             this.SuspendLayout();
             // 
             // ShortcutGroupBox
@@ -202,6 +202,7 @@ namespace ObjemDesktop.window
             this.IconButton.TabIndex = 6;
             this.IconButton.Text = "参照";
             this.IconButton.UseVisualStyleBackColor = true;
+            this.IconButton.Click += new System.EventHandler(this.IconButton_Click);
             // 
             // Icon
             // 
@@ -228,10 +229,9 @@ namespace ObjemDesktop.window
             this.Text = "AddShortcutDialog";
             this.ShortcutGroupBox.ResumeLayout(false);
             this.ShortcutGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Icon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.Icon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

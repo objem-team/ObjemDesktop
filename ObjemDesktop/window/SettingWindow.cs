@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -22,6 +24,7 @@ namespace ObjemDesktop.window
         private readonly List<IPAddress> _ipAddress;
         private readonly BindingList<string> _disabledList;
         private bool _isDialogShowing;
+        private Dictionary<string, Bitmap> _unsavedImages = new Dictionary<string, Bitmap>();
 
         public SettingWindow()
         {
@@ -148,18 +151,24 @@ namespace ObjemDesktop.window
         private void EditShortcutBtn_Click(object sender, EventArgs e)
         {
             var index = ShortcutsListBox.SelectedIndex >= 0 ? ShortcutsListBox.SelectedIndex : 0;
-            AddShortcut addShortcut = new AddShortcut(_shortcuts[index],
-                shortcut => { BindingListUtil.AddOrReplace(_shortcuts, shortcut); });
+            AddShortcut addShortcut = new AddShortcut(_shortcuts[index],addShotrcut);
             addShortcut.ShowDialog();
         }
 
         private void AddShortcutBtn_Click(object sender, EventArgs e)
         {
-            AddShortcut addShortcut = new AddShortcut(shortcut =>
-            {
-                BindingListUtil.AddOrReplace(_shortcuts, shortcut);
-            });
+            AddShortcut addShortcut = new AddShortcut(addShotrcut);
             addShortcut.ShowDialog();
+        }
+
+        public void addShotrcut((ShortcutBase shortcut,Bitmap Icon) pair)
+        {
+            BindingListUtil.AddOrReplace(_shortcuts, pair.shortcut);
+            if (_unsavedImages.ContainsKey(pair.shortcut.Guid.ToString()))
+            {
+                _unsavedImages[pair.shortcut.Guid.ToString()] = pair.Icon;
+            }
+            _unsavedImages.Add(pair.shortcut.Guid.ToString(),pair.Icon);
         }
 
 
@@ -167,8 +176,18 @@ namespace ObjemDesktop.window
         {
             UserShortcuts.Instance.Shortcuts = _shortcuts.ToList();
             UserShortcuts.Instance.Save();
-            Close();
 
+            if (!Directory.Exists("icons"))
+            {
+                Directory.CreateDirectory("icons");
+            }
+            
+            foreach (var pair in _unsavedImages)
+            {
+                pair.Value.Save($"icons/{pair.Key}.png",ImageFormat.Png);
+                pair.Value.Dispose();
+            }
+            
             //保存
             var enabledShortcutsGuids = new StringCollection();
             enabledShortcutsGuids.AddRange(_enableShortcuts.Select(shortcut => shortcut.Guid.ToString()).ToArray());
@@ -183,7 +202,9 @@ namespace ObjemDesktop.window
             Properties.Settings.Default.IsEnableGesture = EnableGestureCheckBox.Checked;
             Properties.Settings.Default.OBSWebSocketURL = WebSocketURL.Text;
             Properties.Settings.Default.Save();
-            var aaa = Properties.Settings.Default.EnabledShortcuts;
+            
+            Close();
+            
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

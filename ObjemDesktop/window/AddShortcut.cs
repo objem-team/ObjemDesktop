@@ -3,6 +3,7 @@ using ObjemDesktop.Shortcuts.Command;
 using ObjemDesktop.Shortcuts.Keyboard;
 using ObjemDesktop.Shortcuts.LaunchApp;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -10,22 +11,23 @@ using System.Windows.Forms;
 
 namespace ObjemDesktop.window
 {
-    public partial class AddShortcut : ReturnableValueForm<ShortcutBase>
+    public partial class AddShortcut : ReturnableValueForm<(ShortcutBase shortcut,Bitmap Icon)>
     {
         private ShortcutBase _shortcut;
         private readonly bool _isOverWrite;
         private ushort[] _keys;
         private string _path;
         private string _command;
+        private Bitmap _icon = null;
         private bool _isDialogShowing;
 
-        public AddShortcut(Action<ShortcutBase> callback):base(callback)
+        public AddShortcut(Action<(ShortcutBase shortcut,Bitmap Icon)> callback):base(callback)
         {
             InitializeComponent();
             ActivateKeyboardShortcutInputs();
         }
 
-        public AddShortcut(ShortcutBase shortcut,Action<ShortcutBase> callback):base(callback)
+        public AddShortcut(ShortcutBase shortcut,Action<(ShortcutBase shortcut,Bitmap Icon)> callback):base(callback)
         {
             
             InitializeComponent();
@@ -193,7 +195,7 @@ namespace ObjemDesktop.window
                     break;
             }
             
-            Callback(_shortcut);
+            Callback((_shortcut, _icon));
             Close();
         }
 
@@ -233,6 +235,40 @@ namespace ObjemDesktop.window
             }
 
             _isDialogShowing = false;
+        }
+
+        private void IconButton_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(OpenIconselectDialog);
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+        }
+
+        private void OpenIconselectDialog()
+        {
+            if(_isDialogShowing) return;
+            var dialog = new OpenFileDialog();
+            if(_isDialogShowing) return;
+            dialog.Filter = "イメージファイル|*.png|*.jpg|*.jpeg|*.bmp|";
+            dialog.Title = "開くファイルを選択してください";
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            dialog.RestoreDirectory = true;
+            dialog.CheckFileExists = true;
+            _isDialogShowing = true;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _icon = new Bitmap(new Bitmap(dialog.FileName),new Size(96,96));
+                Invoke((MethodInvoker)(() =>
+                {
+                    Icon.Image = _icon;
+                }));
+            }
+            _isDialogShowing = false;
+        }
+
+        private void AddShortcut_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Icon.Image.Dispose();
         }
     }
 }
