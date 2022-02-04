@@ -21,7 +21,6 @@ namespace ObjemDesktop
             {
                 WebsocketMessage message = JsonSerializer.Deserialize<WebsocketMessage>(e.Data, new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
                 if (message is null) return;
-                Console.WriteLine(message.EventName);
                 switch (message.EventName)
                 {
                     case "requestSession":

@@ -75,6 +75,8 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SelectDisableApplicationDialog = new System.Windows.Forms.OpenFileDialog();
+            this.EnableShortcutsLabel = new System.Windows.Forms.Label();
+            this.ShortcutsLabel = new System.Windows.Forms.Label();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -219,6 +221,8 @@ namespace ObjemDesktop.window
             // 
             // ShortcutsTabPage
             // 
+            this.ShortcutsTabPage.Controls.Add(this.ShortcutsLabel);
+            this.ShortcutsTabPage.Controls.Add(this.EnableShortcutsLabel);
             this.ShortcutsTabPage.Controls.Add(this.EnabledShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.ShortcutsListBox);
             this.ShortcutsTabPage.Controls.Add(this.EditShortcutBtn);
@@ -519,6 +523,22 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
+            // EnableShortcutsLabel
+            // 
+            this.EnableShortcutsLabel.Location = new System.Drawing.Point(277, 16);
+            this.EnableShortcutsLabel.Name = "EnableShortcutsLabel";
+            this.EnableShortcutsLabel.Size = new System.Drawing.Size(157, 12);
+            this.EnableShortcutsLabel.TabIndex = 10;
+            this.EnableShortcutsLabel.Text = "表示されるショートカット";
+            // 
+            // ShortcutsLabel
+            // 
+            this.ShortcutsLabel.Location = new System.Drawing.Point(19, 16);
+            this.ShortcutsLabel.Name = "ShortcutsLabel";
+            this.ShortcutsLabel.Size = new System.Drawing.Size(175, 14);
+            this.ShortcutsLabel.TabIndex = 11;
+            this.ShortcutsLabel.Text = "ショートカット一覧";
+            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -550,6 +570,9 @@ namespace ObjemDesktop.window
             this.DownloadCAGroup.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label EnableShortcutsLabel;
+        private System.Windows.Forms.Label ShortcutsLabel;
 
         private System.Windows.Forms.ListBox EnabledShortcutsListBox;
 

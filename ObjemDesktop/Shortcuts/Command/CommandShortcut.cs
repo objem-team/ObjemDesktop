@@ -10,11 +10,19 @@ namespace ObjemDesktop.Shortcuts.Command
             Command = command;
         }
         public CommandShortcut() { }
-        public string Command { get; }
+        public string Command { get; set; }
         public override void Execute()
         {
-            ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", Command);
-            Process.Start(processInfo);
+            ProcessStartInfo processInfo = new ProcessStartInfo("cmd.exe", $"/c {Command}");
+            processInfo.CreateNoWindow = true;
+            processInfo.UseShellExecute = false;
+            processInfo.RedirectStandardOutput = true;
+            processInfo.RedirectStandardError = true;
+            var process = Process.Start(processInfo);
+            string standardOutput = process.StandardOutput.ReadToEnd();
+            string standardError = process.StandardError.ReadToEnd();
+            process.Close();
+            
         }
     }
 }

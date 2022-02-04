@@ -20,7 +20,7 @@ namespace ObjemDesktop.Shortcuts.Keyboard
         public override void Execute()
         {
             var inputs = KeyStrokesGenerator.Generate(Keys);
-            Console.WriteLine(SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input))));
+            SendInput((uint)inputs.Length, inputs, Marshal.SizeOf(typeof(Input)));
         }
 
         [DllImport("user32.dll", SetLastError = true)]

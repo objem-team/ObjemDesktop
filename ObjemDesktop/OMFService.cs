@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO.Ports;
 using ObjemDesktop.FaderValue;
 using ObjemDesktop.VolumeManaging;
@@ -22,7 +23,7 @@ namespace ObjemDesktop.window
             items.Item1 = new FaderItem(volumeManager.List[1], 1);
             items.OnChangeItems += OnItemsChange;
 
-            _serialPort = getObjemSerialPort();
+            _serialPort = GetObjemSerialPort();
             if (_serialPort is null)
             {
                 //USBの状態を監視して都度確認する
@@ -78,13 +79,21 @@ namespace ObjemDesktop.window
         {
             if (arg.Item is null) return;
             if (_serialPort is null || !(_serialPort.IsOpen)) return;
-            //表示
-            _serialPort.WriteLine(new SerialSendObject(1, 0, arg.Item.VolumeController.Name).ToString());
-            //音量
-            _serialPort.WriteLine(new SerialSendObject(1, 0, Math.Round(arg.Item.VolumeController.Volume, 1).ToString()).ToString());
+            try
+            {
+                //表示
+                _serialPort.WriteLine(new SerialSendObject(1, 0, arg.Item.VolumeController.Name).ToString());
+                //音量
+                _serialPort.WriteLine(new SerialSendObject(1, 0, Math.Round(arg.Item.VolumeController.Volume, 1).ToString(CultureInfo.InvariantCulture)).ToString());
+
+            }
+            catch (Exception e)
+            {
+                //ignore
+            }
         }
 
-        static SerialPort getObjemSerialPort()
+        private static SerialPort GetObjemSerialPort()
         {
             foreach (var name in SerialPort.GetPortNames())
             {
