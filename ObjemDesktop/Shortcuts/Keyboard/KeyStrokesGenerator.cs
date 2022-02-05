@@ -12,9 +12,9 @@ namespace ObjemDesktop.Shortcuts.Keyboard
         public static Input[] Generate(ushort[] keycodes)
         {
             var strokes = new Input[keycodes.Length * 2];
-            for (int i = 0; i < 2; i++)
-            {                
-                strokes[i] = GenerateKeyDownInput(keycodes[i]);
+            for (int i = 0; i < keycodes.Length; i++)
+            {
+                strokes[keycodes.Length + i] = GenerateKeyUpInput(keycodes[0]);
                 strokes[keycodes.Length + i] = GenerateKeyUpInput(keycodes[i]);
             }
             return strokes;

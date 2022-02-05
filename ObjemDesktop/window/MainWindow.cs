@@ -12,6 +12,7 @@ namespace ObjemDesktop.window
     public partial class MainWindow : Form
     {   
         private static  MainWindow _instance;
+        private bool isLoad = false;
         private readonly List<IpComboBoxValue> _list = new List<IpComboBoxValue>();
         private MainWindow()
         {
@@ -28,8 +29,10 @@ namespace ObjemDesktop.window
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            
+            isLoad = true;
             _setDefaultValue();
-            SetStatuslabel(0);
+            SetStatuslabel(WSServer.Instance.Server.WebSocketServices.SessionCount);
         }
 
         private void _setDefaultValue()
@@ -67,6 +70,7 @@ namespace ObjemDesktop.window
 
         public void SetStatuslabel(int count)
         {
+            if (!isLoad) return;
             if (count >= 1)
             {
                 Invoke((MethodInvoker)(() => status.Text = $"connected {count} client"));

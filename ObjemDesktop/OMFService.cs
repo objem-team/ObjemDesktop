@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using ObjemDesktop.FaderValue;
@@ -19,7 +20,7 @@ namespace ObjemDesktop.window
             handler = new ForegroundHandler();
             handler.ForegroundWindowChange += OnWindowChange;
 
-            _serialPort = getObjemSerialPort();
+            _serialPort = GetObjemSerialPort();
             if (_serialPort is null)
             {
                 //USBの状態を監視して都度確認する
@@ -105,7 +106,6 @@ namespace ObjemDesktop.window
 
         private void OnItemsChange(object sender, FaderItemChangeEventArg arg)
         {
-            Console.WriteLine("a");
             try
             {
                 if (arg.Item is null) return;
@@ -128,7 +128,7 @@ namespace ObjemDesktop.window
 
         }
 
-        static SerialPort getObjemSerialPort()
+        private static SerialPort GetObjemSerialPort()
         {
             foreach (var name in SerialPort.GetPortNames())
             {

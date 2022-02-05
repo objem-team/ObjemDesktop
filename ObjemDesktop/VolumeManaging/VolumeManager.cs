@@ -24,8 +24,17 @@ namespace ObjemDesktop.VolumeManaging
         {
             //デフォルトのマイクとスピーカーを取得
             var deviceEnumerator = new MMDeviceEnumerator();
-            var defaultRenderDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            var defaultCaptureDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
+            MMDevice defaultRenderDevice =  null;
+            MMDevice defaultCaptureDevice = null;
+            try
+            {
+                defaultRenderDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+                defaultCaptureDevice = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Multimedia);
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
 
 
             //デバイス音量が変更されたときのイベントを登録
@@ -95,6 +104,9 @@ namespace ObjemDesktop.VolumeManaging
                     if (sessionControl.Process.MainModule != null &&
                         Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)) return;
                 }
+                 
+                //すでに存在する場合追加しない
+                 if (List.FindIndex(s => s.ProcessId == sessionControl.ProcessID) >= 0) return;
                 SessionVolumeController sessionVolumeController =
                     new SessionVolumeController(sessionControl, simpleVolume);
                 RegisterEvent(sessionVolumeController);

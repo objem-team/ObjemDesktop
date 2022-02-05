@@ -151,8 +151,8 @@ namespace ObjemDesktop.window
 
         private void EditShortcutBtn_Click(object sender, EventArgs e)
         {
-            var index = ShortcutsListBox.SelectedIndex >= 0 ? ShortcutsListBox.SelectedIndex : 0;
-            AddShortcut addShortcut = new AddShortcut(_shortcuts[index],addShotrcut);
+            if (ShortcutsListBox.SelectedIndex < 0 || ShortcutsListBox.SelectedIndex >= _shortcuts.Count) return;
+            AddShortcut addShortcut = new AddShortcut(_shortcuts[ShortcutsListBox.SelectedIndex],addShotrcut);
             addShortcut.ShowDialog();
         }
 
@@ -169,7 +169,10 @@ namespace ObjemDesktop.window
             {
                 _unsavedImages[pair.shortcut.Guid.ToString()] = pair.Icon;
             }
-            _unsavedImages.Add(pair.shortcut.Guid.ToString(),pair.Icon);
+            else
+            {
+                _unsavedImages.Add(pair.shortcut.Guid.ToString(),pair.Icon);
+            }
         }
 
 
