@@ -26,7 +26,8 @@ namespace ObjemDesktop.FaderValue
             set
             {
                 _item1 = value;
-                OnChangeItems?.Invoke(this, new FaderItemChangeEventArg(1, Item1));
+                var arg = new FaderItemChangeEventArg(1, Item1);
+                OnChangeItems?.Invoke(this,arg);
             }
         }
     }
