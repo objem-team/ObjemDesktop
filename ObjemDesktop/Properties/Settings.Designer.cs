@@ -116,5 +116,29 @@ namespace ObjemDesktop.Properties {
                 this["OBSWebSocketURL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string YouTubeStreamUrl {
+            get {
+                return ((string)(this["YouTubeStreamUrl"]));
+            }
+            set {
+                this["YouTubeStreamUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TwitchStreamUrl {
+            get {
+                return ((string)(this["TwitchStreamUrl"]));
+            }
+            set {
+                this["TwitchStreamUrl"] = value;
+            }
+        }
     }
 }

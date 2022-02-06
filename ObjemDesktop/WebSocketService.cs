@@ -7,7 +7,9 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 using ObjemDesktop.VolumeManaging;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using ObjemDesktop.Config;
+using ObjemDesktop.Properties;
 using ObjemDesktop.WebsocketMessageType;
 using ObjemDesktop.window;
 
@@ -97,6 +99,51 @@ namespace ObjemDesktop
                         }
 
                         break;
+                    case "requestYoutubeVideoId":
+                    {
+                        try
+                        {
+                            var serializeOptions = new JsonSerializerOptions
+                            {
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                                WriteIndented = true,
+                                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                            };
+                            var videoId = new Regex(RegexStrings.YoutubeRegex).Match(Settings.Default.YouTubeStreamUrl)
+                                .Groups[1].Value;
+                            var sendMessage = new WebsocketSendMessage("YouTubeVideoId", videoId);
+                            var jsonString = JsonSerializer.Serialize(sendMessage,serializeOptions);
+                            Send(jsonString);
+                        }
+                        catch (Exception)
+                        {
+                            //ignore
+                        }
+                        break;
+                    }
+                    case "requestTwitchVideoId":
+                    {
+                        try
+                        {
+                            var serializeOptions = new JsonSerializerOptions
+                            {
+                                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                                WriteIndented = true,
+                                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                            };
+                            var videoId = new Regex(RegexStrings.TwitchRegex).Match(Settings.Default.TwitchStreamUrl)
+                                .Groups[1].Value;
+                            var sendMessage = new WebsocketSendMessage("TwitchVideoId", videoId);
+                            var jsonString = JsonSerializer.Serialize(sendMessage,serializeOptions);
+                            Send(jsonString);
+                        }
+                        catch (Exception)
+                        {
+                            //ignore
+                        }
+                        break;
+                    }
+                        
                 }
             }
             catch (Exception)

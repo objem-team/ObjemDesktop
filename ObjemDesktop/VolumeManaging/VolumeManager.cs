@@ -24,7 +24,7 @@ namespace ObjemDesktop.VolumeManaging
         {
             //デフォルトのマイクとスピーカーを取得
             var deviceEnumerator = new MMDeviceEnumerator();
-            MMDevice defaultRenderDevice =  null;
+            MMDevice defaultRenderDevice = null;
             MMDevice defaultCaptureDevice = null;
             try
             {
@@ -47,21 +47,24 @@ namespace ObjemDesktop.VolumeManaging
 
             if (defaultCaptureDevice != null)
             {
-                DeviceVolumeController caputureDeviceVolumeContoroller = new DeviceVolumeController(defaultCaptureDevice);
+                DeviceVolumeController caputureDeviceVolumeContoroller =
+                    new DeviceVolumeController(defaultCaptureDevice);
                 caputureDeviceVolumeContoroller.VolumeChanged += (sender, arg) => OnVolumeChange?.Invoke(sender, arg);
                 List.Add(caputureDeviceVolumeContoroller);
             }
 
             //デフォルトのデバイスが変更されたときのイベントを登録
             MMNotificationClient notificationClient = new MMNotificationClient();
-            notificationClient.DefaultDeviceChanged += (sender, eventArgs) => OnDefaultDeviceChanged?.Invoke(sender, eventArgs);
+            notificationClient.DefaultDeviceChanged +=
+                (sender, eventArgs) => OnDefaultDeviceChanged?.Invoke(sender, eventArgs);
             deviceEnumerator.RegisterEndpointNotificationCallback(notificationClient);
 
             //セッションの追加を監視
             if (defaultRenderDevice is null) return;
             var audioSessionManager = AudioSessionManager2.FromMMDevice(defaultRenderDevice);
             AudioSessionNotification audioSessionNotification = new AudioSessionNotification();
-            audioSessionNotification.SessionCreated += (sender, eventArgs) => {
+            audioSessionNotification.SessionCreated += (sender, eventArgs) =>
+            {
                 OnSessionCreated?.Invoke(sender, eventArgs);
                 audioSessionManager.GetSessionEnumerator();
                 //おまじない   https://github.com/filoe/cscore/issues/216
@@ -84,7 +87,6 @@ namespace ObjemDesktop.VolumeManaging
                     Console.WriteLine(e);
                 }
             }
-
         }
 
         private void RegisterEvent(SessionVolumeController sessionVolumeController)
@@ -99,14 +101,16 @@ namespace ObjemDesktop.VolumeManaging
             {
                 var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
                 var sessionControl = session.QueryInterface<AudioSessionControl2>();
-                 if(Settings.Default.DisabledProcess != null)
+                if (Settings.Default.DisabledProcess != null)
                 {
                     if (sessionControl.Process.MainModule != null &&
-                        Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)) return;
+                        sessionControl.Process != null &&
+                        Settings.Default.DisabledProcess.Contains(sessionControl.Process.MainModule.FileName)
+                       ) return;
                 }
-                 
+
                 //すでに存在する場合追加しない
-                 if (List.FindIndex(s => s.ProcessId == sessionControl.ProcessID) >= 0) return;
+                if (List.FindIndex(s => s.ProcessId == sessionControl.ProcessID) >= 0) return;
                 SessionVolumeController sessionVolumeController =
                     new SessionVolumeController(sessionControl, simpleVolume);
                 RegisterEvent(sessionVolumeController);
@@ -118,10 +122,9 @@ namespace ObjemDesktop.VolumeManaging
             }
         }
 
-        public void SetVolume(int processId,float volume,bool isMute)
+        public void SetVolume(int processId, float volume, bool isMute)
         {
-            List.Find(x => x.ProcessId == processId).SetVolume(volume,isMute);
+            List.Find(x => x.ProcessId == processId).SetVolume(volume, isMute);
         }
     }
-
 }

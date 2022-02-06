@@ -97,8 +97,8 @@ namespace ObjemDesktop.window
             {
                 newItem = new FaderItem(VolumeManager.Instance.List[found], found);
             }
-
-            if (!items.Item0.Equals(newItem))
+            
+            if (items!=null && !items.Item0.Equals(newItem))
             {
                 items.Item0 = newItem;
             }

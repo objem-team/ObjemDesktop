@@ -8,16 +8,17 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using ObjemDesktop.Config;
+using ObjemDesktop.Properties;
 using ObjemDesktop.Shortcuts;
 
 namespace ObjemDesktop.window
 {
     public partial class SettingWindow : Form
     {
-        private bool RestartFlag = false;
         private readonly BindingList<ShortcutBase> _shortcuts;
         private readonly BindingList<ShortcutBase> _shortcuts2;
         private BindingList<ShortcutBase> _enableShortcuts;
@@ -35,15 +36,15 @@ namespace ObjemDesktop.window
             _unsavedImages = new Dictionary<string, Bitmap>();
 
             _disabledList = new BindingList<string>(new List<string>());
-            if (Properties.Settings.Default.DisabledProcess != null)
+            if (Settings.Default.DisabledProcess != null)
             {
-                _disabledList = new BindingList<string>(Properties.Settings.Default.DisabledProcess.Cast<string>().ToList());
+                _disabledList = new BindingList<string>(Settings.Default.DisabledProcess.Cast<string>().ToList());
             }
 
             _enableShortcuts = new BindingList<ShortcutBase>(new List<ShortcutBase>());
-            if (Properties.Settings.Default.EnabledShortcuts != null)
+            if (Settings.Default.EnabledShortcuts != null)
             {
-                var guids = Properties.Settings.Default.EnabledShortcuts.Cast<string>().ToArray();
+                var guids = Settings.Default.EnabledShortcuts.Cast<string>().ToArray();
                 var shortcuts = new List<ShortcutBase>();
                 foreach (var guid in guids)
                 {
@@ -63,11 +64,11 @@ namespace ObjemDesktop.window
             _loadShortcuts();
 
             //ipアドレスListBox表示
-            StartupCheckBox.Checked = Properties.Settings.Default.AutoStartup;
+            StartupCheckBox.Checked = Settings.Default.AutoStartup;
             ServerIpAddressComboBox.DataSource = _ipAddress.ToList();
-            if (Properties.Settings.Default.ServerIpAddress != null)
+            if (Settings.Default.ServerIpAddress != null)
             {
-                int index = _ipAddress.FindIndex(n => n.ToString() == Properties.Settings.Default.ServerIpAddress);
+                int index = _ipAddress.FindIndex(n => n.ToString() == Settings.Default.ServerIpAddress);
                 index = index >= 0 ? index : 0;
                 ServerIpAddressComboBox.SelectedIndex = index;
             }
@@ -81,30 +82,41 @@ namespace ObjemDesktop.window
 
 
             //フェーダージェスチャーの選択
-            if (Properties.Settings.Default.Fader1GestureGuid != null && _shortcuts.Count > 0)
+            if (Settings.Default.Fader1GestureGuid != null && _shortcuts.Count > 0)
             {
                 var index = BindingListUtil.FindIndex(_shortcuts,
-                    (item) => item.Guid.ToString() == Properties.Settings.Default.Fader1GestureGuid);
+                    (item) => item.Guid.ToString() == Settings.Default.Fader1GestureGuid);
                 index = index >= 0 ? index : 0;
                 Feader1GestureComboBox.SelectedIndex = index;
             }
 
 
-            if (Properties.Settings.Default.Fader2GestureGUID != null && _shortcuts.Count > 0)
+            if (Settings.Default.Fader2GestureGUID != null && _shortcuts.Count > 0)
             {
                 var index = BindingListUtil.FindIndex(_shortcuts,
-                    (item) => item.Guid.ToString() == Properties.Settings.Default.Fader2GestureGUID);
+                    (item) => item.Guid.ToString() == Settings.Default.Fader2GestureGUID);
                 index = index >= 0 ? index : 0;
                 Feader2GestureComboBox.SelectedIndex = index;
             }
 
             //ジェスチャーのチェックボックス
-            EnableGestureCheckBox.Checked = Properties.Settings.Default.IsEnableGesture;
+            EnableGestureCheckBox.Checked = Settings.Default.IsEnableGesture;
 
             //OBSのURL
-            if (Properties.Settings.Default.OBSWebSocketURL != null)
+            if (Settings.Default.OBSWebSocketURL != null)
             {
-                WebSocketURL.Text = Properties.Settings.Default.OBSWebSocketURL;
+                WebSocketURL.Text = Settings.Default.OBSWebSocketURL;
+            }
+            
+            //YoutubeUrl
+            if (Settings.Default.YouTubeStreamUrl  != null)
+            {
+                YoutubeStreamUrlTextBox.Text = Settings.Default.YouTubeStreamUrl;
+            }
+
+            if (Settings.Default.TwitchStreamUrl!= null)
+            {
+                TwitchStreamUrlTextBox.Text = Settings.Default.TwitchStreamUrl;
             }
         }
 
@@ -119,7 +131,6 @@ namespace ObjemDesktop.window
                 Certificate.CertificateUtil.ExportAsPfx(Certificate.Certificate.CreateCertificate(),
                     @"certs\CAcert.pfx");
                 MessageBox.Show("再作成が完了しました\n");
-                RestartFlag = true;
             }
         }
 
@@ -192,21 +203,52 @@ namespace ObjemDesktop.window
                 pair.Value.Save($"icons/{pair.Key}.png",ImageFormat.Png);
                 pair.Value.Dispose();
             }
+
+            if (!YoutubeStreamUrlTextBox.Text.Equals(string.Empty))
+            {
+                const string youTubeRegex = RegexStrings.YoutubeRegex;
+                if (new Regex(youTubeRegex).IsMatch(YoutubeStreamUrlTextBox.Text))
+                {
+                    Settings.Default.YouTubeStreamUrl = YoutubeStreamUrlTextBox.Text;
+                }
+                else
+                {
+                    SettingTab.SelectedTab = StreamCommentUrlTab;
+                    YoutubeStreamUrlTextBox.Focus();
+                    MessageBox.Show("Youtubeの配信URLを正しく入力してください");
+                    return;
+                }
+            }
+            if (!TwitchStreamUrlTextBox.Text.Equals(string.Empty))
+            {
+                const string twitchRegex = RegexStrings.TwitchRegex;
+                if (new Regex(twitchRegex).IsMatch(TwitchStreamUrlTextBox.Text))
+                {
+                    Settings.Default.TwitchStreamUrl = TwitchStreamUrlTextBox.Text;
+                }
+                else
+                {
+                    SettingTab.SelectedTab = StreamCommentUrlTab;
+                    TwitchStreamUrlTextBox.Focus();
+                    MessageBox.Show("Twitchの配信URLを正しく入力してください");
+                    return;
+                }
+            }
             
             //保存
             var enabledShortcutsGuids = new StringCollection();
             enabledShortcutsGuids.AddRange(_enableShortcuts.Select(shortcut => shortcut.Guid.ToString()).ToArray());
             var disabledList = new StringCollection();
             disabledList.AddRange(_disabledList.ToArray());
-            Properties.Settings.Default.AutoStartup = StartupCheckBox.Checked;
-            Properties.Settings.Default.ServerIpAddress = ServerIpAddressComboBox.Text;
-            if (Feader1GestureComboBox.SelectedIndex >= 0) Properties.Settings.Default.Fader1GestureGuid = _shortcuts[Feader1GestureComboBox.SelectedIndex].Guid.ToString();
-            if (Feader2GestureComboBox.SelectedIndex >= 0) Properties.Settings.Default.Fader2GestureGUID = _shortcuts[Feader2GestureComboBox.SelectedIndex].Guid.ToString();
-            Properties.Settings.Default.EnabledShortcuts = enabledShortcutsGuids;
-            Properties.Settings.Default.DisabledProcess = disabledList;
-            Properties.Settings.Default.IsEnableGesture = EnableGestureCheckBox.Checked;
-            Properties.Settings.Default.OBSWebSocketURL = WebSocketURL.Text;
-            Properties.Settings.Default.Save();
+            Settings.Default.AutoStartup = StartupCheckBox.Checked;
+            Settings.Default.ServerIpAddress = ServerIpAddressComboBox.Text;
+            if (Feader1GestureComboBox.SelectedIndex >= 0) Settings.Default.Fader1GestureGuid = _shortcuts[Feader1GestureComboBox.SelectedIndex].Guid.ToString();
+            if (Feader2GestureComboBox.SelectedIndex >= 0) Settings.Default.Fader2GestureGUID = _shortcuts[Feader2GestureComboBox.SelectedIndex].Guid.ToString();
+            Settings.Default.EnabledShortcuts = enabledShortcutsGuids;
+            Settings.Default.DisabledProcess = disabledList;
+            Settings.Default.IsEnableGesture = EnableGestureCheckBox.Checked;
+            Settings.Default.OBSWebSocketURL = WebSocketURL.Text;
+            Settings.Default.Save();
             
             Close();
             
@@ -326,5 +368,6 @@ namespace ObjemDesktop.window
             BindingListUtil.Replace(_enableShortcuts,EnabledShortcutsListBox.SelectedIndex,EnabledShortcutsListBox.SelectedIndex+1);
             EnabledShortcutsListBox.SelectedIndex += 1;
         }
+        
     }
 }

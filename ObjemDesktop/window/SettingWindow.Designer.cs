@@ -44,6 +44,8 @@ namespace ObjemDesktop.window
             this.Feader1GestureComboBox = new System.Windows.Forms.ComboBox();
             this.GestureDescriptionLabel = new System.Windows.Forms.Label();
             this.ShortcutsTabPage = new System.Windows.Forms.TabPage();
+            this.ShortcutsLabel = new System.Windows.Forms.Label();
+            this.EnableShortcutsLabel = new System.Windows.Forms.Label();
             this.EnabledShortcutsListBox = new System.Windows.Forms.ListBox();
             this.ShortcutsListBox = new System.Windows.Forms.ListBox();
             this.ShortcutsListBoxContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -64,6 +66,11 @@ namespace ObjemDesktop.window
             this.DisableProcessLabel = new System.Windows.Forms.Label();
             this.StartupCheckBox = new System.Windows.Forms.CheckBox();
             this.SettingTab = new System.Windows.Forms.TabControl();
+            this.StreamCommentUrlTab = new System.Windows.Forms.TabPage();
+            this.TwitchStreamUrlTextBox = new System.Windows.Forms.TextBox();
+            this.YoutubeStreamUrlTextBox = new System.Windows.Forms.TextBox();
+            this.TwitchLabel = new System.Windows.Forms.Label();
+            this.YouTubeLabel = new System.Windows.Forms.Label();
             this.CertificateTabPage = new System.Windows.Forms.TabPage();
             this.DownloadCAGroup = new System.Windows.Forms.GroupBox();
             this.DownloadServerIPComboBox = new System.Windows.Forms.ComboBox();
@@ -75,8 +82,6 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel = new System.Windows.Forms.Label();
             this.saveCACertFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SelectDisableApplicationDialog = new System.Windows.Forms.OpenFileDialog();
-            this.EnableShortcutsLabel = new System.Windows.Forms.Label();
-            this.ShortcutsLabel = new System.Windows.Forms.Label();
             this.OBSTabPage.SuspendLayout();
             this.GestureTabPage.SuspendLayout();
             this.GestureSettingBox.SuspendLayout();
@@ -85,6 +90,7 @@ namespace ObjemDesktop.window
             this.GeneralTabPage.SuspendLayout();
             this.DisableProcessListBoxContextMenu.SuspendLayout();
             this.SettingTab.SuspendLayout();
+            this.StreamCommentUrlTab.SuspendLayout();
             this.CertificateTabPage.SuspendLayout();
             this.DownloadCAGroup.SuspendLayout();
             this.SuspendLayout();
@@ -238,6 +244,22 @@ namespace ObjemDesktop.window
             this.ShortcutsTabPage.TabIndex = 1;
             this.ShortcutsTabPage.Text = "ショートカット";
             this.ShortcutsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // ShortcutsLabel
+            // 
+            this.ShortcutsLabel.Location = new System.Drawing.Point(19, 16);
+            this.ShortcutsLabel.Name = "ShortcutsLabel";
+            this.ShortcutsLabel.Size = new System.Drawing.Size(175, 14);
+            this.ShortcutsLabel.TabIndex = 11;
+            this.ShortcutsLabel.Text = "ショートカット一覧";
+            // 
+            // EnableShortcutsLabel
+            // 
+            this.EnableShortcutsLabel.Location = new System.Drawing.Point(277, 16);
+            this.EnableShortcutsLabel.Name = "EnableShortcutsLabel";
+            this.EnableShortcutsLabel.Size = new System.Drawing.Size(157, 12);
+            this.EnableShortcutsLabel.TabIndex = 10;
+            this.EnableShortcutsLabel.Text = "表示されるショートカット";
             // 
             // EnabledShortcutsListBox
             // 
@@ -423,6 +445,7 @@ namespace ObjemDesktop.window
             this.SettingTab.Controls.Add(this.GeneralTabPage);
             this.SettingTab.Controls.Add(this.ShortcutsTabPage);
             this.SettingTab.Controls.Add(this.GestureTabPage);
+            this.SettingTab.Controls.Add(this.StreamCommentUrlTab);
             this.SettingTab.Controls.Add(this.OBSTabPage);
             this.SettingTab.Controls.Add(this.CertificateTabPage);
             this.SettingTab.Location = new System.Drawing.Point(12, 18);
@@ -430,6 +453,49 @@ namespace ObjemDesktop.window
             this.SettingTab.SelectedIndex = 0;
             this.SettingTab.Size = new System.Drawing.Size(470, 274);
             this.SettingTab.TabIndex = 1;
+            // 
+            // StreamCommentUrlTab
+            // 
+            this.StreamCommentUrlTab.Controls.Add(this.TwitchStreamUrlTextBox);
+            this.StreamCommentUrlTab.Controls.Add(this.YoutubeStreamUrlTextBox);
+            this.StreamCommentUrlTab.Controls.Add(this.TwitchLabel);
+            this.StreamCommentUrlTab.Controls.Add(this.YouTubeLabel);
+            this.StreamCommentUrlTab.Location = new System.Drawing.Point(4, 22);
+            this.StreamCommentUrlTab.Name = "StreamCommentUrlTab";
+            this.StreamCommentUrlTab.Size = new System.Drawing.Size(462, 248);
+            this.StreamCommentUrlTab.TabIndex = 5;
+            this.StreamCommentUrlTab.Text = "配信コメントウィジェット";
+            this.StreamCommentUrlTab.UseVisualStyleBackColor = true;
+            // 
+            // TwitchStreamUrlTextBox
+            // 
+            this.TwitchStreamUrlTextBox.Location = new System.Drawing.Point(101, 134);
+            this.TwitchStreamUrlTextBox.Name = "TwitchStreamUrlTextBox";
+            this.TwitchStreamUrlTextBox.Size = new System.Drawing.Size(343, 19);
+            this.TwitchStreamUrlTextBox.TabIndex = 3;
+            // 
+            // YoutubeStreamUrlTextBox
+            // 
+            this.YoutubeStreamUrlTextBox.Location = new System.Drawing.Point(101, 54);
+            this.YoutubeStreamUrlTextBox.Name = "YoutubeStreamUrlTextBox";
+            this.YoutubeStreamUrlTextBox.Size = new System.Drawing.Size(343, 19);
+            this.YoutubeStreamUrlTextBox.TabIndex = 2;
+            // 
+            // TwitchLabel
+            // 
+            this.TwitchLabel.Location = new System.Drawing.Point(19, 137);
+            this.TwitchLabel.Name = "TwitchLabel";
+            this.TwitchLabel.Size = new System.Drawing.Size(76, 14);
+            this.TwitchLabel.TabIndex = 1;
+            this.TwitchLabel.Text = "Twitch";
+            // 
+            // YouTubeLabel
+            // 
+            this.YouTubeLabel.Location = new System.Drawing.Point(19, 57);
+            this.YouTubeLabel.Name = "YouTubeLabel";
+            this.YouTubeLabel.Size = new System.Drawing.Size(64, 19);
+            this.YouTubeLabel.TabIndex = 0;
+            this.YouTubeLabel.Text = "Youtube";
             // 
             // CertificateTabPage
             // 
@@ -523,22 +589,6 @@ namespace ObjemDesktop.window
             this.ReGenerateCACertLabel.TabIndex = 1;
             this.ReGenerateCACertLabel.Text = "CA証明書の再作成(この操作はもとに戻せません)";
             // 
-            // EnableShortcutsLabel
-            // 
-            this.EnableShortcutsLabel.Location = new System.Drawing.Point(277, 16);
-            this.EnableShortcutsLabel.Name = "EnableShortcutsLabel";
-            this.EnableShortcutsLabel.Size = new System.Drawing.Size(157, 12);
-            this.EnableShortcutsLabel.TabIndex = 10;
-            this.EnableShortcutsLabel.Text = "表示されるショートカット";
-            // 
-            // ShortcutsLabel
-            // 
-            this.ShortcutsLabel.Location = new System.Drawing.Point(19, 16);
-            this.ShortcutsLabel.Name = "ShortcutsLabel";
-            this.ShortcutsLabel.Size = new System.Drawing.Size(175, 14);
-            this.ShortcutsLabel.TabIndex = 11;
-            this.ShortcutsLabel.Text = "ショートカット一覧";
-            // 
             // SettingWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -564,12 +614,21 @@ namespace ObjemDesktop.window
             this.GeneralTabPage.PerformLayout();
             this.DisableProcessListBoxContextMenu.ResumeLayout(false);
             this.SettingTab.ResumeLayout(false);
+            this.StreamCommentUrlTab.ResumeLayout(false);
+            this.StreamCommentUrlTab.PerformLayout();
             this.CertificateTabPage.ResumeLayout(false);
             this.CertificateTabPage.PerformLayout();
             this.DownloadCAGroup.ResumeLayout(false);
             this.DownloadCAGroup.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label YouTubeLabel;
+        private System.Windows.Forms.Label TwitchLabel;
+        private System.Windows.Forms.TextBox YoutubeStreamUrlTextBox;
+        private System.Windows.Forms.TextBox TwitchStreamUrlTextBox;
+
+        private System.Windows.Forms.TabPage StreamCommentUrlTab;
 
         private System.Windows.Forms.Label EnableShortcutsLabel;
         private System.Windows.Forms.Label ShortcutsLabel;
