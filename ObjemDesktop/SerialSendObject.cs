@@ -8,20 +8,20 @@ namespace ObjemDesktop.window
 {
     class SerialSendObject
     {
-        byte Event { get; set; }
-        byte FaderNumber { get; set; }
-        string Value { get; set; }
+        OmfEvents Event { get; }
+        byte FaderNumber { get; }
+        string Value { get; }
 
-        public SerialSendObject(byte eventNumber, byte faderNumber, string value)
+        public SerialSendObject(OmfEvents omfEvent, byte faderNumber, string value)
         {
-            Event = eventNumber;
+            Event = omfEvent;
             FaderNumber = faderNumber;
             Value = value;
         }
+
         public override string ToString()
         {
-            return $"{Event}:{FaderNumber}:{Value}:";
+            return $"{(int) Event}:{FaderNumber}:{Value}:";
         }
     }
-
 }

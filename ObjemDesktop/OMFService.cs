@@ -31,7 +31,6 @@ namespace ObjemDesktop.window
             _serialPort.DataReceived += DatarecievedHandler;
 
 
-
             items = new FaderItems();
             items.OnChangeItems += OnItemsChange;
             items.Item0 = new FaderItem(volumeManager.List[0], 0);
@@ -42,8 +41,35 @@ namespace ObjemDesktop.window
         {
             var serialPort = (SerialPort) sender;
             var data = serialPort.ReadLine();
-            Console.WriteLine("Resive : "+data);
-            //処理書く
+            Console.WriteLine("Resive : " + data.Trim());
+            switch (data.Trim())
+            {
+                case "next":
+                {
+                    int newIndex = items.Item1.Index + 1;
+                    var sessionList = VolumeManager.Instance.List;
+                    if (newIndex >= sessionList.Count)
+                    {
+                        newIndex = 0;
+                    }
+
+                    items.Item1 = new FaderItem(VolumeManager.Instance.List[newIndex], newIndex);
+                    break;
+                }
+
+                case "prev":
+                {
+                    int newIndex = items.Item1.Index - 1;
+                    var sessionList = VolumeManager.Instance.List;
+                    if (newIndex < 0)
+                    {
+                        newIndex = sessionList.Count - 1;
+                    }
+
+                    items.Item1 = new FaderItem(VolumeManager.Instance.List[newIndex], newIndex);
+                    break;
+                }
+            }
         }
 
         private void OnVolumeChange(object sender, VolumeChangedEventArgs arg)
@@ -54,12 +80,14 @@ namespace ObjemDesktop.window
                 if (arg.VolumeController.ProcessId == items.Item0.VolumeController.ProcessId)
                 {
                     //Fader0に送る
-                    _serialPort.WriteLine(new SerialSendObject(0, 0, arg.NewVolume.ToString()).ToString());
+                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 0, arg.NewVolume.ToString())
+                        .ToString());
                 }
                 else if (arg.VolumeController.ProcessId == items.Item1.VolumeController.ProcessId)
                 {
                     //fader1に送る
-                    _serialPort.WriteLine(new SerialSendObject(0, 1, arg.NewVolume.ToString()).ToString());
+                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 1, arg.NewVolume.ToString())
+                        .ToString());
                 }
             }
             catch (Exception)
@@ -71,7 +99,7 @@ namespace ObjemDesktop.window
         private void OnWindowChange(object sender, Process process)
         {
             var found = VolumeManager.Instance.List.FindIndex(s => s.ProcessId == process.Id);
-            if(found < 0)
+            if (found < 0)
             {
                 found = VolumeManager.Instance.List.FindIndex(s =>
                 {
@@ -83,11 +111,11 @@ namespace ObjemDesktop.window
                     }
                     catch (Exception e)
                     {
-                        
                         return false;
                     }
                 });
             }
+
             FaderItem newItem = null;
             if (found < 0)
             {
@@ -97,8 +125,8 @@ namespace ObjemDesktop.window
             {
                 newItem = new FaderItem(VolumeManager.Instance.List[found], found);
             }
-            
-            if (items!=null && !items.Item0.Equals(newItem))
+
+            if (items != null && !items.Item0.Equals(newItem))
             {
                 items.Item0 = newItem;
             }
@@ -110,12 +138,19 @@ namespace ObjemDesktop.window
             {
                 if (arg.Item is null) return;
                 if (_serialPort is null || !(_serialPort.IsOpen)) return;
-                
+
                 //表示
-                Console.WriteLine("Send : "+ new SerialSendObject(1, (byte)arg.FaderNumber, arg.Item.VolumeController.Name).ToString());
-                _serialPort.WriteLine(new SerialSendObject(1, (byte)arg.FaderNumber, arg.Item.VolumeController.Name).ToString());
+                Console.WriteLine("Send : " +
+                                  new SerialSendObject(OmfEvents.Display, (byte) arg.FaderNumber,
+                                          arg.Item.VolumeController.Name)
+                                      .ToString());
+                _serialPort.WriteLine(
+                    new SerialSendObject(OmfEvents.Display, (byte) arg.FaderNumber, arg.Item.VolumeController.Name)
+                        .ToString());
                 //音量
-                _serialPort.WriteLine(new SerialSendObject(0, 0, Math.Round(arg.Item.VolumeController.Volume*100, 1).ToString()).ToString());
+                _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 0,
+                        Math.Round(arg.Item.VolumeController.Volume * 100, 1).ToString(CultureInfo.InvariantCulture))
+                    .ToString());
             }
             catch (Exception e)
             {
@@ -125,13 +160,13 @@ namespace ObjemDesktop.window
 
         void SaftySend(String data)
         {
-
         }
 
         private static SerialPort GetObjemSerialPort()
         {
             foreach (var name in SerialPort.GetPortNames())
             {
+                Console.WriteLine(name);
                 var serialPort = new SerialPort(name);
                 serialPort.BaudRate = 9600;
                 serialPort.Parity = Parity.None;
@@ -153,6 +188,7 @@ namespace ObjemDesktop.window
                 return serialPort;
             }
 
+            Console.WriteLine("None");
             return null;
         }
     }
