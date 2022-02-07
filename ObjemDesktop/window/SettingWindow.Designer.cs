@@ -282,7 +282,8 @@ namespace ObjemDesktop.window
             // 
             // ShortcutsListBoxContextMenu
             // 
-            this.ShortcutsListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.DeleteShortcutListBoxToolStripMenuItem});
+            this.ShortcutsListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteShortcutListBoxToolStripMenuItem});
             this.ShortcutsListBoxContextMenu.Name = "ShortcutsListBoxContextMenu";
             this.ShortcutsListBoxContextMenu.Size = new System.Drawing.Size(99, 26);
             // 
@@ -409,7 +410,8 @@ namespace ObjemDesktop.window
             // 
             // DisableProcessListBoxContextMenu
             // 
-            this.DisableProcessListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.DeleteDisableProcessMenuItem});
+            this.DisableProcessListBoxContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteDisableProcessMenuItem});
             this.DisableProcessListBoxContextMenu.Name = "DisableProcessListBoxContextMenu";
             this.DisableProcessListBoxContextMenu.Size = new System.Drawing.Size(99, 26);
             // 
@@ -432,6 +434,7 @@ namespace ObjemDesktop.window
             // StartupCheckBox
             // 
             this.StartupCheckBox.AutoSize = true;
+            this.StartupCheckBox.Enabled = false;
             this.StartupCheckBox.Location = new System.Drawing.Point(33, 18);
             this.StartupCheckBox.Name = "StartupCheckBox";
             this.StartupCheckBox.Size = new System.Drawing.Size(188, 16);
@@ -621,6 +624,7 @@ namespace ObjemDesktop.window
             this.DownloadCAGroup.ResumeLayout(false);
             this.DownloadCAGroup.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Label YouTubeLabel;

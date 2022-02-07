@@ -285,7 +285,7 @@ namespace ObjemDesktop.window
             foreach (var guid in guids)
             {
                 var shortcut = _shortcuts.FirstOrDefault(s => s.Guid.Equals(guid));
-               if (shortcut is null) return;
+               if (shortcut is null) continue;
                _enableShortcuts.Add(shortcut);
             }
             
