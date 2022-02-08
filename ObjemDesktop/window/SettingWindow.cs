@@ -29,6 +29,7 @@ namespace ObjemDesktop.window
 
         public SettingWindow()
         {
+            InitializeComponent();
             _shortcuts = new BindingList<ShortcutBase>(UserShortcuts.Instance.Shortcuts.ToList());
             _shortcuts2 = new BindingList<ShortcutBase>(UserShortcuts.Instance.Shortcuts.ToList());
             _shortcuts.ListChanged += (s, e) =>_syncShortcutDataSource();
@@ -55,7 +56,7 @@ namespace ObjemDesktop.window
                 _enableShortcuts = new BindingList<ShortcutBase>(shortcuts);
             }
 
-            InitializeComponent();
+            
         }
 
         private void SettingWindow_Load(object sender, EventArgs e)
@@ -176,8 +177,10 @@ namespace ObjemDesktop.window
         public void addShotrcut((ShortcutBase shortcut,Bitmap Icon) pair)
         {
             BindingListUtil.AddOrReplace(_shortcuts, pair.shortcut);
+            var aaa = _unsavedImages.ContainsKey(pair.shortcut.Guid.ToString());
             if (_unsavedImages.ContainsKey(pair.shortcut.Guid.ToString()))
             {
+                _unsavedImages[pair.shortcut.Guid.ToString()].Dispose();
                 _unsavedImages[pair.shortcut.Guid.ToString()] = pair.Icon;
             }
             else
@@ -199,9 +202,24 @@ namespace ObjemDesktop.window
             
             foreach (var pair in _unsavedImages)
             {
-                if (pair.Value is null) continue;
-                pair.Value.Save($"icons/{pair.Key}.png",ImageFormat.Png);
-                pair.Value.Dispose();
+                try
+                {
+                
+                    if (pair.Value is null) continue;
+                    var path = $"icons/{pair.Key}.png";
+                    if (File.Exists(path))
+                    {
+                        File.Delete($"icons/{pair.Key}.png");
+                    }
+                    pair.Value.Save($"icons/{pair.Key}.png",ImageFormat.Png);
+                    pair.Value.Dispose();
+
+
+                }
+                catch (Exception)
+                {
+                    //ignore
+                }
             }
 
             if (!YoutubeStreamUrlTextBox.Text.Equals(string.Empty))

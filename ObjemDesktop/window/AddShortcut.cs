@@ -50,7 +50,9 @@ namespace ObjemDesktop.window
             string path = $"icons/{shortcut.Guid}.png";
             if (File.Exists(path))
             {
-                Icon.ImageLocation = path;
+                var tmp = new Bitmap(path);
+                Icon.Image = new Bitmap(tmp, Icon.Size);
+                tmp.Dispose();
             }
 
         }
@@ -260,7 +262,8 @@ namespace ObjemDesktop.window
                 _icon = new Bitmap(new Bitmap(dialog.FileName),new Size(96,96));
                 Invoke((MethodInvoker)(() =>
                 {
-                    Icon.Image = _icon;
+                    if(Icon.Image != null) Icon.Image.Dispose();
+                    Icon.Image = new Bitmap(new Bitmap(dialog.FileName),Icon.Size);
                 }));
             }
             _isDialogShowing = false;

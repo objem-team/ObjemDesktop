@@ -41,7 +41,6 @@ namespace ObjemDesktop.window
         {
             var serialPort = (SerialPort) sender;
             var data = serialPort.ReadLine();
-            Console.WriteLine("Resive : " + data.Trim());
             switch (data.Trim())
             {
                 case "next":
@@ -138,17 +137,11 @@ namespace ObjemDesktop.window
             {
                 if (arg.Item is null) return;
                 if (_serialPort is null || !(_serialPort.IsOpen)) return;
-
-                //表示
-                Console.WriteLine("Send : " +
-                                  new SerialSendObject(OmfEvents.Display, (byte) arg.FaderNumber,
-                                          arg.Item.VolumeController.Name)
-                                      .ToString());
                 _serialPort.WriteLine(
                     new SerialSendObject(OmfEvents.Display, (byte) arg.FaderNumber, arg.Item.VolumeController.Name)
                         .ToString());
                 //音量
-                _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 0,
+                _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, (byte)arg.Item.Index,
                         Math.Round(arg.Item.VolumeController.Volume * 100, 1).ToString(CultureInfo.InvariantCulture))
                     .ToString());
             }
