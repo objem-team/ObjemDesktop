@@ -21,7 +21,7 @@ namespace ObjemDesktop
         public void Start()
         {
             Server = new WebSocketServer(Port, true);
-            Server.AddWebSocketService<WebSocketService>("/");
+            Server.AddWebSocketService("/",()=>new WebSocketService() { IgnoreExtensions = true});
             Server.SslConfiguration.ClientCertificateRequired = false;
             Server.SslConfiguration.EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12;
             Server.SslConfiguration.ClientCertificateValidationCallback = (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) => { return true; };

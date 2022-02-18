@@ -177,10 +177,11 @@ namespace ObjemDesktop.window
         public void addShotrcut((ShortcutBase shortcut,Bitmap Icon) pair)
         {
             BindingListUtil.AddOrReplace(_shortcuts, pair.shortcut);
-            var aaa = _unsavedImages.ContainsKey(pair.shortcut.Guid.ToString());
+
             if (_unsavedImages.ContainsKey(pair.shortcut.Guid.ToString()))
             {
-                _unsavedImages[pair.shortcut.Guid.ToString()].Dispose();
+                if(_unsavedImages[pair.shortcut.Guid.ToString()] != null)
+                    _unsavedImages[pair.shortcut.Guid.ToString()].Dispose();
                 _unsavedImages[pair.shortcut.Guid.ToString()] = pair.Icon;
             }
             else
@@ -222,7 +223,11 @@ namespace ObjemDesktop.window
                 }
             }
 
-            if (!YoutubeStreamUrlTextBox.Text.Equals(string.Empty))
+            if (YoutubeStreamUrlTextBox.Text.Equals(string.Empty))
+            {
+                Settings.Default.YouTubeStreamUrl = "";
+            }
+            else
             {
                 const string youTubeRegex = RegexStrings.YoutubeRegex;
                 if (new Regex(youTubeRegex).IsMatch(YoutubeStreamUrlTextBox.Text))
@@ -237,7 +242,11 @@ namespace ObjemDesktop.window
                     return;
                 }
             }
-            if (!TwitchStreamUrlTextBox.Text.Equals(string.Empty))
+            if (TwitchStreamUrlTextBox.Text.Equals(string.Empty))
+            {
+                Settings.Default.TwitchStreamUrl = "";
+            }
+            else
             {
                 const string twitchRegex = RegexStrings.TwitchRegex;
                 if (new Regex(twitchRegex).IsMatch(TwitchStreamUrlTextBox.Text))
