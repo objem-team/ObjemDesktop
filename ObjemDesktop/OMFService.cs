@@ -40,7 +40,8 @@ namespace ObjemDesktop.window
         private void DatarecievedHandler(object sender, SerialDataReceivedEventArgs eventArgs)
         {
             var serialPort = (SerialPort) sender;
-            var data = serialPort.ReadLine();
+            var data = serialPort.ReadLine().Trim();
+            serialPort.DiscardInBuffer();
             switch (data.Trim())
             {
                 case "next":
@@ -68,9 +69,28 @@ namespace ObjemDesktop.window
                     items.Item1 = new FaderItem(VolumeManager.Instance.List[newIndex], newIndex);
                     break;
                 }
+                case String str when str.Contains(":"):
+                {
+                    try
+                    {
+                        
+                        String[] arr = data.Split(':');
+                        int index = int.Parse(arr[0]);
+                        int value = int.Parse(arr[1]);
+                        var item = items[index];
+                        float volume = (float) (value * 0.01);
+                        item.VolumeController.SetVolume(volume,false);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+
+                    break;
+                }
             }
         }
-
+            
         private void OnVolumeChange(object sender, VolumeChangedEventArgs arg)
         {
             try
@@ -79,13 +99,13 @@ namespace ObjemDesktop.window
                 if (arg.VolumeController.ProcessId == items.Item0.VolumeController.ProcessId)
                 {
                     //Fader0に送る
-                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 0, arg.NewVolume.ToString())
+                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 0, arg.NewVolume*100)
                         .ToString());
                 }
-                else if (arg.VolumeController.ProcessId == items.Item1.VolumeController.ProcessId)
+                if (arg.VolumeController.ProcessId == items.Item1.VolumeController.ProcessId)
                 {
                     //fader1に送る
-                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 1, arg.NewVolume.ToString())
+                    _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, 1, arg.NewVolume*100)
                         .ToString());
                 }
             }
@@ -138,12 +158,11 @@ namespace ObjemDesktop.window
                 if (arg.Item is null) return;
                 if (_serialPort is null || !(_serialPort.IsOpen)) return;
                 _serialPort.WriteLine(
-                    new SerialSendObject(OmfEvents.Display, (byte) arg.FaderNumber, arg.Item.VolumeController.Name)
+                    new SerialSendObject(OmfEvents.Display, arg.FaderNumber, arg.Item.VolumeController.Name)
                         .ToString());
                 //音量
-                _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent, (byte)arg.Item.Index,
-                        Math.Round(arg.Item.VolumeController.Volume * 100, 1).ToString(CultureInfo.InvariantCulture))
-                    .ToString());
+                _serialPort.WriteLine(new SerialSendObject(OmfEvents.VolumeEvent,arg.FaderNumber, arg.Item.VolumeController.Volume*100).ToString());
+                _serialPort.DiscardOutBuffer();
             }
             catch (Exception e)
             {
@@ -151,9 +170,6 @@ namespace ObjemDesktop.window
             }
         }
 
-        void SaftySend(String data)
-        {
-        }
 
         private static SerialPort GetObjemSerialPort()
         {
@@ -164,7 +180,7 @@ namespace ObjemDesktop.window
                 serialPort.BaudRate = 9600;
                 serialPort.Parity = Parity.None;
                 serialPort.StopBits = StopBits.One;
-                serialPort.WriteTimeout = 100; //ms
+                serialPort.WriteTimeout = 1000; //ms
                 serialPort.DataBits = 8;
                 serialPort.Handshake = Handshake.None;
                 serialPort.RtsEnable = true;
