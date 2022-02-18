@@ -75,7 +75,7 @@ namespace ObjemDesktop
             }
             
             var index = foundIndex < 0 ? 0 : foundIndex;
-
+            VolumeManager.initialize();
             var volumeManager = VolumeManager.Instance;
             volumeManager.OnSessionCreated += OnSessionCreated;
             volumeManager.OnSessionExpired += OnSessionExpired;

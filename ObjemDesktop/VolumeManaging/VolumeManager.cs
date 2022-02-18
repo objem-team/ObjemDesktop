@@ -8,7 +8,23 @@ namespace ObjemDesktop.VolumeManaging
 {
     class VolumeManager
     {
-        public static readonly VolumeManager Instance = new VolumeManager();
+        private static VolumeManager _instance;
+        public static VolumeManager Instance
+        {
+            get
+            {
+                if(_instance is null)
+                {
+                    _instance = new VolumeManager();
+                }
+                return _instance;
+            }
+        }
+
+        public static void initialize()
+        {
+            _instance = null;
+        }
 
         //DeviceのStatusを監視させるための
         //AudioSessionNotificationを継承するクラスを作ってセッションの作成を監視
@@ -101,6 +117,7 @@ namespace ObjemDesktop.VolumeManaging
             {
                 var simpleVolume = session.QueryInterface<SimpleAudioVolume>();
                 var sessionControl = session.QueryInterface<AudioSessionControl2>();
+
                 if (Settings.Default.DisabledProcess != null)
                 {
                     if (sessionControl.Process.MainModule != null &&
